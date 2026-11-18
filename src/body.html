@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper" data-dark="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拾影 · 摄影前期拍摄入门</title>
+<meta name="description" content="拾影：给零基础者的摄影前期拍摄入门网页。十章系统讲解从看见、相机与镜头、曝光三要素、对焦与景深、光线、色彩、构图，到题材思路、特殊技法与现场准备，可搜索、可折叠、支持三套模板与暗色模式。">
+<meta name="theme-color" content="#f7f2e8">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b0503a'/%3E%3Ctext x='16' y='23' font-size='19' font-family='serif' fill='%23fffdf9' text-anchor='middle'%3E拾%3C/text%3E%3C/svg%3E">
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div id="progressBar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <button class="tb-btn icon-only" id="tocBtn" aria-label="打开章节目录" aria-expanded="false" aria-controls="toc">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+
+  <a class="brand" href="#top" aria-label="拾影，回到页面顶部">
+    <span class="seal" aria-hidden="true">拾</span>拾影
+    <span class="en" aria-hidden="true">Photography Basics</span>
+  </a>
+
+  <div class="spacer"></div>
+
+  <p class="progress-chip" title="已标记读完的章数">
+    <span class="pc-label">学习进度</span>
+    <b id="progressText">0 / 10</b>
+    <span class="pc-label">章</span>
+  </p>
+
+  <div class="search-wrap" role="search">
+    <svg class="s-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+    <label class="sr-only" for="search">搜索三级标题</label>
+    <input id="search" type="search" aria-label="搜索三级标题" placeholder="搜索三级标题，如「光圈」" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="searchClear" aria-label="清空搜索" hidden>×</button>
+  </div>
+
+  <button class="tb-btn icon-only" id="searchToggle" aria-label="打开搜索" aria-expanded="false" aria-controls="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+  </button>
+
+  <div class="theme-wrap">
+    <button class="tb-btn icon-only" id="themeBtn" aria-label="切换界面模板" aria-expanded="false" aria-haspopup="true" aria-controls="themeMenu" title="界面模板">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18h1.2a2 2 0 002-2 2 2 0 00-2-2H12a3 3 0 010-6h5.5A3.5 3.5 0 0021 7.5 5.5 5.5 0 0015.5 3z"/><circle cx="7.5" cy="11.5" r=".9"/><circle cx="10" cy="7.4" r=".9"/><circle cx="15" cy="7.8" r=".9"/></svg>
+    </button>
+    <div class="theme-menu" id="themeMenu" role="menu" aria-label="界面模板" hidden>
+      <p class="tm-title">三套界面模板</p>
+      <button class="tm-item" role="menuitemradio" aria-checked="true" data-theme-choice="paper">
+        <span class="tm-swatch" aria-hidden="true"><i style="background:#f7f2e8"></i><i style="background:#fffdf7"></i><i style="background:#b0503a"></i><i style="background:#2f2923"></i></span>
+        <span><span class="tm-name">A · 暖纸杂志</span><span class="tm-desc">米白纸感、宋体标题、朱砂色重点，像一本可以慢慢读的画册。</span></span>
+      </button>
+      <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="cinema">
+        <span class="tm-swatch" aria-hidden="true"><i style="background:#0b0c0f"></i><i style="background:#17191f"></i><i style="background:#d8a53f"></i><i style="background:#e4e6ea"></i></span>
+        <span><span class="tm-name">B · 影院暗调</span><span class="tm-desc">无衬线、直角、图片满幅，像在放映厅里看照片。</span></span>
+      </button>
+      <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="grid">
+        <span class="tm-swatch" aria-hidden="true"><i style="background:#f3f8f7"></i><i style="background:#ffffff"></i><i style="background:#1f8a7e"></i><i style="background:#1f3033"></i></span>
+        <span><span class="tm-name">C · 网格手册</span><span class="tm-desc">浅青网格、圆角卡片，像一本结构清晰的工具书。</span></span>
+      </button>
+      <hr>
+      <p class="tm-foot">模板决定配色、字体与排版气质；右上角月亮按钮是独立的暗色层，可与任意模板叠加，两者分别记忆。</p>
+    </div>
+  </div>
+
+  <button class="tb-btn icon-only" id="darkBtn" aria-label="切换暗色模式" aria-pressed="false" title="暗色模式">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.4 8.4 0 019.4 4 8.5 8.5 0 1020 14.6z"/></svg>
+  </button>
+</header>
+
+<div class="mask" id="mask" hidden></div>
+
+<div class="layout" id="top">
+  <nav class="toc" id="toc" aria-label="章节目录">
+    <div class="toc-head">
+      <span class="t" id="tocTitle">章节目录</span>
+      <button class="toc-close" id="tocClose" aria-label="关闭目录">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <p class="toc-hint">十章 · 37 个小节 · 135 条要点<br>点击小节旁的箭头可展开三级标题</p>
+    <div id="tocList"></div>
+    <p class="toc-foot">按下 <kbd>/</kbd> 可随时搜索<br>按 <kbd>Esc</kbd> 关闭弹层或清空搜索</p>
+  </nav>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="heroTitle">
+      <img class="hero-img" id="heroImg" alt="晨雾中的山野，日出把云层与草地染成暖橙色" decoding="async" fetchpriority="high">
+      <div class="hero-inner">
+        <p class="eyebrow">A Beginner's Guide to Photography</p>
+        <h1 id="heroTitle">拾影</h1>
+        <p class="subtitle">把光捡起来，把世界看清楚。<br>一份写给零基础者的摄影前期拍摄入门。</p>
+        <p class="lede">不谈玄学，也不堆参数。十章内容从「看见」开始，把光、曝光、对焦、构图讲成可以判断的道理，再落到真实场景里怎么用。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ch1">开始学习</a>
+          <a class="btn btn-ghost" href="#toc" id="viewToc">查看目录</a>
+        </div>
+      </div>
+      <p class="hero-credit">图片来源：<a href="https://unsplash.com/s/photos/sunrise-landscape" target="_blank" rel="noopener noreferrer">Unsplash · 日出山野</a><br><span class="pid">photo-1470252649378-9c29740c9fa8</span></p>
+    </section>
+
+    <section class="path" aria-labelledby="pathTitle">
+      <h2 class="sr-only" id="pathTitle">学习路径</h2>
+      <div class="path-grid">
+        <div class="path-step"><p class="k">STEP 01</p><h3>先懂原理</h3><p>知道光是怎样被记录下来的、曝光为什么会不准，遇到问题能说出原因，而不是碰运气。</p></div>
+        <div class="path-step"><p class="k">STEP 02</p><h3>再练手感</h3><p>带着一个明确意图去拍，把「先想三件事」变成习惯，让原理长成肌肉记忆。</p></div>
+        <div class="path-step"><p class="k">STEP 03</p><h3>复盘积累</h3><p>记下场景、光线和参数，把每张废片归因到具体环节，慢慢长出自己的经验表。</p></div>
+      </div>
+    </section>
+
+    <div class="search-bar" id="searchBar" role="status" aria-live="polite"></div>
+
+    <div class="chapters" id="chapters"></div>
+
+    <div class="empty" id="emptyState" role="status" aria-live="polite">
+      <p class="big" aria-hidden="true">🔍</p>
+      <h3>没有找到相关的三级标题</h3>
+      <p>拾影把全部要点都保留在目录里，换个说法再试一次。</p>
+      <div class="tips">
+        <button type="button" data-suggest="光圈">光圈</button>
+        <button type="button" data-suggest="快门">快门</button>
+        <button type="button" data-suggest="光线">光线</button>
+        <button type="button" data-suggest="构图">构图</button>
+        <button type="button" data-suggest="白平衡">白平衡</button>
+      </div>
+    </div>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <div class="foot-brand">
+          <p class="fb"><span class="seal" aria-hidden="true">拾</span>拾影</p>
+          <p>摄影前期拍摄入门学习页。目录依据《摄影前期拍摄知识概况目录》逐条搭建，十章、三十七个小节、一百三十五条要点全部保留，未增删、未改写。</p>
+        </div>
+        <div class="foot-col">
+          <h4>章节</h4>
+          <ul id="footChapters"></ul>
+        </div>
+        <div class="foot-col">
+          <h4>关于</h4>
+          <ul>
+            <li><button type="button" class="linklike" id="glossaryBtn">术语表（62 条）</button></li>
+            <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">图片来源：Unsplash</a></li>
+            <li><a href="https://www.magnumphotos.com/" target="_blank" rel="noopener noreferrer">作品欣赏：Magnum Photos</a></li>
+            <li><a href="https://500px.com.cn/" target="_blank" rel="noopener noreferrer">作品欣赏：500px 摄影社区</a></li>
+            <li><a href="https://tuchong.com/" target="_blank" rel="noopener noreferrer">作品欣赏：图虫</a></li>
+            <li><a href="https://www.lensculture.com/" target="_blank" rel="noopener noreferrer">作品欣赏：LensCulture</a></li>
+            <li><a href="https://1x.com/" target="_blank" rel="noopener noreferrer">作品欣赏：1x</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-base">
+        <span>© 拾影 · 仅作学习与练习使用，图片来自免费可商用图库 Unsplash。</span>
+        <span class="keys">快捷键：<kbd>/</kbd> 搜索 · <kbd>Esc</kbd> 关闭 · <kbd>Tab</kbd> 键盘导航</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<button id="toTop" aria-label="回到顶部" title="回到顶部">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<dialog id="glossaryDialog" aria-labelledby="glossTitle">
+  <div class="gloss-head">
+    <h2 id="glossTitle">术语表</h2>
+    <form method="dialog"><button class="gloss-close" aria-label="关闭术语表">×</button></form>
+  </div>
+  <div class="gloss-list" id="glossList"></div>
+</dialog>
+
+<script>
+/*__DATA__*/
+/*__GLOSSARY__*/
+/*__APP__*/
+</script>
+</body>
+</html>

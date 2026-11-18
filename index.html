@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper" data-dark="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拾影 · 摄影前期拍摄入门</title>
+<meta name="description" content="拾影：给零基础者的摄影前期拍摄入门网页。十章系统讲解从看见、相机与镜头、曝光三要素、对焦与景深、光线、色彩、构图，到题材思路、特殊技法与现场准备，可搜索、可折叠、支持三套模板与暗色模式。">
+<meta name="theme-color" content="#f7f2e8">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b0503a'/%3E%3Ctext x='16' y='23' font-size='19' font-family='serif' fill='%23fffdf9' text-anchor='middle'%3E拾%3C/text%3E%3C/svg%3E">
+<style>
+/* =========================================================================
+   拾影 · 样式
+   主题：<html data-theme="paper|cinema|grid">     三套 UI 模板
+   亮度：<html data-dark="true|false">            独立于模板的暗色层
+   两者可自由叠加，各自记忆。
+   ========================================================================= */
+
+/* ------------------------- 模板 A · 暖纸杂志风 ------------------------- */
+html[data-theme="paper"] {
+  --bg:#f7f2e8; --bg-2:#efe7d8; --panel:#fffdf7; --panel-2:#faf4e8;
+  --text:#2f2923; --text-strong:#1d1915; --muted:#655b4f; --faint:#7a6c5c;
+  --accent:#b0503a; --accent-2:#8d3c2a; --accent-soft:#f4ded4; --on-accent:#fffdf9;
+  --line:#e5d9c5; --line-strong:#d3c3a9;
+  --shadow:0 18px 44px rgba(74,55,35,.09); --shadow-sm:0 4px 16px rgba(74,55,35,.06);
+  --r:14px; --r-sm:8px; --fig-r:3px;
+  --font-head:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",Georgia,"Times New Roman",serif;
+  --font-body:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --head-ls:.015em; --label-ls:.3em;
+  --hero-grad:linear-gradient(180deg,rgba(28,21,14,.16) 0%,rgba(28,21,14,.42) 46%,rgba(28,21,14,.78) 100%);
+  --unit-cols:repeat(auto-fill,minmax(300px,1fr));
+  --unit-bg:transparent; --unit-border:var(--line); --unit-radius:var(--r);
+  --toc-w:302px; --lh:1.9;
+  --tag-theory-bg:#eef1f4; --tag-theory-fg:#556880; --tag-theory-bd:#d5dde5;
+  --tag-do-bg:#f6e2d9; --tag-do-fg:#9c4730; --tag-do-bd:#eccbbc;
+  --tag-tip-bg:#f4eeda; --tag-tip-fg:#7c6a3c; --tag-tip-bd:#e4d9ba;
+  --grid-dots:none;
+}
+html[data-theme="paper"][data-dark="true"] {
+  --bg:#1b1713; --bg-2:#241f18; --panel:#26211a; --panel-2:#2e2820;
+  --text:#e8ded0; --text-strong:#f7efe3; --muted:#b4a795; --faint:#a2957f;
+  --accent:#e08a6b; --accent-2:#f0a588; --accent-soft:#4a3128; --on-accent:#20160f;
+  --line:#3c332a; --line-strong:#544737;
+  --shadow:0 18px 44px rgba(0,0,0,.42); --shadow-sm:0 4px 18px rgba(0,0,0,.34);
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.22) 0%,rgba(0,0,0,.5) 45%,rgba(0,0,0,.85) 100%);
+  --tag-theory-bg:#1e2833; --tag-theory-fg:#a7bdd6; --tag-theory-bd:#2c3a4a;
+  --tag-do-bg:#34211a; --tag-do-fg:#eaa88f; --tag-do-bd:#4b3026;
+  --tag-tip-bg:#2c2718; --tag-tip-fg:#d6c18a; --tag-tip-bd:#413922;
+}
+
+/* ------------------------- 模板 B · 影院暗调 ------------------------- */
+html[data-theme="cinema"] {
+  --bg:#f2f1ee; --bg-2:#e7e6e1; --panel:#ffffff; --panel-2:#f7f7f4;
+  --text:#23252b; --text-strong:#0e1014; --muted:#5c5f68; --faint:#6a6d76;
+  --accent:#8a6110; --accent-2:#6f4d0c; --accent-soft:#f3e8cd; --on-accent:#fffdf7;
+  --line:#dedcd6; --line-strong:#c7c5bd;
+  --shadow:0 26px 70px rgba(16,18,24,.12); --shadow-sm:0 6px 20px rgba(16,18,24,.08);
+  --r:2px; --r-sm:2px; --fig-r:0px;
+  --font-head:"Helvetica Neue",Helvetica,"Arial Nova",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --font-body:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --head-ls:-.01em; --label-ls:.44em;
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.4) 40%,rgba(0,0,0,.86) 100%);
+  --unit-cols:1fr;
+  --unit-bg:var(--panel); --unit-border:transparent; --unit-radius:0px;
+  --toc-w:284px; --lh:1.95;
+  --tag-theory-bg:transparent; --tag-theory-fg:#63666f; --tag-theory-bd:#d4d2cb;
+  --tag-do-bg:transparent; --tag-do-fg:#8a6110; --tag-do-bd:#d9c8a4;
+  --tag-tip-bg:transparent; --tag-tip-fg:#5f646d; --tag-tip-bd:#d9d7d0;
+  --grid-dots:none;
+}
+html[data-theme="cinema"][data-dark="true"] {
+  --bg:#0b0c0f; --bg-2:#111318; --panel:#14161b; --panel-2:#191c22;
+  --text:#e4e6ea; --text-strong:#ffffff; --muted:#9a9ea7; --faint:#868b95;
+  --accent:#d8a53f; --accent-2:#f0c46f; --accent-soft:#33280f; --on-accent:#17120a;
+  --line:#262a31; --line-strong:#3a3f48;
+  --shadow:0 30px 80px rgba(0,0,0,.6); --shadow-sm:0 8px 24px rgba(0,0,0,.45);
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.48) 42%,rgba(0,0,0,.92) 100%);
+  --tag-theory-bg:transparent; --tag-theory-fg:#8f95a1; --tag-theory-bd:#31353d;
+  --tag-do-bg:transparent; --tag-do-fg:#d8a53f; --tag-do-bd:#4a3b1d;
+  --tag-tip-bg:transparent; --tag-tip-fg:#9aa0ab; --tag-tip-bd:#31353d;
+}
+
+/* ------------------------- 模板 C · 网格手册 ------------------------- */
+html[data-theme="grid"] {
+  --bg:#f3f8f7; --bg-2:#e8f2f0; --panel:#ffffff; --panel-2:#f4fbfa;
+  --text:#1f3033; --text-strong:#102326; --muted:#4c6166; --faint:#5c7378;
+  --accent:#17706a; --accent-2:#125c56; --accent-soft:#d7efeb; --on-accent:#ffffff;
+  --line:#dcebe8; --line-strong:#bcd9d4;
+  --shadow:0 12px 32px rgba(22,84,77,.10); --shadow-sm:0 3px 12px rgba(22,84,77,.07);
+  --r:18px; --r-sm:11px; --fig-r:16px;
+  --font-head:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --font-body:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --head-ls:.005em; --label-ls:.22em;
+  --hero-grad:linear-gradient(180deg,rgba(6,44,41,.18) 0%,rgba(6,44,41,.46) 45%,rgba(6,44,41,.82) 100%);
+  --unit-cols:repeat(auto-fill,minmax(260px,1fr));
+  --unit-bg:var(--panel); --unit-border:var(--line); --unit-radius:var(--r);
+  --toc-w:308px; --lh:1.82;
+  --tag-theory-bg:#e8f0f8; --tag-theory-fg:#41688c; --tag-theory-bd:#d3e2f0;
+  --tag-do-bg:#d9f0ec; --tag-do-fg:#126e63; --tag-do-bd:#bde4dd;
+  --tag-tip-bg:#fbf0d6; --tag-tip-fg:#7d5f12; --tag-tip-bd:#efdfb6;
+  --grid-dots:radial-gradient(circle at 1px 1px,rgba(31,138,126,.16) 1px,transparent 0) 0 0/22px 22px;
+}
+html[data-theme="grid"][data-dark="true"] {
+  --bg:#0f1a1b; --bg-2:#142527; --panel:#182a2c; --panel-2:#1d3234;
+  --text:#d9ebe8; --text-strong:#f2fbf9; --muted:#9ab8b5; --faint:#82a09a;
+  --accent:#5fd0c0; --accent-2:#8ae4d6; --accent-soft:#21403d; --on-accent:#08201e;
+  --line:#284043; --line-strong:#3a5a5c;
+  --shadow:0 16px 40px rgba(0,0,0,.4); --shadow-sm:0 4px 14px rgba(0,0,0,.3);
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.52) 45%,rgba(0,0,0,.88) 100%);
+  --tag-theory-bg:#1b2c33; --tag-theory-fg:#9dc3d8; --tag-theory-bd:#29414b;
+  --tag-do-bg:#17352f; --tag-do-fg:#7fe0cd; --tag-do-bd:#245147;
+  --tag-tip-bg:#2e2812; --tag-tip-fg:#dcc685; --tag-tip-bd:#443a19;
+  --grid-dots:radial-gradient(circle at 1px 1px,rgba(95,208,192,.14) 1px,transparent 0) 0 0/22px 22px;
+}
+
+/* ------------------------------- 基础 ------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px;color-scheme:light}
+html[data-dark="true"]{color-scheme:dark}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font-body);font-size:16px;line-height:var(--lh);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  transition:background-color .3s ease,color .3s ease;
+  background-image:var(--grid-dots);
+}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none;text-underline-offset:3px}
+a:hover{text-decoration:underline}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit;color:inherit}
+h1,h2,h3,h4,h5,h6{margin:0;font-family:var(--font-head);color:var(--text-strong);line-height:1.32;letter-spacing:var(--head-ls)}
+p{margin:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:var(--accent-soft);color:var(--text-strong)}
+[hidden]{display:none !important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.skip-link{position:fixed;left:14px;top:-70px;z-index:400;background:var(--accent);color:var(--on-accent);
+  padding:11px 20px;border-radius:var(--r-sm);font-weight:600;transition:top .2s}
+.skip-link:focus{top:12px;text-decoration:none}
+
+/* 顶部阅读进度条 */
+#progressBar{position:fixed;inset:0 auto auto 0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  z-index:320;transition:width .15s linear;border-radius:0 2px 2px 0}
+
+/* ------------------------------- 顶栏 ------------------------------- */
+.topbar{
+  position:sticky;top:0;z-index:300;display:flex;align-items:center;gap:12px;
+  height:64px;padding:0 clamp(12px,2.4vw,30px);
+  background:var(--bg);border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+}
+@supports not (background:color-mix(in srgb,red 50%,blue)){.topbar{background:var(--bg)}}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text-strong);font-family:var(--font-head);
+  font-size:22px;font-weight:700;letter-spacing:.14em;text-decoration:none;flex-shrink:0}
+.brand:hover{text-decoration:none}
+.brand .seal{display:grid;place-items:center;width:32px;height:32px;border-radius:var(--r-sm);
+  background:var(--accent);color:var(--on-accent);font-size:17px;letter-spacing:0;line-height:1;
+  font-family:var(--font-head);box-shadow:var(--shadow-sm)}
+.brand .en{font-family:var(--font-body);font-size:10px;letter-spacing:var(--label-ls);
+  color:var(--faint);font-weight:600;text-transform:uppercase;display:none}
+@media(min-width:1180px){.brand .en{display:block}}
+.spacer{flex:1}
+.tb-btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 13px;border:1px solid var(--line);
+  border-radius:var(--r-sm);background:var(--panel);color:var(--muted);font-size:13.5px;font-weight:600;
+  transition:.18s;flex-shrink:0;white-space:nowrap}
+.tb-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tb-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tb-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.icon-only{padding:0;width:38px;justify-content:center}
+.progress-chip{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 13px;border:1px solid var(--line);
+  border-radius:999px;background:var(--panel);font-size:12.5px;color:var(--muted);white-space:nowrap}
+.progress-chip b{color:var(--accent);font-variant-numeric:tabular-nums;font-size:13.5px}
+@media(max-width:1180px){.progress-chip .pc-label{display:none}}
+@media(max-width:1080px){.progress-chip{display:none}}
+#tocBtn{display:none}
+@media(max-width:1040px){#tocBtn{display:inline-flex}}
+
+/* 搜索 */
+.search-wrap{position:relative;flex:0 1 250px;min-width:0}
+.search-wrap svg.s-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;stroke:var(--faint);fill:none;stroke-width:2;pointer-events:none}
+.search-wrap input{width:100%;height:38px;padding:0 34px 0 35px;border:1px solid var(--line);border-radius:999px;
+  background:var(--panel);font-size:14px;outline:none;transition:.18s}
+.search-wrap input::placeholder{color:var(--faint)}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search-clear{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:26px;height:26px;
+  display:none;place-items:center;border-radius:50%;color:var(--muted);font-size:16px;line-height:1}
+.search-clear:hover{background:var(--panel-2);color:var(--accent)}
+.search-clear.show{display:grid}
+#searchToggle{display:none}
+@media(max-width:900px){
+  .search-wrap{display:none}
+  body.search-open .search-wrap{display:block;position:absolute;left:10px;right:10px;top:70px;
+    flex:1 1 auto;z-index:310;background:var(--panel);padding:8px;border:1px solid var(--line);
+    border-radius:calc(var(--r-sm) + 6px);box-shadow:var(--shadow)}
+  body.search-open .search-wrap input{height:42px}
+  #searchToggle{display:inline-flex}
+}
+
+/* 主题菜单 */
+.theme-wrap{position:relative}
+.theme-menu{position:absolute;right:0;top:46px;width:296px;padding:8px;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);display:none;z-index:320}
+.theme-menu.open{display:block;animation:pop .16s ease}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.theme-menu .tm-title{font-size:11px;letter-spacing:var(--label-ls);color:var(--faint);
+  padding:6px 10px 8px;font-weight:700}
+.theme-menu button.tm-item{display:flex;gap:10px;width:100%;text-align:left;padding:9px 10px;
+  border-radius:var(--r-sm);transition:.15s}
+.theme-menu button.tm-item:hover{background:var(--panel-2)}
+.theme-menu button.tm-item[aria-checked="true"]{background:var(--accent-soft)}
+.tm-swatch{flex:0 0 auto;width:34px;height:34px;border-radius:6px;border:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.tm-swatch i{display:block}
+.tm-name{display:block;font-size:13.5px;font-weight:700;color:var(--text-strong);line-height:1.5}
+.tm-desc{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:1px}
+.theme-menu hr{border:0;border-top:1px solid var(--line);margin:6px 8px}
+.tm-foot{font-size:11.5px;color:var(--muted);line-height:1.65;padding:6px 10px 8px}
+
+/* ------------------------------- 布局 ------------------------------- */
+.layout{display:flex;align-items:flex-start;max-width:1560px;margin:0 auto}
+
+/* 侧栏目录 */
+.toc{
+  position:sticky;top:64px;flex:0 0 var(--toc-w);width:var(--toc-w);height:calc(100vh - 64px);
+  overflow-y:auto;overscroll-behavior:contain;border-right:1px solid var(--line);
+  padding:22px 10px 60px 18px;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent;
+  background:var(--bg);
+}
+.toc::-webkit-scrollbar{width:7px}
+.toc::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:4px}
+.toc-head{display:flex;align-items:center;justify-content:space-between;padding:0 8px 12px}
+.toc-head .t{font-size:11px;letter-spacing:var(--label-ls);font-weight:700;color:var(--faint);text-transform:uppercase}
+.toc-close{display:none;width:30px;height:30px;place-items:center;border-radius:50%;color:var(--muted)}
+.toc-close:hover{background:var(--panel-2);color:var(--accent)}
+.toc-hint{font-size:11px;color:var(--faint);line-height:1.6;padding:0 8px 12px;
+  border-bottom:1px solid var(--line);margin-bottom:10px}
+.toc-block{margin-bottom:2px}
+.toc-ch{display:flex;gap:9px;align-items:baseline;padding:8px 9px;border-radius:var(--r-sm);
+  color:var(--text-strong);font-weight:700;font-size:13.5px;line-height:1.5;transition:.15s}
+.toc-ch:hover{background:var(--panel-2);text-decoration:none}
+.toc-ch .n{font-size:10.5px;letter-spacing:.06em;color:var(--faint);font-variant-numeric:tabular-nums;
+  font-weight:700;flex-shrink:0}
+.toc-block.is-current>.toc-ch{background:var(--accent);color:var(--on-accent)}
+.toc-block.is-current>.toc-ch .n{color:var(--on-accent);opacity:.75}
+.toc-block.is-current>.toc-ch:hover{text-decoration:none}
+.toc-secs{margin:1px 0 8px 14px;padding-left:8px;border-left:1px solid var(--line);display:none}
+.toc-block.is-open .toc-secs,.toc-block.is-current .toc-secs{display:block}
+.toc-sec{position:relative}
+.toc-sec-link{display:block;font-size:12px;line-height:1.55;color:var(--muted);padding:5px 26px 5px 8px;
+  border-radius:6px;transition:.15s;word-break:break-word}
+.toc-sec-link:hover{color:var(--accent);background:var(--panel-2);text-decoration:none}
+.toc-sec.is-current>.toc-sec-link{color:var(--accent);font-weight:700;background:var(--accent-soft)}
+.toc-sec-toggle{position:absolute;right:0;top:2px;width:24px;height:24px;display:grid;place-items:center;
+  color:var(--faint);border-radius:5px;transition:.15s}
+.toc-sec-toggle:hover{color:var(--accent);background:var(--panel-2)}
+.toc-sec-toggle svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .18s}
+.toc-sec.is-open .toc-sec-toggle svg{transform:rotate(90deg)}
+.toc-leaves{list-style:none;margin:0 0 4px;padding:0 0 0 6px;display:none}
+.toc-sec.is-open>.toc-leaves,.toc-sec.is-current>.toc-leaves{display:block}
+.toc-leaves a{display:block;font-size:11.5px;line-height:1.5;color:var(--faint);padding:3px 6px;
+  border-radius:5px;word-break:break-word;transition:.15s}
+.toc-leaves a:hover{color:var(--accent);background:var(--panel-2);text-decoration:none}
+.toc-leaves a.is-active{color:var(--accent);font-weight:700}
+.toc-foot{margin-top:14px;padding:12px 9px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);line-height:1.7}
+
+main{flex:1;min-width:0;padding-bottom:0}
+.mask{position:fixed;inset:0;background:rgba(10,8,6,.55);z-index:340;opacity:0;visibility:hidden;
+  transition:.22s;backdrop-filter:blur(2px)}
+body.toc-open .mask{opacity:1;visibility:visible}
+
+/* ------------------------------- Hero ------------------------------- */
+.hero{position:relative;min-height:clamp(460px,64vh,670px);display:flex;align-items:flex-end;
+  overflow:hidden;background:#221d18;color:#fff;isolation:isolate}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;background:var(--hero-grad);z-index:-1}
+.hero-inner{padding:clamp(40px,7vw,86px) clamp(20px,6vw,80px) clamp(44px,6vw,74px);max-width:900px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:var(--label-ls);
+  text-transform:uppercase;color:rgba(255,255,255,.82);margin-bottom:20px;font-weight:600}
+.hero .eyebrow::before{content:"";width:34px;height:1px;background:rgba(255,255,255,.6)}
+.hero h1{font-size:clamp(60px,10vw,112px);line-height:1;margin:0 0 16px;letter-spacing:.16em;
+  color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.4);font-weight:700}
+.hero .subtitle{font-family:var(--font-head);font-size:clamp(17px,2.1vw,24px);line-height:1.75;
+  color:#f8f1e6;margin:0 0 14px;max-width:620px;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.hero .lede{font-size:14.5px;line-height:1.9;color:rgba(255,255,255,.8);max-width:560px;margin:0 0 30px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;
+  border-radius:var(--r-sm);font-size:14.5px;font-weight:700;transition:.2s;border:1px solid transparent;
+  text-decoration:none;cursor:pointer;line-height:1.2}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent);
+  box-shadow:0 10px 26px rgba(0,0,0,.22)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.5);
+  backdrop-filter:blur(6px)}
+.btn-ghost:hover{background:rgba(255,255,255,.18)}
+.hero-credit{position:absolute;right:18px;top:18px;z-index:3;font-size:11px;line-height:1.7;
+  color:rgba(255,255,255,.72);text-align:right;max-width:min(56%,430px);text-shadow:0 1px 8px rgba(0,0,0,.75)}
+.hero-credit a{color:rgba(255,255,255,.88);text-decoration:underline}
+.hero-credit .pid{opacity:.7;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}
+
+/* 学习路径 */
+.path{max-width:1140px;margin:-38px auto 0;padding:0 22px;position:relative;z-index:5}
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.path-step{background:var(--panel);padding:22px 24px;position:relative}
+.path-step .k{font-size:10.5px;letter-spacing:var(--label-ls);color:var(--accent);font-weight:700}
+.path-step h3{margin:7px 0 5px;font-size:17px}
+.path-step p{font-size:13px;color:var(--muted);line-height:1.72}
+
+/* ------------------------------- 章节 ------------------------------- */
+.chapters{max-width:1140px;margin:0 auto;padding:0 22px}
+.chapter{padding:72px 0 48px;border-bottom:1px solid var(--line);scroll-margin-top:80px}
+.chapter:last-of-type{border-bottom:0}
+.chapter-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.chapter-num{flex:0 0 auto;font-size:11px;letter-spacing:.14em;color:var(--accent);
+  border:1px solid var(--accent);border-radius:999px;padding:4px 12px;margin-top:10px;font-weight:700;
+  font-variant-numeric:tabular-nums}
+.chapter-head h2{flex:1 1 340px;font-size:clamp(26px,3.6vw,38px);min-width:0}
+.read-btn{flex:0 0 auto;margin-top:4px;border:1px solid var(--line);background:var(--panel);
+  color:var(--muted);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:600;transition:.18s}
+.read-btn:hover{border-color:var(--accent);color:var(--accent)}
+.read-btn.done{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chapter-meta{display:flex;gap:8px;flex-wrap:wrap;margin:-6px 0 22px;font-size:11.5px;color:var(--faint)}
+.chapter-meta span{padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
+.chapter-intro{font-family:var(--font-head);font-size:16px;line-height:2;color:var(--muted);
+  max-width:860px;margin:0 0 28px;padding-left:18px;border-left:3px solid var(--accent-soft)}
+.chapter[data-n="1"] .chapter-intro{padding-left:0;border-left:0;position:relative;font-size:16.5px;
+  color:var(--text);max-width:900px}
+html[data-theme="paper"] .chapter[data-n="1"] .chapter-intro{font-size:17.5px;line-height:2.05}
+html[data-theme="paper"] .chapter[data-n="1"] .chapter-intro::before{
+  content:"“";display:block;font-size:52px;line-height:.5;color:var(--accent);opacity:.35;
+  margin-bottom:10px;font-family:Georgia,serif}
+html[data-theme="cinema"] .chapter[data-n="1"] .chapter-intro{font-size:19px;line-height:1.9;
+  letter-spacing:.01em;border-left:2px solid var(--accent);padding-left:20px}
+
+/* 配图 */
+.figure{margin:0 0 32px;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:var(--fig-r);overflow:hidden;position:relative}
+html[data-theme="cinema"] .figure{border:0;margin-left:calc(-1 * clamp(0px,2vw,22px));
+  margin-right:calc(-1 * clamp(0px,2vw,22px))}
+.figure .ph{position:relative;aspect-ratio:16/7;background:var(--panel-2);overflow:hidden}
+.figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.figure:hover img{transform:scale(1.015)}
+.figure figcaption{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;
+  flex-wrap:wrap;padding:10px 16px;font-size:12px;line-height:1.65;color:var(--muted);
+  background:var(--panel);border-top:1px solid var(--line)}
+.figure .cap{flex:1 1 300px}
+.figure .credit{font-size:11px;color:var(--faint);white-space:nowrap}
+.figure.img-error .ph::after{content:"📷 图片暂不可用 · 已切换为纯色占位";position:absolute;inset:0;
+  display:grid;place-items:center;font-size:13px;color:var(--muted);letter-spacing:.06em;
+  background:repeating-linear-gradient(135deg,var(--panel-2),var(--panel-2) 12px,var(--bg-2) 12px,var(--bg-2) 24px)}
+.figure.img-error img{visibility:hidden}
+
+/* 参数对比表 */
+.cmp{margin:0 0 34px}
+.cmp-title{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;font-size:11px;
+  letter-spacing:var(--label-ls);color:var(--faint);font-weight:700;text-transform:uppercase}
+.cmp-title b{font-family:var(--font-head);font-size:15px;letter-spacing:.02em;color:var(--text-strong);
+  text-transform:none;font-weight:700}
+.cmp-scroll{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);
+  -webkit-overflow-scrolling:touch}
+.cmp table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+.cmp caption{text-align:left;padding:10px 16px 0;font-size:12px;color:var(--faint)}
+.cmp th,.cmp td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);
+  line-height:1.65}
+.cmp thead th{background:var(--panel-2);color:var(--text-strong);font-size:12px;letter-spacing:.04em;
+  font-weight:700;white-space:nowrap;position:sticky;top:0}
+.cmp tbody th{color:var(--text-strong);font-weight:700;white-space:nowrap;background:var(--panel)}
+.cmp td{color:var(--muted)}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+.cmp tbody tr:hover td,.cmp tbody tr:hover th{background:var(--panel-2)}
+.cmp .hint{padding:10px 16px;font-size:12px;color:var(--faint);border-top:1px solid var(--line);
+  background:var(--panel-2);margin:0}
+
+/* 小节（二级标题） */
+.unit{margin:0 0 16px;border:1px solid var(--unit-border);border-radius:var(--unit-radius);
+  background:var(--unit-bg);overflow:hidden;box-shadow:var(--shadow-sm);scroll-margin-top:84px}
+html[data-theme="paper"] .unit{box-shadow:none;border-color:var(--line)}
+html[data-theme="cinema"] .unit{box-shadow:none;border-top:1px solid var(--line-strong);
+  border-bottom:1px solid var(--line);margin-bottom:0}
+html[data-theme="cinema"] .unit:last-of-type{margin-bottom:20px}
+.unit-h{margin:0}
+.unit-head{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:15px 18px;
+  color:var(--text-strong);font-family:var(--font-head);font-size:17px;font-weight:700;
+  transition:.16s;line-height:1.45}
+.unit-head:hover{background:var(--panel-2)}
+.unit-head .u-no{font-family:var(--font-body);font-size:11px;letter-spacing:.08em;color:var(--accent);
+  font-weight:700;flex-shrink:0;font-variant-numeric:tabular-nums;min-width:26px}
+.unit-head .u-title{flex:1;min-width:0}
+.unit-head .u-count{font-family:var(--font-body);font-size:11px;color:var(--faint);font-weight:600;
+  flex-shrink:0;font-variant-numeric:tabular-nums}
+.unit-head .chev{flex-shrink:0;width:16px;height:16px;color:var(--accent);transition:transform .22s;
+  fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.unit[data-open="false"] .unit-head .chev{transform:rotate(-90deg)}
+.unit-body{display:grid;grid-template-columns:var(--unit-cols);gap:12px;padding:0 18px 16px}
+.unit-body>*{min-width:0}
+.unit[data-open="false"] .unit-body{display:none}
+html[data-theme="cinema"] .unit-body{padding:2px 18px 20px;gap:0}
+html[data-theme="cinema"] .unit-body>.item{background:transparent;border:0;border-radius:0;
+  border-top:1px solid var(--line);padding:16px 2px}
+html[data-theme="cinema"] .unit-body>.item:first-child{border-top:0;padding-top:4px}
+
+/* 条目（三级标题） */
+.item{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel-2);
+  transition:.18s;scroll-margin-top:86px}
+.item:hover{border-color:var(--line-strong);box-shadow:var(--shadow-sm)}
+.item-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+.tag{flex-shrink:0;font-size:10px;letter-spacing:.06em;padding:2px 7px;border-radius:4px;
+  font-weight:700;line-height:1.7;border:1px solid transparent;white-space:nowrap;margin-top:2px}
+.tag[data-t="理论"]{background:var(--tag-theory-bg);color:var(--tag-theory-fg);border-color:var(--tag-theory-bd)}
+.tag[data-t="实操"]{background:var(--tag-do-bg);color:var(--tag-do-fg);border-color:var(--tag-do-bd)}
+.tag[data-t="提示"]{background:var(--tag-tip-bg);color:var(--tag-tip-fg);border-color:var(--tag-tip-bd)}
+html[data-theme="cinema"] .tag{border-radius:0;letter-spacing:.14em}
+.item h4{font-size:13.5px;font-weight:700;line-height:1.6;color:var(--text-strong);flex:1;min-width:0;
+  font-family:var(--font-body);letter-spacing:0}
+.item-text{font-size:13.5px;line-height:1.85;color:var(--muted)}
+.item-detail{display:inline-flex;align-items:center;gap:4px;margin-top:9px;font-size:12px;font-weight:700;
+  color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:.15s}
+.item-detail:hover{border-bottom-color:var(--accent);text-decoration:none}
+.item-detail span{transition:transform .18s}
+.item-detail:hover span{transform:translateX(3px)}
+.item-body-note{font-size:10.5px;color:var(--faint);margin-top:6px}
+
+/* 题材卡片网格 */
+.unit.is-cards .unit-body{--unit-cols:repeat(auto-fill,minmax(248px,1fr))}
+html[data-theme="cinema"] .unit.is-cards .unit-body{--unit-cols:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.unit-body>.genre-fig{grid-column:1/-1;margin:0 0 4px;aspect-ratio:auto}
+.unit-body>.genre-fig .ph{aspect-ratio:21/6.6}
+.unit-body>.genre-fig .ph img{object-position:var(--pos,50% 50%)}
+html[data-theme="cinema"] .unit-body>.genre-fig{margin:0 0 6px;
+  margin-left:calc(-1 * clamp(0px,2vw,22px));margin-right:calc(-1 * clamp(0px,2vw,22px))}
+html[data-theme="cinema"] .unit-body>.genre-fig .ph{aspect-ratio:21/7}
+.topic-card{padding:15px 16px 16px}
+html[data-theme="cinema"] .unit.is-cards .topic-card{padding:14px 16px}
+.topic-card .body{padding:0}
+.topic-card .item-head{margin-bottom:6px}
+.topic-card.img-error .body::before{content:"图片暂不可用";font-size:11px;color:var(--faint);
+  letter-spacing:.06em;display:block;margin-bottom:4px}
+
+/* 条目内层（无图时与有图时的统一内边距） */
+.item-inner{padding:0}
+.unit-body>.item:not(.topic-card) .item-text{margin:0}
+
+/* 曝光三要素示意图 */
+.tri-wrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px 22px;margin:0 0 30px;color:var(--accent)}
+.tri-wrap svg.tri{flex:0 0 auto;width:220px;max-width:100%;height:auto;color:var(--accent);overflow:visible}
+.tri-wrap svg.tri text{font-family:var(--font-body);font-size:11px;fill:var(--muted)}
+.tri-wrap svg.tri circle{fill:var(--accent)}
+.tri-text{flex:1 1 240px;min-width:210px;font-size:13px;line-height:1.8;color:var(--muted)}
+.tri-text b{color:var(--text-strong)}
+
+/* 术语 */
+/* 术语提示：默认 display:none；显示时用 position:fixed + JS 定位，永不参与布局、也不撑出滚动条 */
+.term{border-bottom:1px dashed var(--accent);cursor:help;position:relative;color:var(--text-strong);
+  text-decoration:none}
+.term::after{content:attr(data-tip);display:none;position:fixed;left:var(--tip-x,0);top:var(--tip-y,0);
+  transform:translateY(var(--tip-ty,-100%));width:max-content;
+  max-width:min(280px,calc(100vw - 32px));white-space:normal;background:var(--text-strong);color:var(--bg);
+  padding:9px 12px;border-radius:6px;font-size:12px;line-height:1.65;z-index:80;
+  pointer-events:none;box-shadow:var(--shadow);font-family:var(--font-body);letter-spacing:0;font-weight:400}
+.term:hover::after,.term:focus::after,.term:focus-visible::after{display:block}
+@media (prefers-reduced-motion:no-preference){
+  .term:hover::after,.term:focus::after,.term:focus-visible::after{animation:tipIn .16s ease-out}
+  @keyframes tipIn{from{opacity:0}to{opacity:1}}
+}
+mark{background:var(--accent-soft);color:var(--text-strong);border-radius:3px;padding:0 2px}
+
+/* 章末 */
+.chapter-end{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+.end-box{padding:18px 20px;border-radius:var(--r);background:var(--panel);border:1px solid var(--line)}
+.end-box h4{margin:0 0 7px;font-size:13px;letter-spacing:var(--label-ls);color:var(--accent);
+  text-transform:uppercase;font-family:var(--font-body);font-weight:700}
+.end-box p{font-size:13.5px;line-height:1.85;color:var(--muted)}
+.end-box.practice{background:var(--accent-soft);border-color:transparent}
+.end-box.practice h4{color:var(--accent-2)}
+.end-box.practice p{color:var(--text)}
+.further{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:22px 0 0}
+.further .lbl{font-size:11.5px;color:var(--faint);margin-right:2px}
+.further a{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;padding:7px 13px;
+  border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--text);transition:.16s}
+.further a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+
+/* 搜索状态 */
+.search-bar{max-width:1140px;margin:26px auto 0;padding:0 22px;display:none}
+.search-bar.show{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.search-bar b{color:var(--accent);font-variant-numeric:tabular-nums}
+.search-bar .reset{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;
+  color:var(--muted);background:var(--panel)}
+.search-bar .reset:hover{border-color:var(--accent);color:var(--accent)}
+.empty{display:none;text-align:center;padding:90px 20px;color:var(--muted)}
+.empty.show{display:block}
+.empty .big{font-size:46px;margin-bottom:14px;opacity:.6}
+.empty h3{font-size:20px;margin-bottom:8px}
+.empty p{font-size:13.5px;line-height:1.8}
+.empty .tips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.empty .tips button{border:1px solid var(--line);background:var(--panel);border-radius:999px;
+  padding:6px 14px;font-size:12.5px;color:var(--muted)}
+.empty .tips button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* 页脚 */
+.site-foot{border-top:1px solid var(--line);background:var(--panel-2);margin-top:40px;
+  padding:48px 22px 56px}
+.foot-in{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px}
+.foot-brand .fb{font-family:var(--font-head);font-size:24px;letter-spacing:.2em;color:var(--text-strong);
+  display:flex;align-items:center;gap:10px}
+.foot-brand .fb .seal{width:30px;height:30px;font-size:16px}
+.foot-brand p{font-size:12.5px;color:var(--muted);line-height:1.85;margin-top:12px;max-width:340px}
+.foot-col h4{font-size:11px;letter-spacing:var(--label-ls);color:var(--faint);text-transform:uppercase;
+  margin-bottom:10px;font-family:var(--font-body);font-weight:700}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.foot-col a{font-size:12.5px;color:var(--muted)}
+.foot-col a:hover{color:var(--accent)}
+.foot-base{max-width:1140px;margin:34px auto 0;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--faint)}
+.foot-base .keys kbd{font-family:ui-monospace,monospace;font-size:10.5px;border:1px solid var(--line);
+  border-radius:4px;padding:1px 5px;background:var(--panel);color:var(--muted)}
+
+/* 回到顶部 */
+#toTop{position:fixed;right:20px;bottom:22px;z-index:250;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:var(--panel);color:var(--accent);box-shadow:var(--shadow);
+  display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:.22s}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:hover{border-color:var(--accent);transform:translateY(-3px)}
+#toTop svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* 目录脉冲（桌面端“查看目录”） */
+@keyframes tocFlash{0%,100%{box-shadow:inset 0 0 0 0 rgba(0,0,0,0)}30%{box-shadow:inset 0 0 0 3px var(--accent)}
+  60%{box-shadow:inset 0 0 0 1px var(--accent)}}
+.toc.flash{animation:tocFlash .9s ease}
+
+/* 链接样按钮 & 术语弹层 */
+.linklike{padding:0;font-size:12.5px;color:var(--muted);text-align:left}
+.linklike:hover{color:var(--accent);text-decoration:underline}
+kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;border:1px solid var(--line);
+  border-radius:4px;padding:1px 5px;background:var(--panel);color:var(--muted)}
+#glossaryDialog{width:min(760px,92vw);max-height:84vh;padding:0;border:1px solid var(--line);
+  border-radius:var(--r);background:var(--panel);color:var(--text);box-shadow:var(--shadow)}
+#glossaryDialog::backdrop{background:rgba(8,6,4,.58);backdrop-filter:blur(3px)}
+.gloss-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;
+  border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel);z-index:2}
+.gloss-head h2{font-size:18px}
+.gloss-close{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;color:var(--muted);
+  font-size:20px;line-height:1}
+.gloss-close:hover{background:var(--panel-2);color:var(--accent)}
+.gloss-list{padding:8px 20px 22px;overflow-y:auto}
+.gloss-item{padding:11px 0;border-bottom:1px solid var(--line)}
+.gloss-item:last-child{border-bottom:0}
+.gloss-item dt{font-family:var(--font-head);font-size:14.5px;font-weight:700;color:var(--accent);margin-bottom:3px}
+.gloss-item dd{margin:0;font-size:13.5px;line-height:1.8;color:var(--muted)}
+
+/* ------------------------------- 响应式 ------------------------------- */
+@media (max-width:1180px){ .foot-in{grid-template-columns:1fr 1fr} }
+@media (max-width:1040px){
+  .toc{position:fixed;top:0;left:0;z-index:350;height:100dvh;width:min(88vw,340px);
+    transform:translateX(-102%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+    box-shadow:var(--shadow);padding-top:18px;border-right:1px solid var(--line)}
+  body.toc-open .toc{transform:none}
+  body.toc-open{overflow:hidden}
+  .toc-close{display:grid}
+  .toc-block.is-open .toc-secs,.toc-block.is-current .toc-secs{display:block}
+  .path-grid{grid-template-columns:1fr}
+  .chapter-end{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .topbar{height:58px;gap:8px;padding:0 10px}
+  .brand{font-size:19px;gap:8px}
+  .brand .seal{width:29px;height:29px;font-size:15px}
+  .tb-btn{height:36px;font-size:13px;padding:0 10px}
+  .icon-only{width:36px}
+  .hero{min-height:540px}
+  .hero h1{font-size:clamp(54px,15vw,76px)}
+  .hero-inner{padding:34px 18px 46px}
+  .hero .lede{font-size:13.5px}
+  .hero-credit{font-size:10px;right:10px;top:10px;bottom:auto;max-width:74%}
+  .path{margin-top:-24px;padding:0 14px}
+  .chapters{padding:0 14px}
+  .chapter{padding:52px 0 38px}
+  .chapter-head{gap:10px}
+  .chapter-head h2{font-size:clamp(22px,6.4vw,28px);flex:1 1 100%}
+  .read-btn{margin-top:0}
+  .chapter-intro{font-size:15px;padding-left:14px}
+  .hero-credit .pid{display:none}
+  .unit-head{font-size:15.5px;padding:13px 14px}
+  .unit-body{padding:0 14px 14px;--unit-cols:1fr !important}
+  .unit.is-cards .unit-body{--unit-cols:1fr !important}
+  .figure .ph{aspect-ratio:4/3}
+  .figure figcaption{font-size:11.5px;padding:9px 12px}
+  .cmp table{min-width:520px;font-size:12.5px}
+  .cmp th,.cmp td{padding:9px 11px}
+  .foot-in{grid-template-columns:1fr;gap:26px}
+  #toTop{right:12px;bottom:14px;width:40px;height:40px}
+  .search-bar{padding:0 14px}
+  .end-box{padding:15px 16px}
+}
+@media (max-width:400px){
+  .brand{font-size:17px}
+  .brand .en{display:none}
+  .hero-credit .pid{display:none}
+}
+
+/* --------------------------- 减少动态 --------------------------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important}
+  .figure:hover img,.topic-card:hover .ph img{transform:none}
+}
+
+/* ------------------------------- 打印 ------------------------------- */
+@media print{
+  .topbar,.toc,.mask,#toTop,.hero-actions,.read-btn,.theme-wrap,.search-wrap,.search-bar,.hero-credit{display:none !important}
+  body{background:#fff;color:#000}
+  .hero{min-height:auto;color:#000;background:#fff}
+  .hero::after,.hero-img{display:none}
+  .hero h1,.hero .subtitle,.hero .lede{color:#000;text-shadow:none}
+  .unit[data-open="false"] .unit-body{display:grid !important}
+  .chapter{page-break-inside:avoid;border-bottom:1px solid #ccc}
+  a{color:#000;text-decoration:underline}
+  .figure .ph{aspect-ratio:auto}
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div id="progressBar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <button class="tb-btn icon-only" id="tocBtn" aria-label="打开章节目录" aria-expanded="false" aria-controls="toc">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+
+  <a class="brand" href="#top" aria-label="拾影，回到页面顶部">
+    <span class="seal" aria-hidden="true">拾</span>拾影
+    <span class="en" aria-hidden="true">Photography Basics</span>
+  </a>
+
+  <div class="spacer"></div>
+
+  <p class="progress-chip" title="已标记读完的章数">
+    <span class="pc-label">学习进度</span>
+    <b id="progressText">0 / 10</b>
+    <span class="pc-label">章</span>
+  </p>
+
+  <div class="search-wrap" role="search">
+    <svg class="s-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+    <label class="sr-only" for="search">搜索三级标题</label>
+    <input id="search" type="search" aria-label="搜索三级标题" placeholder="搜索三级标题，如「光圈」" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="searchClear" aria-label="清空搜索" hidden>×</button>
+  </div>
+
+  <button class="tb-btn icon-only" id="searchToggle" aria-label="打开搜索" aria-expanded="false" aria-controls="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+  </button>
+
+  <div class="theme-wrap">
+    <button class="tb-btn icon-only" id="themeBtn" aria-label="切换界面模板" aria-expanded="false" aria-haspopup="true" aria-controls="themeMenu" title="界面模板">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18h1.2a2 2 0 002-2 2 2 0 00-2-2H12a3 3 0 010-6h5.5A3.5 3.5 0 0021 7.5 5.5 5.5 0 0015.5 3z"/><circle cx="7.5" cy="11.5" r=".9"/><circle cx="10" cy="7.4" r=".9"/><circle cx="15" cy="7.8" r=".9"/></svg>
+    </button>
+    <div class="theme-menu" id="themeMenu" role="menu" aria-label="界面模板" hidden>
+      <p class="tm-title">三套界面模板</p>
+      <button class="tm-item" role="menuitemradio" aria-checked="true" data-theme-choice="paper">
+        <span class="tm-swatch" aria-hidden="true"><i style="background:#f7f2e8"></i><i style="background:#fffdf7"></i><i style="background:#b0503a"></i><i style="background:#2f2923"></i></span>
+        <span><span class="tm-name">A · 暖纸杂志</span><span class="tm-desc">米白纸感、宋体标题、朱砂色重点，像一本可以慢慢读的画册。</span></span>
+      </button>
+      <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="cinema">
+        <span class="tm-swatch" aria-hidden="true"><i style="background:#0b0c0f"></i><i style="background:#17191f"></i><i style="background:#d8a53f"></i><i style="background:#e4e6ea"></i></span>
+        <span><span class="tm-name">B · 影院暗调</span><span class="tm-desc">无衬线、直角、图片满幅，像在放映厅里看照片。</span></span>
+      </button>
+      <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="grid">
+        <span class="tm-swatch" aria-hidden="true"><i style="background:#f3f8f7"></i><i style="background:#ffffff"></i><i style="background:#1f8a7e"></i><i style="background:#1f3033"></i></span>
+        <span><span class="tm-name">C · 网格手册</span><span class="tm-desc">浅青网格、圆角卡片，像一本结构清晰的工具书。</span></span>
+      </button>
+      <hr>
+      <p class="tm-foot">模板决定配色、字体与排版气质；右上角月亮按钮是独立的暗色层，可与任意模板叠加，两者分别记忆。</p>
+    </div>
+  </div>
+
+  <button class="tb-btn icon-only" id="darkBtn" aria-label="切换暗色模式" aria-pressed="false" title="暗色模式">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.4 8.4 0 019.4 4 8.5 8.5 0 1020 14.6z"/></svg>
+  </button>
+</header>
+
+<div class="mask" id="mask" hidden></div>
+
+<div class="layout" id="top">
+  <nav class="toc" id="toc" aria-label="章节目录">
+    <div class="toc-head">
+      <span class="t" id="tocTitle">章节目录</span>
+      <button class="toc-close" id="tocClose" aria-label="关闭目录">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <p class="toc-hint">十章 · 37 个小节 · 135 条要点<br>点击小节旁的箭头可展开三级标题</p>
+    <div id="tocList"></div>
+    <p class="toc-foot">按下 <kbd>/</kbd> 可随时搜索<br>按 <kbd>Esc</kbd> 关闭弹层或清空搜索</p>
+  </nav>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="heroTitle">
+      <img class="hero-img" id="heroImg" alt="晨雾中的山野，日出把云层与草地染成暖橙色" decoding="async" fetchpriority="high">
+      <div class="hero-inner">
+        <p class="eyebrow">A Beginner's Guide to Photography</p>
+        <h1 id="heroTitle">拾影</h1>
+        <p class="subtitle">把光捡起来，把世界看清楚。<br>一份写给零基础者的摄影前期拍摄入门。</p>
+        <p class="lede">不谈玄学，也不堆参数。十章内容从「看见」开始，把光、曝光、对焦、构图讲成可以判断的道理，再落到真实场景里怎么用。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ch1">开始学习</a>
+          <a class="btn btn-ghost" href="#toc" id="viewToc">查看目录</a>
+        </div>
+      </div>
+      <p class="hero-credit">图片来源：<a href="https://unsplash.com/s/photos/sunrise-landscape" target="_blank" rel="noopener noreferrer">Unsplash · 日出山野</a><br><span class="pid">photo-1470252649378-9c29740c9fa8</span></p>
+    </section>
+
+    <section class="path" aria-labelledby="pathTitle">
+      <h2 class="sr-only" id="pathTitle">学习路径</h2>
+      <div class="path-grid">
+        <div class="path-step"><p class="k">STEP 01</p><h3>先懂原理</h3><p>知道光是怎样被记录下来的、曝光为什么会不准，遇到问题能说出原因，而不是碰运气。</p></div>
+        <div class="path-step"><p class="k">STEP 02</p><h3>再练手感</h3><p>带着一个明确意图去拍，把「先想三件事」变成习惯，让原理长成肌肉记忆。</p></div>
+        <div class="path-step"><p class="k">STEP 03</p><h3>复盘积累</h3><p>记下场景、光线和参数，把每张废片归因到具体环节，慢慢长出自己的经验表。</p></div>
+      </div>
+    </section>
+
+    <div class="search-bar" id="searchBar" role="status" aria-live="polite"></div>
+
+    <div class="chapters" id="chapters"></div>
+
+    <div class="empty" id="emptyState" role="status" aria-live="polite">
+      <p class="big" aria-hidden="true">🔍</p>
+      <h3>没有找到相关的三级标题</h3>
+      <p>拾影把全部要点都保留在目录里，换个说法再试一次。</p>
+      <div class="tips">
+        <button type="button" data-suggest="光圈">光圈</button>
+        <button type="button" data-suggest="快门">快门</button>
+        <button type="button" data-suggest="光线">光线</button>
+        <button type="button" data-suggest="构图">构图</button>
+        <button type="button" data-suggest="白平衡">白平衡</button>
+      </div>
+    </div>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <div class="foot-brand">
+          <p class="fb"><span class="seal" aria-hidden="true">拾</span>拾影</p>
+          <p>摄影前期拍摄入门学习页。目录依据《摄影前期拍摄知识概况目录》逐条搭建，十章、三十七个小节、一百三十五条要点全部保留，未增删、未改写。</p>
+        </div>
+        <div class="foot-col">
+          <h4>章节</h4>
+          <ul id="footChapters"></ul>
+        </div>
+        <div class="foot-col">
+          <h4>关于</h4>
+          <ul>
+            <li><button type="button" class="linklike" id="glossaryBtn">术语表（62 条）</button></li>
+            <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">图片来源：Unsplash</a></li>
+            <li><a href="https://www.magnumphotos.com/" target="_blank" rel="noopener noreferrer">作品欣赏：Magnum Photos</a></li>
+            <li><a href="https://500px.com.cn/" target="_blank" rel="noopener noreferrer">作品欣赏：500px 摄影社区</a></li>
+            <li><a href="https://tuchong.com/" target="_blank" rel="noopener noreferrer">作品欣赏：图虫</a></li>
+            <li><a href="https://www.lensculture.com/" target="_blank" rel="noopener noreferrer">作品欣赏：LensCulture</a></li>
+            <li><a href="https://1x.com/" target="_blank" rel="noopener noreferrer">作品欣赏：1x</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-base">
+        <span>© 拾影 · 仅作学习与练习使用，图片来自免费可商用图库 Unsplash。</span>
+        <span class="keys">快捷键：<kbd>/</kbd> 搜索 · <kbd>Esc</kbd> 关闭 · <kbd>Tab</kbd> 键盘导航</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<button id="toTop" aria-label="回到顶部" title="回到顶部">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<dialog id="glossaryDialog" aria-labelledby="glossTitle">
+  <div class="gloss-head">
+    <h2 id="glossTitle">术语表</h2>
+    <form method="dialog"><button class="gloss-close" aria-label="关闭术语表">×</button></form>
+  </div>
+  <div class="gloss-list" id="glossList"></div>
+</dialog>
+
+<script>
+var DATA=[{"id":"ch1","title":"第一章 摄影，从看见开始","intro":"这一章不谈参数，先谈“看见”。我们从一张照片里藏着的光、时间与选择说起，聊聊人为什么按快门，又怎样从随手拍走向有意识的表达。读完你会明白：摄影不是设备比赛，而是观看方式的练习——先想清“拍什么、为什么拍”，技术才有落点。","sections":[{"id":"1-1","title":"1.1 照片是光留下的痕迹","items":[{"id":"1-1-1","title":"1.1.1 一张照片里藏着光、时间和选择","text":"一张照片看似只是某个瞬间，其实同时记录了三样东西：那一刻的光、那一刻的时间，以及拍摄者做出的选择。光决定了明暗与质感，时间留下了人物神态或云影的位置，而选择——站在哪里、取景框里留谁、何时按下快门——让这张照片成为“你的”而不是别人的。理解这一点，你就已经从记录者向表达者迈了一小步。","tag":"理论"},{"id":"1-1-2","title":"1.1.2 快门按下的那一刻，发生了什么","text":"按下快门的瞬间，镜头把景物投射到传感器上，传感器把光转换成电信号，再交由相机处理成一张照片。可以把这个过程想成“光在传感器上短暂作画”：快门开多久，画就画多久；光圈开多大，进来的光就有多充裕。你不需要记住每个零件，只要知道照片是“被记录下来的光”就够了。","tag":"理论"},{"id":"1-1-3","title":"1.1.3 摄影与绘画、记忆、记录的关系","text":"绘画可以把不存在的场景画出来，摄影则必须从眼前真实存在的光里取材，这让它天生带着“证据”的可信感。同时照片又像记忆的锚点，能把某个下午的温度和情绪固定下来。可以说摄影介于记录与艺术之间：它记录真实，却通过取景与时机表达感受。","tag":"提示"}]},{"id":"1-2","title":"1.2 为什么拍：从记录到表达","items":[{"id":"1-2-1","title":"1.2.1 从“拍下来”到“拍出感受”","text":"刚开始拍照，我们常常只想“把这个东西拍下来”，于是主体清楚、信息齐全就算成功。再往前一步，可以问问自己：这张照片想让看的人产生什么感觉？是安静、热闹、孤独还是温暖？当你围绕这种感觉去挑选光线、角度和时机，照片就从记录走向了表达。","tag":"提示"},{"id":"1-2-2","title":"1.2.2 摄影如何改变我们看世界的方式","text":"学摄影之后，很多人会发现自己开始留意光影落在墙上的形状、傍晚天空的颜色变化、陌生人一个耐人寻味的表情。摄影像一副“注意力眼镜”，训练你在平凡场景里发现值得停留的瞬间。这种观看方式的改变，往往比照片本身更珍贵。","tag":"理论"},{"id":"1-2-3","title":"1.2.3 好照片的朴素标准：清楚、动人、有话说","text":"不必迷信复杂规则，入门阶段可以用三个朴素标准判断照片：主体清楚，让人一眼知道你在拍什么；情感动人，能让观者产生一点共鸣；有话说，即画面里藏着一个值得讲的小故事。三条不必每次全中，但它们是练习时很好的自检清单。","tag":"提示"}]},{"id":"1-3","title":"1.3 从随手拍到有意识拍摄","items":[{"id":"1-3-1","title":"1.3.1 新手常见的三种拍摄状态","text":"新手常处于三种状态：一是“看到就拍”，密度高但缺少取舍；二是“等好场景”，总想遇到完美画面才出手；三是“只信自动档”，完全交给相机决定。这三种都很正常，但想进步，就要在三者之间加入一点“主动选择”：取什么、舍什么、为什么说这是值得按快门的一刻。","tag":"提示"},{"id":"1-3-2","title":"1.3.2 按快门前可以先想的三件事","text":"按快门前，试着快速问自己三个问题：主体是谁，我要把注意力引到哪里；背景里有没有干扰主体的东西；这张照片我想表达什么情绪。只需几秒钟的停顿，就能让大量“随手一拍”变成有目的的画面。这是从量变走向质变最省力的习惯。","tag":"实操"},{"id":"1-3-3","title":"1.3.3 入门学习路径：先懂原理，再练手感","text":"建议的顺序是先理解光、曝光、对焦和构图的基本原理，再用大量拍摄把手感练出来。原理能解释“为什么会糊、为什么会过曝”，手感则让你在真实场景里快速做出正确取舍。两者像地图与脚力，缺一不可，但入门阶段地图先行会更省力。","tag":"提示"}]}],"summary":"本章建立了摄影的观看观：照片是光、时间与选择的叠加，摄影从记录走向表达。好照片的朴素标准是“清楚、动人、有话说”，而进步的关键，是在按快门前养成主动选择的意识。","practice":"今天用手机拍 5 张同一场景的照片，每张只改变一个决定：一次换角度、一次等光线、一次清理背景、一次靠近主体、一次等待人物动作。回看时挑出最喜欢的一张，说说它好在哪里。"},{"id":"ch2","title":"第二章 认识相机与镜头","intro":"这一章帮你认识手里最基础的装备：相机、传感器和镜头。我们不堆参数，而是回答几个真正影响拍摄的问题——不同相机差别在哪、传感器尺寸意味着什么、焦距数字如何影响视角，以及哪些附件值得优先了解。读完你会知道，设备不是越贵越好，而是越懂越顺手。","sections":[{"id":"2-1","title":"2.1 相机类型与画幅","items":[{"id":"2-1-1","title":"2.1.1 单反、无反、卡片机与手机的区别","text":"单反用反光镜让光学取景器直接看到景物，无反取消反光镜、用电子取景器，机身更轻且对焦覆盖范围更广；卡片机小巧便携，手机则把计算摄影做到了极致。对入门者来说，它们的核心差别不在“谁更高级”，而在取景方式、可换镜头与便携性的取舍。","tag":"理论"},{"id":"2-1-2","title":"2.1.2 全画幅、半画幅和手机传感器有什么不同","text":"“画幅”指传感器尺寸，全画幅约等于传统 35mm 胶片的面积，半画幅更小，手机则更小。传感器越大，通常越容易获得浅景深和更好的弱光画质；小传感器则让手机在白天也能保持全画面清晰。记住一个实用结论：画幅会影响等效焦距和景深，但不决定照片好不好。","tag":"理论"},{"id":"2-1-3","title":"2.1.3 像素、连拍、防抖、取景方式分别有什么用","text":"像素决定照片能放多大、裁切余量有多少，日常分享两千万像素已经绰绰有余；连拍用来抓瞬间，比如运动或孩子的表情；防抖帮你手持拍得更清楚；取景方式则影响你观察到的画面与最终照片是否一致。按需求看参数，就不会被数字带着走。","tag":"实操"}]},{"id":"2-2","title":"2.2 镜头与焦段","items":[{"id":"2-2-1","title":"2.2.1 镜头上的焦距数字代表什么","text":"焦距（单位毫米）大致决定镜头能看到多宽的范围：数字越小，视角越广；数字越大，视角越窄、远处物体被拉得越近。镜头标注如“50mm”是定焦，“24–70mm”是变焦范围。在全画幅上，50mm 接近人眼的自然视角，是很经典的入门焦段。","tag":"理论"},{"id":"2-2-2","title":"2.2.2 广角、标准、中长焦、长焦的视角差异","text":"广角（如 16–35mm）能装进广阔场景并强化空间纵深，适合风光建筑；标准（如 50mm）自然平和，适合日常；中长焦（如 85mm）压缩背景、适合人像；长焦（如 200mm 以上）能把远处主体拉近，适合生态与体育。选焦段，本质是选“你想让观众站在多远的地方看”。","tag":"理论"},{"id":"2-2-3","title":"2.2.3 定焦和变焦怎么选，恒定光圈有什么用","text":"定焦只有一个焦距，往往画质更好、最大光圈更大、体积更小巧，逼你用脚步构图；变焦覆盖一段焦距，方便快速改变取景。恒定光圈变焦指变焦时最大光圈不变（如 f/2.8），曝光更稳定，代价是更重更贵。入门可以先从一支轻便变焦或一支大光圈定焦开始。","tag":"实操"},{"id":"2-2-4","title":"2.2.4 微距、移轴、鱼眼镜头分别适合拍什么","text":"微距镜头能近距离对焦，把花朵、昆虫拍得纤毫毕现；移轴镜头可以校正建筑透视或制造微缩景观效果；鱼眼镜头视角极端夸张，适合创意与极限运动。它们都是“专门用途工具”，了解用途即可，等有了明确需求再考虑。","tag":"提示"}]},{"id":"2-3","title":"2.3 常用附件的作用","items":[{"id":"2-3-1","title":"2.3.1 三脚架、独脚架和稳定器解决什么问题","text":"三脚架彻底解决慢门、夜景和自拍时的稳定性问题；独脚架在保持一定灵活性的同时提供支撑，适合体育和野生摄影；稳定器（云台）则用于视频行走拍摄的平滑。先明确你要解决的是“拍照糊”还是“视频抖”，再选对应工具。","tag":"实操"},{"id":"2-3-2","title":"2.3.2 偏振镜、中灰镜、渐变镜各自的效果","text":"偏振镜能减少水面和玻璃反光、让天空更蓝、色彩更浓；中灰镜（ND）像给镜头戴墨镜，减少进光量，便于白天用慢门；渐变镜则压暗画面局部（常见是天空），平衡天地反差。它们都是前期“在镜头前做调整”的工具。","tag":"理论"},{"id":"2-3-3","title":"2.3.3 闪光灯、反光板、柔光罩的基本用途","text":"闪光灯提供可控的人造光，反光板把已有光线反射到阴影处补光，柔光罩则把硬光变软、减少生硬阴影。三者都是“光的塑形工具”：一个负责发光，一个负责反射，一个负责软化。先用好自然光再引入它们，效果会更自然。","tag":"实操"},{"id":"2-3-4","title":"2.3.4 存储卡、电池和清洁工具的使用常识","text":"存储卡注意容量与速度等级，重要拍摄前后都要备份；电池低温掉电快，冬天要多备一块并贴身保暖；清洁时用气吹和专用镜头布，避免用衣服随意擦拭镜片。装备不出问题，才有心情专注拍摄。","tag":"提示"}]}],"summary":"本章梳理了相机类型、画幅、镜头焦段与常用附件。核心取舍是：传感器尺寸影响景深与弱光表现，焦距决定视角，附件用来解决稳定、反光、补光与存储等具体问题。设备为表达服务，按需求选择才不会浪费。","practice":"找出你手上的相机或手机，记录它的传感器类型、常用焦段等效值，以及你最常带出门的一件附件。用手机分别模拟广角与长焦（走近/走远）拍同一主体，体会视角变化。"},{"id":"ch3","title":"第三章 曝光三要素：光圈、快门、ISO","intro":"这一章是摄影技术最核心的一课。光圈、快门、ISO 像三道闸门，共同决定照片明暗，也各自带来不同效果。我们会用“接雨水”的比喻讲清原理，再用卡片对比它们的用途。读完你就能理解：为什么过曝、为什么会糊，以及弱光下如何取舍。","sections":[{"id":"3-1","title":"3.1 光圈：控制进光量与景深","items":[{"id":"3-1-1","title":"3.1.1 光圈值为什么写成f/1.8、f/8","text":"光圈值 f 数是“焦距 ÷ 入射光瞳直径”的比值，所以数字越小，实际开口越大、进光越多。f/1.8 是大光圈，f/8 是小光圈，中间每缩小一档（如 f/2.8→f/4），进光量减半。刚开始只要记住：f 数越小越亮、背景越虚。","tag":"理论"},{"id":"3-1-2","title":"3.1.2 大光圈和小光圈分别适合什么场景","text":"大光圈（如 f/1.4–f/2.8）进光多、背景虚化强，适合人像、弱光和想突出主体的场景；小光圈（如 f/8–f/16）进光少、前后都清晰，适合风光、建筑和集体合影。把光圈当作“决定谁清楚、谁融化”的开关，比背数值更实用。","tag":"实操"},{"id":"3-1-3","title":"3.1.3 光圈与背景虚化的关系怎么理解","text":"光圈越大（f 数越小），景深越浅，背景越容易化成柔和的色块；光圈越小，景深越深，前后景都保持清晰。焦距和拍摄距离也会影响虚化：长焦、靠近主体、远离背景，都能加强这种效果。人像中漂亮的“奶油虚化”，通常是大光圈加长焦共同作用的产物。","tag":"理论"}]},{"id":"3-2","title":"3.2 快门：控制时间与运动","items":[{"id":"3-2-1","title":"3.2.1 快门速度与画面明暗的关系","text":"快门速度是传感器“见光”的时间，比如 1/500 秒很短，1/30 秒较长。时间越长，进光越多、画面越亮；时间越短，进光越少、画面越暗。它和光圈像两个配合的水龙头：一个管开口大小，一个管放水时长。","tag":"理论"},{"id":"3-2-2","title":"3.2.2 高速快门凝固运动，慢速快门记录轨迹","text":"1/1000 秒以上的高速快门能“冻结”飞鸟和运动员，把动态定格成清晰瞬间；1/30 秒以下的慢速快门会让运动物体拉出模糊轨迹，比如丝绸般的流水和车灯的光轨。选择哪种，取决于你想“看清运动”还是“画出运动”。","tag":"实操"},{"id":"3-2-3","title":"3.2.3 安全快门是什么，手持拍摄如何避免糊片","text":"安全快门是一个经验值：手持时快门速度不慢于“1 ÷ 焦距”秒，例如 50mm 镜头尽量用 1/50 秒或更快，能大幅减少手抖造成的模糊。防抖可以放宽这个限制，但拍摄移动主体时仍要更快。记住：糊片常来自快门太慢，而非镜头不够好。","tag":"提示"}]},{"id":"3-3","title":"3.3 ISO：控制感光度与画质","items":[{"id":"3-3-1","title":"3.3.1 ISO高低如何影响亮度和噪点","text":"ISO 表示传感器对光的放大程度：提高 ISO 能让画面变亮，但也会放大噪点，让暗处出现彩色颗粒、细节变少。低 ISO（如 100–200）画质最干净，高 ISO（如 3200 以上）颗粒明显但能救回暗光场景。可以把 ISO 理解为“把微弱信号大声放出来”，声音大了杂音也会变大。","tag":"理论"},{"id":"3-3-2","title":"3.3.2 什么时候该提高ISO，什么时候该降低","text":"光线充足时尽量用低 ISO 换取干净画质；当快门已经慢到会糊、光圈也已开到最大，仍需更亮时，就该提高 ISO。室内、黄昏、舞台常需要妥协画质换取清晰的瞬间，这完全值得。原则是：先用光，再放大光。","tag":"实操"},{"id":"3-3-3","title":"3.3.3 弱光下光圈、快门、ISO如何一起权衡","text":"弱光中三者像跷跷板：开大光圈会增加进光并虚化背景，放慢快门会延长曝光但可能糊，提高 ISO 会提亮但带来噪点。没有唯一正确答案，只有“当前场景最不坏的组合”。先保证主体清楚，再考虑画质纯净，是入门阶段稳妥的排序。","tag":"提示"}]},{"id":"3-4","title":"3.4 测光与曝光判断","items":[{"id":"3-4-1","title":"3.4.1 相机测光的基本原理：为什么要以18%灰为基准","text":"相机测光的目标是让被摄区域呈现“中等亮度”，也就是反射率约 18% 的灰度。它不知道你拍的是雪还是黑炭，只会努力把画面平均成中灰，所以纯白场景容易被拍灰、纯黑场景容易被拍亮。理解这一点，就理解了曝光补偿存在的意义。","tag":"理论"},{"id":"3-4-2","title":"3.4.2 评价测光、中央重点测光、点测光怎么选","text":"评价测光（矩阵测光）综合整个画面，适合光线均匀的日常；中央重点测光偏重画面中心，适合主体居中的人像；点测光只测很小区域，适合逆光或光比大的场景。选哪种，取决于你想让相机“看多大范围”来判断亮度。","tag":"实操"},{"id":"3-4-3","title":"3.4.3 曝光补偿的“白加黑减”怎么理解","text":"因为相机总想把一切还原成 18% 灰，拍大面积白色时要增加曝光补偿（+），否则白雪会发灰；拍大面积黑色时要减少补偿（-），否则黑炭会发灰。口诀是“白加黑减”：场景越亮越要加，越暗越要减。这是修正相机判断最直接的方法。","tag":"提示"},{"id":"3-4-4","title":"3.4.4 直方图怎么看，高光警告有什么用","text":"直方图用图形显示画面从暗到亮的像素分布：横轴左端是纯黑、右端是纯白，纵轴是像素数量。若图形堆在最右侧，说明高光溢出、细节丢失；堆在左侧则暗部死黑。高光警告会把过曝区域闪烁标出，帮你及时减曝光，是回放时非常实用的检查工具。","tag":"实操"}]}],"summary":"曝光三要素共同决定明暗：光圈管进光与景深，快门管时间与运动，ISO 管放大与噪点；测光与曝光补偿负责让亮度符合你的意图。记住“白加黑减”和直方图，就能把曝光从碰运气变成可控的判断。","practice":"在同一场景分别用大光圈和小光圈各拍一张、用高速和慢速快门各拍一张运动物体，对比虚化与动态的差异；再拍一张雪白或深色物体，练习用曝光补偿修正亮度。"},{"id":"ch4","title":"第四章 对焦、景深与清晰度","intro":"照片糊了，到底是谁的锅？这一章把“清晰”这件事拆开讲：对焦系统如何工作、景深如何控制清晰范围，以及手持稳定为什么同样关键。你会明白清晰不只是“对准了”，更是镜头、机身、拍摄姿势与快门速度共同协作的结果。读完可以系统地排查模糊问题。","sections":[{"id":"4-1","title":"4.1 对焦的基本认识","items":[{"id":"4-1-1","title":"4.1.1 相位对焦和反差对焦有什么区别","text":"相位对焦通过比较光线相位差，直接算出镜头该往前还是往后移动，速度快，适合抓拍；反差对焦通过反复移动镜头寻找画面最清晰的瞬间，更准确但稍慢。现代相机常把两者结合：相位快速接近，反差精细确认。入门只需知道它们在“速度”和“精度”上各有侧重。","tag":"理论"},{"id":"4-1-2","title":"4.1.2 单次对焦、连续对焦分别适合拍什么","text":"单次对焦（AF-S）半按快门锁定焦点后就不再追，适合静物、风景和摆好姿势的人像；连续对焦（AF-C）会持续跟踪移动主体，适合运动、儿童和宠物。把模式选对，比拼命按快门更能提高出片率。","tag":"实操"},{"id":"4-1-3","title":"4.1.3 单点、区域、主体识别对焦怎么选","text":"单点对焦让你精确指定对焦位置，适合主体不在画面中央或需要精准控制；区域对焦让相机在一片区域内判断，适合运动；主体识别（眼部/人脸识别）自动锁定眼睛或人脸，人像拍摄尤其省心。场景越可控，越可以手动；越不可预测，越交给智能识别。","tag":"实操"},{"id":"4-1-4","title":"4.1.4 手动对焦什么时候用，峰值和放大如何辅助","text":"当自动对焦难以锁定——比如弱光、低对比墙面、玻璃后方或需要精确对焦的微距——就该切换到手动对焦。对焦峰值会把合焦边缘高亮显示，放大显示能让你逐像素确认。它们是手动对焦时非常可靠的“电子助手”。","tag":"提示"}]},{"id":"4-2","title":"4.2 景深的控制","items":[{"id":"4-2-1","title":"4.2.1 景深由哪些因素决定","text":"景深是画面中对焦平面前后“看起来清楚”的范围，主要由三个因素决定：光圈（越大越浅）、焦距（越长越浅）、拍摄距离（越近越浅）。此外传感器尺寸也会间接影响。想控制虚化，调节这三者的组合就够了。","tag":"理论"},{"id":"4-2-2","title":"4.2.2 浅景深怎么营造，深景深怎么实现","text":"营造浅景深：开大光圈、用长焦、靠近主体并让背景远一些；实现深景深：缩小光圈、用广角、适当后退对焦在画面三分之一处。人像常用前者突出人物，风光常用后者保证从前到后都清晰。","tag":"实操"},{"id":"4-2-3","title":"4.2.3 超焦距是什么，风光摄影中怎么理解","text":"超焦距是指把焦点对在某个距离时，从约一半距离到无穷远都保持可接受清晰度的那个对焦距离。风光摄影中把焦点放在超焦距上，可以在不使用极小光圈的情况下获得最大清晰范围，兼顾画质与景深。它听起来抽象，其实只需要记住：对焦别总对到无穷远。","tag":"理论"},{"id":"4-2-4","title":"4.2.4 景深预览功能的作用与局限","text":"景深预览按钮会让镜头收缩到实际拍摄光圈，让你从取景器里看到真实的景深范围。它的局限是光圈变小时取景器会明显变暗，在弱光下不易观察。日常可用它来确认虚化程度，但不必每次都按。","tag":"提示"}]},{"id":"4-3","title":"4.3 拍清楚的多重保障","items":[{"id":"4-3-1","title":"4.3.1 手持稳定的基本姿势与呼吸控制","text":"双手握持相机、手肘贴近身体、双脚分开站稳，能在物理上减少晃动；按快门时轻扣而非猛戳，并在呼气末的短暂停顿中按下，可以进一步减少抖动。这些习惯看似朴素，却能明显提升成片率。","tag":"实操"},{"id":"4-3-2","title":"4.3.2 机身防抖和镜头防抖如何协同","text":"机身防抖（IBIS）移动传感器来补偿抖动，镜头防抖（OIS/VR）移动镜片组来补偿，两者同时开启时通常会协同工作，提供更强的手持稳定性。但在三脚架上或拍摄运动模糊时，有时需要关闭防抖，避免它“过度补偿”。","tag":"理论"},{"id":"4-3-3","title":"4.3.3 反光板预升、电子前帘与快门振动","text":"单反拍摄时反光板抬起和快门帘运动会产生微小振动，长焦或微距下可能导致细节发虚。反光板预升和电子前帘能减少这种机械振动，让画面更锐利。它们在静止题材、慢门与微距中尤其有用。","tag":"提示"},{"id":"4-3-4","title":"4.3.4 弱光下如何提高手持出片率","text":"弱光中提高出片率的组合拳是：开大光圈、用防抖、适当提高 ISO 保证安全快门、利用墙体或栏杆做支撑，并多拍几张选最清楚的。与其追求一支“神镜头”，不如先把这套习惯变成肌肉记忆。","tag":"实操"}]}],"summary":"清晰由对焦、景深与稳定三方面共同决定。对焦模式要匹配主体是否移动，景深可通过光圈/焦距/距离控制，而手持姿势、防抖与快门速度决定画面是否真的锐利。模糊时按这三条顺序排查，往往能快速找到原因。","practice":"用同一支镜头分别以大光圈和小光圈对同一主体拍摄，对比背景虚化；再用慢于安全快门的速度手持拍摄 10 张，找出最清楚的一张，体会姿势与呼吸的影响。"},{"id":"ch5","title":"第五章 光线：摄影的造型语言","intro":"摄影是用光作画，这一章就把“光”当作主角来认识。我们会从光的方向和软硬讲到自然光的观察，再入门人造光与影调氛围。你会发现：同一个主体，换一种光线就换了一种情绪。学会看光、等光、用光，是照片从“正确”走向“动人”的关键一步。","sections":[{"id":"5-1","title":"5.1 光的方向与质感","items":[{"id":"5-1-1","title":"5.1.1 顺光、侧光、逆光、侧逆光各有什么效果","text":"顺光从相机背后照来，主体明亮但阴影少、立体感弱；侧光从侧面来，明暗分明、质感强，适合表现纹理；逆光从主体背后照来，容易形成轮廓光与剪影，氛围感强；侧逆光介于两者之间，既有立体感又有漂亮边缘光。改变光位，往往比更换镜头更能改变画面。","tag":"理论"},{"id":"5-1-2","title":"5.1.2 硬光和软光如何影响画面质感","text":"硬光来自小光源或直射光，阴影边缘清晰、对比强烈，能强化结构与力量感；软光来自大光源或扩散后的光，阴影过渡柔和，适合表现细腻肤质与温和氛围。窗户加一层白纱，硬光就变成了软光——控制光源面积，就能控制质感。","tag":"理论"},{"id":"5-1-3","title":"5.1.3 光比是什么，明暗对比如何服务表达","text":"光比指亮部与暗部的亮度差异。大光比画面反差强烈、戏剧性足，适合表达力量或孤独；小光比画面柔和均匀，适合清新人像与静物。光比不是越大越好，而是要和你想讲的故事匹配。","tag":"提示"},{"id":"5-1-4","title":"5.1.4 顶光和底光为什么需要谨慎使用","text":"正午顶光会在眼窝和鼻下留下难看的阴影，人像中通常要避开或寻找遮阴；底光从下往上照，会形成诡异的阴影，常用于恐怖氛围。知道它们的“性格”，你就能在需要时刻意使用，在不需要时提前避开。","tag":"提示"}]},{"id":"5-2","title":"5.2 自然光的观察与利用","items":[{"id":"5-2-1","title":"5.2.1 室外自然光的方向变化与机位调整","text":"太阳从日出到日落不断移动，光的方向和色温也随之改变。拍摄时不妨围绕主体走一圈，观察哪一面被照亮、哪一面在阴影里，再决定机位。很多时候“换个角度”，就能把普通光线变成理想光线。","tag":"实操"},{"id":"5-2-2","title":"5.2.2 室内窗光怎么用，光线如何衰减","text":"窗户是天然的柔光箱，侧窗光能塑造人像立体感，让主体面向窗户即可获得柔和而明亮的照明。光线会随距离增加而快速衰减，所以靠近窗户往往比开大灯更有效。用白墙或白纸反光，还能温柔地补亮阴影面。","tag":"实操"},{"id":"5-2-3","title":"5.2.3 阴天、雨天、雾天的光线特点与拍摄思路","text":"阴天的云层把阳光扩散成大面积软光，色彩柔和、适合人像与花卉；雨天反光与透明介质丰富，适合拍倒影和情绪；雾天降低对比、隐藏杂乱背景，适合营造极简与意境。坏天气往往藏着好照片，关键是顺势而为。","tag":"提示"},{"id":"5-2-4","title":"5.2.4 黄金时刻、蓝调时刻和正午光线的差异","text":"日出后和日落前约一小时的黄金时刻，光线低角度、暖色调、影子长，是风景和人像的黄金时段；日落后天空呈深蓝的蓝调时刻，适合城市夜景与氛围人像；正午光线强烈且垂直，适合强调阴影线条或等待云层遮挡。认准时间，就成功了一半。","tag":"理论"}]},{"id":"5-3","title":"5.3 人造光入门","items":[{"id":"5-3-1","title":"5.3.1 闪光灯和持续光源的造型差异","text":"闪光灯瞬间发光、功率强、能凝固动作，方便在白天压光或户外补光；持续光源（常亮灯）所见即所得，便于观察光效，适合视频和新手练习。前者适合“定格”，后者适合“观察”，理解差别就能按场景选择。","tag":"理论"},{"id":"5-3-2","title":"5.3.2 主光、辅光、轮廓光分别起什么作用","text":"主光是塑造主体的主要光源，决定亮部和阴影方向；辅光用来提亮阴影、降低反差，通常比主光弱；轮廓光从主体后方或侧后方来，勾勒边缘、把主体从背景中分离。三灯分工是理解布光最经典的框架。","tag":"理论"},{"id":"5-3-3","title":"5.3.3 离机闪和高速同步的基本概念","text":"离机闪指让闪光灯离开相机机顶、通过引闪触发，这样能从任意方向塑造光线，效果比机顶直闪自然得多；高速同步允许快门速度快于相机正常闪光同步速度，在白天大光圈下也能用闪光灯补光或压光。它们打开了人造光的更多可能。","tag":"提示"},{"id":"5-3-4","title":"5.3.4 混合光源下如何统一色温","text":"当日光、钨丝灯、荧光灯同时出现，画面容易出现偏色。可以通过调整白平衡偏向主要光源、给闪光灯加色片匹配环境光，或用滤镜改变环境光颜色来统一色调。统一色温能让画面更干净，刻意保留差异则能营造氛围。","tag":"实操"}]},{"id":"5-4","title":"5.4 影调与氛围","items":[{"id":"5-4-1","title":"5.4.1 高调、低调和中间调的画面感觉","text":"高调画面以明亮浅色为主，感觉轻盈、纯净、积极；低调画面以深色为主，氛围沉稳、神秘、戏剧化；中间调层次丰富，是最常见的自然状态。确定影调，等于给照片定了情绪基调。","tag":"理论"},{"id":"5-4-2","title":"5.4.2 光线方向如何影响情绪和空间感","text":"顺光让画面平坦开放，逆光制造神秘与纵深，侧光带来体积与张力。光从哪来，观众的视线与情绪就往哪走。拍摄前先问“我想让画面有什么情绪”，再去安排光位，表达会更明确。","tag":"提示"},{"id":"5-4-3","title":"5.4.3 自然光造型与戏剧光造型的取舍","text":"自然光造型追求真实、柔和与现场感，适合纪实和生活题材；戏剧光造型强调对比、轮廓与情绪控制，适合人像创作和主题表达。两者没有高低之分，关键看内容需要“还原现场”还是“强化情绪”。","tag":"提示"}]}],"summary":"本章把光当作造型语言：方向与软硬决定质感和立体感，光比与影调决定情绪，自然光需要观察与等待，人造光则提供可控的塑造手段。学会看光，你就拥有了把普通场景拍出氛围的能力。","practice":"同一主体分别在清晨、正午、傍晚各拍一张，对比光线方向与色温带来的情绪差异；再用窗光拍一张人像，尝试用白纸补亮阴影面。"},{"id":"ch6","title":"第六章 色彩与白平衡","intro":"为什么白纸在钨丝灯下偏黄、在阴影里偏蓝？这一章讲清色温与白平衡的关系，让照片里的白色真正“白”。我们还会聊色彩搭配如何服务主题，以及 RAW 与 JPEG 在色彩调整空间上的差别。读完你不仅能拍出准确的颜色，还能有意识地用色彩表达情绪。","sections":[{"id":"6-1","title":"6.1 色温与白平衡","items":[{"id":"6-1-1","title":"6.1.1 色温的冷暖变化怎么理解","text":"色温用开尔文（K）表示：数值越低（如 3000K）光越偏暖黄，像烛光和白炽灯；数值越高（如 7000K）光越偏冷蓝，像阴天和阴影。理解色温，就能解释为什么不同时间、不同灯光下照片颜色不一样。","tag":"理论"},{"id":"6-1-2","title":"6.1.2 自动白平衡什么时候准，什么时候不准","text":"自动白平衡（AWB）在日常混合光、光线均匀的场景通常表现不错；但在大面积单色环境、强逆光或复杂混合光源下容易判断失误，比如把暖色夕阳“纠正”成普通白光。遇到不准时，手动指定一个更接近场景的色温值即可。","tag":"实操"},{"id":"6-1-3","title":"6.1.3 预设白平衡和自定义白平衡的使用场景","text":"预设白平衡如日光、阴天、白炽灯，是对常见光源的快捷匹配，适合光源明确的环境；自定义白平衡则用灰卡或白纸让相机精确校准当前光线，适合对色彩准确性要求高的静物、产品和多灯棚拍。越严谨的场景，越值得自定义。","tag":"实操"},{"id":"6-1-4","title":"6.1.4 故意“用错”白平衡制造氛围","text":"白平衡不只用来“校正”，也可以用来“创作”：把色温调低，画面更暖更怀旧；调高则更冷更清冷。想强调夕阳的金黄色，就不要把它完全校正掉。懂得规则，才能有意识地打破规则。","tag":"提示"}]},{"id":"6-2","title":"6.2 色彩搭配与视觉表达","items":[{"id":"6-2-1","title":"6.2.1 对比色、邻近色和单色搭配","text":"对比色是色轮上相对的颜色（如红与绿），冲突强烈、充满活力；邻近色是相邻的颜色（如蓝与青），和谐自然、过渡舒服；单色搭配只用一个色系的不同明度，极简而有整体感。选择配色，就是选择画面的“性格”。","tag":"理论"},{"id":"6-2-2","title":"6.2.2 色彩情绪如何服务照片主题","text":"暖色通常让人联想到温暖、活力与怀旧，冷色则带来宁静、疏离或科技感。让色彩情绪与主题一致，照片的表达会更统一：拍温馨家庭可用暖调，拍孤独城市可用冷调。色彩是无声的情绪语言。","tag":"提示"},{"id":"6-2-3","title":"6.2.3 画面色彩太多时如何做减法","text":"当画面颜色杂乱，可以通过靠近主体、改变角度避开干扰色、缩小取景范围，或利用大光圈虚化背景来减少颜色数量。也可以等光线变化、换个背景，让色彩归于统一。摄影里的“减法”，往往比添加更有效。","tag":"实操"}]},{"id":"6-3","title":"6.3 照片风格与色彩预设","items":[{"id":"6-3-1","title":"6.3.1 相机照片风格/胶片模拟是什么","text":"照片风格（或胶片模拟）是相机内置的色彩处理方案，会在拍摄时就给画面套上特定的对比度、饱和度和色调，比如人像风格柔和、风景风格鲜艳。它能让你不必后期就直出有味道的照片，也是理解“前期色彩”的起点。","tag":"理论"},{"id":"6-3-2","title":"6.3.2 RAW和JPEG在色彩调整空间上的差别","text":"JPEG 是相机处理完成的图片，方便直接分享，但后期大幅调色容易损失画质；RAW 保留了传感器原始数据，记录更宽的动态范围和色彩信息，给后期留更大余地。想认真调色，尽量同时拍 RAW 或至少保留 RAW。","tag":"实操"},{"id":"6-3-3","title":"6.3.3 前期色彩预设与后期调色的关系","text":"前期预设决定画面的基调和方向，后期调色在此基础上精修与统一；前期做得越接近想要的效果，后期越轻松。两者不是“谁替代谁”，而是同一条创作链上的不同环节。把预设当作表达的起点，而不是万能滤镜。","tag":"提示"}]}],"summary":"本章把色彩变成可控的表达工具：色温解释冷暖，白平衡负责校正或制造氛围，配色决定画面性格，RAW 则为调色保留空间。前期对色彩多做一步判断，后期就少一分补救。","practice":"在同一场景分别用自动、日光、白炽灯白平衡各拍一张，对比色调差异；再找一处色彩杂乱的场景，通过靠近、改变角度或虚化背景，拍一张色彩更纯粹的照片。"},{"id":"ch7","title":"第七章 构图与画面组织","intro":"构图是把眼前的世界整理成一幅画的能力。这一章从画面里的基本元素讲起，带你认识主体、陪体、前景与留白，再学习机位、角度、景别和常用构图法则。我们会反复强调一个观点：构图不是为了套公式，而是为了更清楚地讲好你想讲的故事。","sections":[{"id":"7-1","title":"7.1 画面里的基本元素","items":[{"id":"7-1-1","title":"7.1.1 主体、陪体、背景、前景和留白","text":"主体是画面最想让人看到的对象，陪体帮助说明主体，背景交代环境，前景增加层次，留白则给视线呼吸的空间。一张耐看的照片，往往是这几个元素各司其职的结果。拍摄时先确认主体，再安排其他元素为它服务。","tag":"理论"},{"id":"7-1-2","title":"7.1.2 点、线、面如何组织视觉注意力","text":"点能吸引视线停留，线能引导视线移动，面则形成稳定的块面与节奏。一条道路、一排栏杆、一片色块，都是组织观众视线的工具。学会用点线面看世界，你会在平凡场景里发现隐藏的结构。","tag":"理论"},{"id":"7-1-3","title":"7.1.3 对比与均衡：明暗、大小、虚实、动静","text":"对比制造视觉焦点：明暗对比让主体跳出来，大小对比强调尺度，虚实对比区分主次，动静对比增加张力。均衡则让画面看起来稳定舒服。构图就是在“制造对比”与“保持均衡”之间找到合适的平衡。","tag":"提示"}]},{"id":"7-2","title":"7.2 机位、角度与景别","items":[{"id":"7-2-1","title":"7.2.1 远景、全景、中景、近景、特写的叙事差异","text":"远景交代环境与规模，全景展示主体全貌，中景兼顾人物与动作，近景突出表情与细节，特写强调局部与质感。景别像文本的“段落长度”，决定了你给观众多少信息、又留多少想象。组合不同景别，故事会更完整。","tag":"理论"},{"id":"7-2-2","title":"7.2.2 平视、俯拍、仰拍、顶拍的视觉心理","text":"平视自然亲切，像与主体平等对视；俯拍让主体显得渺小、有俯瞰感；仰拍让主体高大、有压迫或崇敬感；顶拍把三维压缩成平面图案，适合几何构图。改变机位高度，往往就能改变画面的“语气”。","tag":"实操"},{"id":"7-2-3","title":"7.2.3 正面、侧面、背面和斜侧方向的表达效果","text":"正面庄重直接，适合人像与对称建筑；侧面强调轮廓与动作线条；背面留下想象空间、让观众代入；斜侧兼顾立体感与细节，是最常用的方向。绕着主体走半圈，你会看到完全不同的故事。","tag":"提示"},{"id":"7-2-4","title":"7.2.4 横画幅与竖画幅怎么选","text":"横画幅符合人眼扫视习惯，适合宽广场景与叙事；竖画幅强调高度与纵深，适合人像、建筑与手机屏幕展示。拍摄时不妨横竖各来一张，问自己：主体是“延伸”还是“挺立”？答案会告诉你选哪种。","tag":"实操"}]},{"id":"7-3","title":"7.3 常用构图法则","items":[{"id":"7-3-1","title":"7.3.1 三分法和黄金分割怎么用","text":"把画面横竖各三等分，把主体放在分割线或交点上，比放在正中央更自然有活力，这就是三分法；黄金分割则是更精细的比例（约 0.618）。它们本质都是“别把主体死放中间”，给视线留出运动空间。把相机网格线打开，练习会容易很多。","tag":"实操"},{"id":"7-3-2","title":"7.3.2 对称、重复与图案节奏","text":"对称带来稳定与仪式感，适合建筑与倒影；重复形成节奏与韵律，如一排窗户、一群同样的物体；图案则让画面有装饰性。利用秩序感，是让照片“好看”最省力的方法之一。","tag":"理论"},{"id":"7-3-3","title":"7.3.3 引导线和框架构图如何制造纵深","text":"引导线（道路、栏杆、河流）把观众视线引向主体并制造空间纵深；框架构图（门窗、树枝、拱门）把主体“框”起来，增加层次与聚焦感。两者都是用环境元素来讲故事，而不是靠后期添加。","tag":"实操"},{"id":"7-3-4","title":"7.3.4 极简构图与密集构图的控制","text":"极简构图通过大量留白与单一主体，让画面干净有力；密集构图用丰富的元素填满画面，靠秩序与节奏避免杂乱。前者做减法，后者做管理，关键是让每个元素都有存在的理由。","tag":"提示"},{"id":"7-3-5","title":"7.3.5 先建立秩序，再打破规则","text":"所有构图法则都是帮助你建立秩序的拐杖，熟练之后可以有意识地打破：把主体放正中、让人物看向画外、故意倾斜画面。但在打破之前，先理解规则为何存在——这样你的“破”才有表达力，而不是随手乱拍。","tag":"提示"}]},{"id":"7-4","title":"7.4 透视与空间感","items":[{"id":"7-4-1","title":"7.4.1 线性透视：广角夸张与长焦压缩","text":"线性透视指平行线在远处汇聚的现象。广角会放大近大远小的差异，让空间显得深远夸张；长焦则压缩前后距离，让远处的山看起来贴近主体。焦段选择直接改变了画面“空间感”的叙事。","tag":"理论"},{"id":"7-4-2","title":"7.4.2 空气透视与前后层次","text":"空气中的雾气和水汽会让远处景物变淡、偏蓝、对比降低，这就是空气透视。它能自然地区分前后层次，营造纵深与意境。清晨、雨后或山间，是观察空气透视的好时机。","tag":"提示"},{"id":"7-4-3","title":"7.4.3 焦段选择如何改变画面空间感","text":"广角让前景很大、背景很远，强调“身临其境”；标准焦段接近人眼观看，自然平实；长焦把远处的景物拉近、背景压缩，营造出紧凑而平面的美感。理解这一点，你就能用焦段来“编辑空间”。","tag":"理论"}]}],"summary":"本章把构图还原为“组织注意力”的方法：先认清主体与元素，再通过机位、角度、景别和构图法则安排画面，最后用透视与焦段塑造空间感。记住，法则服务于表达，先建立秩序，再考虑打破。","practice":"选一个主体，用三分法、引导线、框架构图各拍一张；再分别用广角和长焦拍同一场景，对比空间感的变化。回看时删掉那些“元素没有存在理由”的照片。"},{"id":"ch8","title":"第八章 常见题材的拍摄思路","intro":"有了前面的基础，该把它们用到具体题材里了。这一章按人像、风光、运动、静物美食和弱光夜景分门别类，每张卡片给出一个题材的核心思路。你不必一次吃透所有题材，但只要掌握“先判断题材特点，再决定参数与构图”的方法，就能举一反三。","sections":[{"id":"8-1","title":"8.1 人像拍摄","kind":"card","items":[{"id":"8-1-1","title":"8.1.1 焦段选择与人物比例、背景压缩","text":"人像常用 50–135mm：50mm 自然亲近，85mm 以上压缩背景、虚化更强，也让人物五官比例更平实；广角靠近会夸张变形，适合创意环境人像。选焦段时，同时考虑你离人物多远、想让背景占多少。","tag":"实操"},{"id":"8-1-2","title":"8.1.2 对焦应该对在哪里，眼部优先怎么用","text":"人像对焦的经典位置是眼睛，眼神清晰，人物就有神。开启了眼部/人脸识别时，相机会自动把焦点放到眼睛上，大幅提升成功率；拍侧脸或戴眼镜时，注意确认焦点是否落在近侧眼睛。","tag":"实操"},{"id":"8-1-3","title":"8.1.3 光线方向如何影响面部立体感和肤质","text":"侧光和侧逆光能塑造面部立体感与轮廓光，顺光让肤质平滑但较平，顶光容易在眼下留下阴影。窗边柔和的侧光是极好的人像光；户外可让人物背对或侧向阳光，再用反光板补亮面部。","tag":"理论"},{"id":"8-1-4","title":"8.1.4 环境人像中人物与背景如何分离","text":"环境人像既要交代场景，又要让人物突出。方法包括：用大光圈虚化背景、让人物离背景远一些、利用色彩或明暗对比、寻找干净的背景区域，以及用光线把人物照亮而背景压暗。","tag":"实操"},{"id":"8-1-5","title":"8.1.5 动态人像的预判与连拍思路","text":"拍孩子或走动的人物，要提前预判动作高潮（跳跃最高点、转身瞬间），使用连续对焦和连拍，并稍微提高快门速度。与其等完美瞬间出现再按快门，不如提前半秒开始连拍，事后挑选。","tag":"提示"}]},{"id":"8-2","title":"8.2 风光拍摄","kind":"card","items":[{"id":"8-2-1","title":"8.2.1 景深规划与前景选择","text":"风光讲究从前到后都清晰，常用小光圈并把焦点放在画面前三分之一处，或利用超焦距。前景（一块石头、一片花草）能增加纵深与比例感，让广阔场景有“入口”。先找前景，再决定机位，是风光摄影的常用思路。","tag":"实操"},{"id":"8-2-2","title":"8.2.2 光线时段和天气条件如何预判","text":"风光极大程度依赖光线：黄金时刻色彩温暖、影子长，蓝调时刻天空深邃，阴天适合表现纹理与柔和色调。出发前查看天气和日出日落时间，就能提前规划机位与等待时机。好风光是“等”出来的。","tag":"提示"},{"id":"8-2-3","title":"8.2.3 慢门水景、流云、车轨的拍摄思路","text":"想让水流丝绸化、云彩拉丝、车灯成轨，需要慢速快门加三脚架，并用 ND 镜在白天减少进光。先稳定相机，再构图和测光，最后用遥控或延时释放避免手按抖动。慢门的乐趣，是把时间变成可见的画笔。","tag":"实操"},{"id":"8-2-4","title":"8.2.4 全景接片的重叠率与曝光一致性","text":"拍摄全景接片时，相邻画面要有约 30% 的重叠，相机尽量保持水平旋转并锁定曝光、白平衡和对焦，避免拼接处明暗不一或变形。后期交给软件自动拼接，前期越规范，补洞越少。","tag":"实操"},{"id":"8-2-5","title":"8.2.5 高反差风光的包围曝光思路","text":"当天地反差超过传感器动态范围时，可用包围曝光连拍不同亮度的几张，后期合成 HDR，既保留高光云彩又留住暗部细节。关键是保持机位不变、快速拍摄，避免画面元素移动造成重影。","tag":"理论"}]},{"id":"8-3","title":"8.3 运动与动态题材","kind":"card","items":[{"id":"8-3-1","title":"8.3.1 凝固动态需要多快的快门","text":"凝固动态所需的快门取决于主体速度和运动方向：横穿过画面的物体需要更快快门，一般运动可从 1/500 秒起，快速体育可能需要 1/1000 秒以上。先试拍一张并放大检查，再决定要更快还是稍慢。","tag":"实操"},{"id":"8-3-2","title":"8.3.2 慢门模糊如何表现运动感","text":"慢门并不总是失败：1/30 秒左右的快门能让奔跑的人产生适度模糊，反而传达速度感。关键是让主体局部仍然可读，并配合追焦或稳定相机（背景流动、主体清晰）。模糊也是表达运动的一种语言。","tag":"提示"},{"id":"8-3-3","title":"8.3.3 追随拍摄（摇拍）的基本原理与练习方法","text":"追随拍摄指相机跟随运动主体同向移动，在移动中按快门，让主体相对清晰、背景拉成流动线条。通常用 1/30–1/125 秒，配合连续对焦，先从自行车等匀速物体练起。成功的摇拍，能让静止照片“跑”起来。","tag":"实操"},{"id":"8-3-4","title":"8.3.4 连续对焦和追焦灵敏度怎么设置","text":"运动拍摄应切换到连续对焦，并开启主体的跟踪与区域/广域对焦；追焦灵敏度较高时相机更积极追焦，较低时更“黏”住当前焦点。根据主体是否匀速来调，匀速可用较低灵敏度，突然变向则调高。","tag":"提示"}]},{"id":"8-4","title":"8.4 静物、美食与产品","kind":"card","items":[{"id":"8-4-1","title":"8.4.1 工作距离与镜头选择","text":"静物与美食拍摄空间有限，常用 50mm 或微距镜头，在有限距离内获得合适视角和细节。工作距离指镜头到主体的距离，太近会透视夸张，太远则背景进入过多。先确定构图，再选能实现它的镜头。","tag":"实操"},{"id":"8-4-2","title":"8.4.2 主光位置与材质质感的表现","text":"侧光适合表现食物质感与立体，逆光能让饮料、玻璃器物和蒸汽更通透；反光物体（金属、瓷器）则要靠柔光箱和白色反光板塑造漂亮的高光条。材质不同，布光方式也不同。","tag":"理论"},{"id":"8-4-3","title":"8.4.3 背景控制和画面整洁度","text":"静物摄影最怕背景杂乱。可用纯色背景纸、大光圈虚化，或俯拍让桌面成为干净背景。拍摄前检查画面边缘，移走无关的杂物，让每一处留白都有意义。","tag":"实操"},{"id":"8-4-4","title":"8.4.4 焦点位置与景深取舍","text":"美食通常把焦点放在最想让人看到的部分，如主菜的中心或最精致的一角；静物与产品则要保证关键信息清晰。光圈不宜过小以免背景杂乱，也不宜过大以免主体局部发虚，适度取舍最稳妥。","tag":"提示"}]},{"id":"8-5","title":"8.5 弱光与夜景","kind":"card","items":[{"id":"8-5-1","title":"8.5.1 手持弱光的参数取舍与降噪准备","text":"手持夜景要优先保证快门达到安全速度：开大光圈、提高 ISO、依托稳定物，并开启防抖。接受一定噪点比拍糊更可取，因为后期降噪比拯救糊片容易得多。拍 RAW 也能为后期降噪留更多空间。","tag":"实操"},{"id":"8-5-2","title":"8.5.2 三脚架长曝光的前期设置","text":"上三脚架后可使用低 ISO 和慢快门，获得干净画质与光轨。关闭防抖、用遥控或两秒延时释放、开启反光板预升，能避免微小震动；夜景对焦可切手动并放大查看远处灯光。","tag":"实操"},{"id":"8-5-3","title":"8.5.3 夜景人像的闪光与环境光平衡","text":"夜景人像既要人物清晰，又不想丢掉背景灯光。可用慢速快门加闪光灯：闪光灯瞬间照亮人物，慢快门记录背景环境；配合后帘同步，让人物清晰而动感光轨落在身后。","tag":"理论"},{"id":"8-5-4","title":"8.5.4 星空摄影的对焦、曝光与光污染规避","text":"拍星空需要远离城市光污染，用大光圈、高 ISO 和约 15–30 秒的曝光（避免星星拖线），焦点手动对到无穷远附近并用放大确认。赤道仪可延长曝光，叠加多张降噪能让星点更干净。","tag":"提示"}]}],"summary":"本章按题材给出拍摄思路：人像重眼神与光线，风光重景深与时机，运动重快门与预判，静物重背景与质感，夜景重稳定与光平衡。共通方法是先判断题材特点，再决定参数与构图，而非套用同一组设置。","practice":"从五种题材里挑一个你最熟悉的，用本章思路重新拍一组 5 张照片：拍前写下你预判的难点和要做的三个决定，拍后对照成片复盘。"},{"id":"ch9","title":"第九章 特殊拍摄技法入门","intro":"当你熟悉了常规拍摄，就可以尝试一些“超越单次快门”的技法。这一章介绍长曝光、多张合成、多重曝光与闪光进阶。它们看似复杂，本质都是前期多想一步：为后期或相机预留足够的信息。读完你会知道这些玩法各自要解决什么问题，以及入门时该注意什么。","sections":[{"id":"9-1","title":"9.1 长曝光与时间压缩","items":[{"id":"9-1-1","title":"9.1.1 长曝光适合拍什么","text":"长曝光适合把流动的东西“积累”成画面：丝滑水流、拉丝云彩、车灯光轨、人群消散，以及夜空星轨。它把一段时间压缩进一张照片，让肉眼看不见的时间流动变得可见。","tag":"理论"},{"id":"9-1-2","title":"9.1.2 ND镜的作用与曝光时间估算","text":"ND 镜（中灰密度镜）减少进入镜头的光，让你在白天也能使用几秒甚至几十秒的快门。常见 ND8、ND64、ND1000 分别代表进光量降到 1/8、1/64、1/1000。装上 ND 后，先测出正常曝光，再按档位相应延长快门即可。","tag":"实操"},{"id":"9-1-3","title":"9.1.3 长曝光中的噪点与暗场准备","text":"长时间曝光会让传感器发热，带来热噪点；高温环境更明显。可开启相机的长曝光降噪功能（会用同样时间拍一张暗场来扣除噪点），并尽量在凉爽时段拍摄、盖好取景器防止漏光。","tag":"提示"},{"id":"9-1-4","title":"9.1.4 间隔拍摄与延时摄影的前期设置","text":"延时摄影以固定间隔连续拍摄大量照片，后期串成视频，压缩时间流逝。前期要设置好间隔时间、总张数和统一的曝光/对焦，使用三脚架并预留足够电量与存储。关键是把相机变成“稳定重复的钟表”。","tag":"实操"}]},{"id":"9-2","title":"9.2 多张合成的前期拍摄","items":[{"id":"9-2-1","title":"9.2.1 包围曝光与HDR的拍摄规范","text":"包围曝光指以不同亮度连拍若干张，覆盖从暗部到高光的完整信息，供后期合成 HDR。拍摄时用三脚架保持机位不变，快速连拍，并锁定白平衡与对焦，避免合成后出现重影或色调不一致。","tag":"实操"},{"id":"9-2-2","title":"9.2.2 景深合成的前期对焦序列","text":"景深合成用于微距等景深极浅的场景：从近到远改变对焦位置，拍摄一组照片，后期把每张清晰的部分叠合。前期要保持机位和曝光完全一致，只改变焦点，并覆盖从最近到最远的全部清晰范围。","tag":"实操"},{"id":"9-2-3","title":"9.2.3 堆栈合成的前期固定机位与间隔拍摄","text":"堆栈是把同一机位连续拍摄的多张照片叠加，用来降噪、去掉人群或强化星轨。前期要确保机位绝对固定、曝光一致，并按固定间隔拍摄足够多的张数。素材越规范，后期越省心。","tag":"理论"},{"id":"9-2-4","title":"9.2.4 全景接片的前期旋转与曝光锁定","text":"全景接片前期要以相机为轴水平旋转，每张之间保持约 30% 重叠，并锁定曝光、白平衡与对焦，避免拼接处亮度突变。使用三脚架云台并按同一节奏拍摄，能让后期拼接几乎无痕。","tag":"实操"}]},{"id":"9-3","title":"9.3 多重曝光与创意控制","items":[{"id":"9-3-1","title":"9.3.1 机内多重曝光的叠加模式","text":"机内多重曝光可以把两次或多次拍摄叠加成一张，常见模式有“加法”（亮度累加）和“平均”（取亮度均值）。加法适合叠加光斑与夜景，平均适合人像与景物融合。先想好两次画面如何呼应，再决定模式。","tag":"理论"},{"id":"9-3-2","title":"9.3.2 摇拍加多重曝光的动感叠加","text":"把摇拍的动感背景与另一次清晰曝光叠加，能得到既流动又详细的画面，常见于运动创意摄影。关键是控制两次曝光的时机和相对位置，让“动”与“静”在同一张照片里对话。","tag":"提示"},{"id":"9-3-3","title":"9.3.3 创意模糊与相机运动的可控化","text":"有意旋转相机、变焦过程中曝光或故意脱焦，都能制造抽象模糊。要让模糊“可控”，需要预先设定运动方向、幅度和快门速度，并多拍几张筛选。创意模糊的秘诀是：看似随意，实则每次都有明确意图。","tag":"提示"}]},{"id":"9-4","title":"9.4 闪光进阶入门","items":[{"id":"9-4-1","title":"9.4.1 离机多灯的基本分工与光比预设","text":"离机多灯是指用两盏以上的闪光灯从不同位置塑形，常见分工是主光造型、辅光补暗部、轮廓光勾边。通过调节各灯功率，预设好光比（如主光比辅光强两档），就能稳定复制想要的光效。","tag":"理论"},{"id":"9-4-2","title":"9.4.2 高速同步在压光和运动凝固中的应用","text":"高速同步让闪光灯在高于正常同步速度的快门下也能工作，于是白天大光圈人像可以用闪光灯补光或压暗天空，也能用极短闪光凝固快速动作。代价是有效闪光功率会下降。","tag":"提示"},{"id":"9-4-3","title":"9.4.3 后帘同步与动感光轨","text":"后帘同步让闪光灯在快门即将关闭时才闪光，于是运动物体先拉出光轨、最后被闪光定格，形成“清晰的主体 + 身后流动轨迹”的效果。拍夜景人像或移动光源时尤其有戏剧性。","tag":"实操"}]}],"summary":"本章介绍了扩展单次快门能力的四类技法：长曝光把时间画进画面，多张合成突破动态范围与景深限制，多重曝光叠加意象，闪光进阶提供更自由的光控制。它们的共同点是前期多规划，后期才有素材可用。","practice":"选一种技法做一次小实验：用三脚架和慢门拍一段水流，或拍三组不同亮度的包围曝光素材；记录你的设置，并写下这次“前期多做了哪一步”。"},{"id":"ch10","title":"第十章 拍摄前的准备与现场判断","intro":"最后这一章把视角从“怎么拍”拉回到“怎么准备、怎么判断、怎么复盘”。好照片常常在按下快门之前就已经决定了一半：电池满不满、参数预设对不对、现场有没有再次确认光线与对焦。养成这些习惯，你就能把偶尔的灵感，变成稳定的输出。","sections":[{"id":"10-1","title":"10.1 出发前的基本准备","items":[{"id":"10-1-1","title":"10.1.1 电池、存储卡和备份方案","text":"出发前检查电池电量并充满，预估拍摄量准备足够存储卡；重要拍摄要准备备份卡或移动硬盘，危险环境可考虑双卡备份写入。把电量和空间当作“摄影的燃料表”，别让设备在最关键的时刻掉链子。","tag":"实操"},{"id":"10-1-2","title":"10.1.2 传感器与镜头清洁状态检查","text":"传感器上的灰尘会在照片固定位置留下黑点，镜头污渍会让画面发雾。出发前可用气吹和专用清洁工具做简单检查，严重问题交给专业服务。日常养成盖好镜头盖、换镜头时避免进灰的习惯，比事后清理更重要。","tag":"提示"},{"id":"10-1-3","title":"10.1.3 脚架、滤镜、快门线、闪光灯是否带齐","text":"根据拍摄计划列出装备清单：风光带三脚架和 ND 镜，夜景带快门线，人像带闪光灯与反光板。出门前按清单逐项核对，能避免“到了现场才发现少带一件”的遗憾。装备贵精不贵多。","tag":"实操"}]},{"id":"10-2","title":"10.2 相机参数的按场景预设","items":[{"id":"10-2-1","title":"10.2.1 RAW还是JPEG，色彩空间怎么选","text":"想保留后期空间选 RAW，追求直出分享和速度可用 JPEG，很多相机支持同时记录两者。色彩空间一般拍摄用 sRGB 最通用，专业印刷或后期流程可选 Adobe RGB。先明确用途，再选格式。","tag":"实操"},{"id":"10-2-2","title":"10.2.2 曝光模式、光圈、快门、ISO的预置思路","text":"风光可用光圈优先控制景深并配合三脚架，运动可用快门优先凝固动作，经验丰富的拍摄者会用手动模式完全掌控。ISO 尽量自动或设上限，让相机在光线变化中少出偏差。预设是“起跑姿势”，现场仍要灵活调整。","tag":"理论"},{"id":"10-2-3","title":"10.2.3 白平衡、照片风格、降噪设置的预置","text":"光线复杂的场景可先用自动白平衡，重要色彩还原则手动设色温；照片风格按题材选（人像柔和、风景鲜艳）；高 ISO 拍摄时开启降噪。把这些在出发前设好，现场就能专注于构图与时机。","tag":"实操"},{"id":"10-2-4","title":"10.2.4 对焦模式、驱动模式、测光模式的预置","text":"静止题材用单次对焦，运动题材用连续对焦；抓拍用连拍，摆拍用单张；光线均匀用评价测光，光比大用点测光。按题材提前预设这三项，能让你在决定性瞬间少做很多切换。","tag":"实操"}]},{"id":"10-3","title":"10.3 现场拍摄中的判断","items":[{"id":"10-3-1","title":"10.3.1 试拍、回放、看直方图的习惯","text":"到新场景先试拍一张，放大检查对焦和细节，再看直方图确认高光与暗部是否溢出。养成“拍—看—调”的循环，能让你在现场及时修正，而不是回家才发现全是废片。这几十秒非常值得。","tag":"实操"},{"id":"10-3-2","title":"10.3.2 光线方向和色温的再次确认","text":"现场光线会随时间变化，出发前的判断需要重新确认：太阳是否移到了另一侧，色温是否变冷，阴影是否拉长。每隔一段时间抬头看光，必要时调整机位或白平衡，让画面始终符合你的意图。","tag":"提示"},{"id":"10-3-3","title":"10.3.3 主体、对焦点和构图的快速校验","text":"按快门前做三秒快速校验：主体是否突出、对焦点是否落在关键位置、画面边缘有没有闯入的杂物。这个习惯能过滤掉大量“回家才发现”的遗憾，是提升成片率最便宜的方法。","tag":"实操"},{"id":"10-3-4","title":"10.3.4 不可逆场景的应急参数预案","text":"面对稍纵即逝的场景（烟花、运动员冲刺、孩子破涕为笑），与其临时调参数，不如提前留一套“应急档”：较高快门、自动 ISO、连拍和连续对焦已设好，拿起就拍。先抓住瞬间，再追求完美。","tag":"提示"}]},{"id":"10-4","title":"10.4 拍完之后的简单复盘","items":[{"id":"10-4-1","title":"10.4.1 记录参数、光线和机位的习惯","text":"拍完花一分钟记下关键参数、当时的光线和机位，下次遇到类似场景就能快速参考。可以用手机备忘录或笔记 App，写几个关键词即可。积累下来，这就是专属于你的拍摄数据库。","tag":"实操"},{"id":"10-4-2","title":"10.4.2 从废片中反推前期问题","text":"废片是最好的老师：糊片提醒你快门太慢或对焦没跟上，过曝提醒你忘了曝光补偿，杂乱提醒你没清理背景。把每张废片归因到一个具体的前期环节，改进才会有的放矢。","tag":"提示"},{"id":"10-4-3","title":"10.4.3 建立自己的场景—参数对照经验","text":"长期记录后，你会形成“什么场景用什么设置”的经验表：室内窗边人像、傍晚风光、夜景手持等各有稳妥起点。这张表不是死规则，而是让你下次更快进入状态的“起跑线”。经验加复盘，就是进步最快的方式。","tag":"提示"}]}],"summary":"本章把拍摄变成可复制的流程：出发前备好电量、空间与装备，按题材预设参数，现场养成试拍与校验的习惯，拍完用记录与复盘积累经验。把这些小事做成习惯，水平就会稳定提升。","practice":"整理一份属于你的“出发清单”和“场景—参数对照表”，写下三种常拍场景的稳妥设置。下次拍摄后挑一张废片，写出它属于哪个前期环节的问题。"}];
+var GLOSSARY={"f数":"光圈值，焦距与入射光瞳直径的比值；数字越小光圈越大。","焦距":"镜头光学中心到成像面的距离，单位毫米；决定视角宽窄。","画幅":"传感器尺寸规格，如全画幅、半画幅；影响景深与等效视角。","传感器":"相机里把光信号转换为电信号的元件，相当于传统胶片。","全画幅":"传感器尺寸约等于 35mm 胶片的画幅规格。","景深":"画面中对焦平面前后看起来足够清晰的范围。","浅景深":"清晰范围很窄，背景容易虚化，常用于人像。","深景深":"清晰范围很广，前后景物都清楚，常用于风光。","曝光":"传感器接收光线的总量，由光圈、快门、ISO 共同决定。","光圈":"镜头内可调的开口，控制进光量并影响景深。","快门":"控制传感器见光时间的机构，速度越快进光越少。","快门速度":"快门开启的时长，如 1/500 秒；越快越能凝固运动。","安全快门":"手持不糊片的经验快门速度，约等于 1÷焦距 秒。","ISO":"传感器对光的放大程度；越高越亮，但噪点通常越多。","噪点":"画面中因信号放大产生的颗粒状杂色。","18%灰":"反光率约 18% 的中等亮度，相机测光的基准。","曝光补偿":"手动告诉相机把画面拍亮或拍暗的设置，口诀“白加黑减”。","直方图":"显示画面明暗分布的图表，左暗右亮，用来判断曝光。","高光警告":"在回放时闪烁提示过曝、细节丢失区域的功能。","测光":"相机测量场景亮度并给出曝光建议的过程。","评价测光":"把整个画面分区综合测光，适合光线均匀的场景。","点测光":"只测画面中很小区域的亮度，适合光比大的场景。","相位对焦":"通过光线相位差快速计算对焦方向的自动对焦方式。","反差对焦":"通过寻找画面反差最大处完成对焦的方式，较准确但偏慢。","连续对焦":"按下快门后持续跟踪移动主体对焦的模式。","单次对焦":"半按快门锁定焦点后不再追焦的对焦模式。","峰值对焦":"手动对焦时把合焦边缘高亮显示的辅助功能。","超焦距":"对焦后从约一半距离到无穷远都清晰的对焦距离。","防抖":"补偿相机抖动以减少模糊的功能，分机身防抖与镜头防抖。","光比":"画面中亮部与暗部的亮度比值，决定明暗反差。","硬光":"方向明确、阴影边缘清晰的光，质感强。","软光":"经过扩散、阴影过渡柔和的光，肤质表现细腻。","逆光":"光线来自主体后方，容易形成轮廓光或剪影。","侧逆光":"光从主体侧后方照来，兼具立体感与边缘光。","黄金时刻":"日出后与日落前约一小时，光线低角度且温暖。","蓝调时刻":"日落后天空呈深蓝色的短暂时段，适合氛围夜景。","色温":"用开尔文(K)表示的光线冷暖指标，数值越低越暖。","白平衡":"让画面中的白色在不同光源下仍呈现白色的设置。","RAW":"保留传感器原始数据的图片格式，后期调整空间大。","JPEG":"相机处理完成的通用图片格式，方便直接分享。","构图":"安排画面中各元素位置以表达主题的方法。","三分法":"把画面横竖三等分，将主体放在分割线或交点上的构图法。","引导线":"把观众视线引向主体的线条元素，如道路、栏杆。","前景":"画面中靠近镜头的元素，用来增加层次与纵深。","留白":"画面中刻意留出的空白区域，给视线呼吸空间。","景别":"主体在画面中所占范围，如远景、中景、特写。","透视":"空间深度在二维画面上的呈现，如近大远小。","ND镜":"中灰密度镜，减少进光量，便于白天使用慢门。","偏振镜":"减少反光、加深天空蓝色的滤镜。","HDR":"通过不同曝光的多张照片合成，保留高光与暗部细节。","包围曝光":"以不同亮度连拍多张，供后期合成的拍摄方式。","延时摄影":"按固定间隔拍摄并串成视频，压缩时间流逝。","后帘同步":"快门即将关闭时才闪光，形成主体清晰、背景拉光轨的效果。","高速同步":"允许快门快于正常同步速度时仍使用闪光灯的功能。","离机闪":"闪光灯离开机顶、从其他方向引闪的布光方式。","等效焦距":"不同画幅上传感器视角相当于全画幅的焦距数值。","防抖协同":"机身防抖与镜头防抖同时工作，共同补偿抖动。","景深预览":"让镜头收缩到实际拍摄光圈以查看景深范围的功能。","反光板预升":"拍摄前先抬起反光板以减少机内振动的功能。","堆栈":"把同一机位多张照片叠加，用于降噪或去除移动物体。","移轴镜头":"可偏移或倾斜光轴，校正透视或制造微缩效果的镜头。","微距镜头":"能近距离对焦、把小物体拍得很大的镜头。"};
+/* =========================================================================
+   拾影 · 交互
+   原生 JS，无依赖。数据由构建脚本注入：DATA（十章内容）、GLOSSARY（术语）。
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var store = {
+    get: function (k, def) {
+      try {
+        var v = localStorage.getItem('shiying:' + k);
+        return v === null ? def : JSON.parse(v);
+      } catch (e) { return def; }
+    },
+    set: function (k, v) {
+      try { localStorage.setItem('shiying:' + k, JSON.stringify(v)); } catch (e) { /* 隐私模式下静默失败 */ }
+    }
+  };
+
+  /* ------------------------------ 图片素材 ------------------------------
+     全部来自 Unsplash（免费可商用）。credit 链接指向来源站点的对应主题页，
+     便于读者自行核对；img 只作为来源说明，不参与布局。
+     -------------------------------------------------------------------- */
+  var PHOTOS = {
+    hero: { id: 'photo-1470252649378-9c29740c9fa8', page: 'https://unsplash.com/s/photos/sunrise-landscape',
+      label: 'Unsplash · 日出山野', alt: '晨雾中的山野，日出把云层与草地染成暖橙色' },
+    ch1: { id: 'photo-1441974231531-c6227db76b6e', page: 'https://unsplash.com/s/photos/forest-light',
+      label: 'Unsplash · 森林光线', alt: '阳光穿过密林，在草地上洒下明暗斑驳的光带',
+      cap: '光先穿过树，再落进画面——摄影，从看见光开始。' },
+    ch2: { id: 'photo-1495707902641-75cac588d2e9', page: 'https://unsplash.com/s/photos/camera',
+      label: 'Unsplash · 相机', alt: '一台数码相机放在木桌上，镜头朝向观者',
+      cap: '机身、镜头、卡口：认识装备，是为了少被参数牵着走。' },
+    ch3: { id: 'photo-1516035069371-29a1b244cc32', page: 'https://unsplash.com/s/photos/camera-lens',
+      label: 'Unsplash · 镜头与光圈', alt: '暗背景中的相机与镜头，镜片反出圆形光斑',
+      cap: '光圈、快门、ISO 是三道闸门，先弄懂它们如何互相牵制。' },
+    ch4: { id: 'photo-1524504388940-b1c1722653e1', page: 'https://unsplash.com/s/photos/portrait',
+      label: 'Unsplash · 人像', alt: '柔光下的人像，背景被大光圈化开成柔和色块',
+      cap: '清楚不是「对准了」三个字，它由对焦、景深与稳定共同决定。' },
+    ch5: { id: 'photo-1500534623283-312aade485b7', page: 'https://unsplash.com/s/photos/golden-hour',
+      label: 'Unsplash · 黄金时刻', alt: '落日贴着山脊，光线在山峦间拉出长长的光晕',
+      cap: '同一个地方，换一个时间，就是另一张照片。' },
+    ch6: { id: 'photo-1501785888041-af3ef285b470', page: 'https://unsplash.com/s/photos/turquoise-lake',
+      label: 'Unsplash · 色彩', alt: '碧绿湖水与小船，周围是暖色山岩和松林',
+      cap: '颜色是画面的性格：冷暖一旦定下，情绪就定了大半。' },
+    ch7: { id: 'photo-1487958449943-2429e8be8625', page: 'https://unsplash.com/s/photos/architecture-geometry',
+      label: 'Unsplash · 建筑与几何', alt: '现代建筑的金属与玻璃立面，线条形成几何秩序',
+      cap: '把世界整理成一幅画：先建立秩序，再考虑打破它。' },
+    ch9: { id: 'photo-1519608487953-e999c86e7455', page: 'https://unsplash.com/s/photos/night-street',
+      label: 'Unsplash · 夜景街道', alt: '夜色中的街道与霓虹灯，路面反射出蓝紫色光',
+      cap: '把时间画进画面，是特殊技法最迷人的部分。' },
+    ch10: { id: 'photo-1470071459604-3b5ec3a7fe05', page: 'https://unsplash.com/s/photos/landscape-mood',
+      label: 'Unsplash · 山野', alt: '晨光中的山谷与草坡，远处云层低压',
+      cap: '好照片常常在按下快门之前，就已经决定了一半。' },
+    portrait: { id: 'photo-1494790108377-be9c29b29330', page: 'https://unsplash.com/s/photos/portrait-woman',
+      label: 'Unsplash · 人像', alt: '穿红衣的女士在柔和光线下微笑的人像',
+      cap: '人像先解决「人在哪里、被什么光照着」，再谈焦段与虚化。' },
+    landscape: { id: 'photo-1500534314209-a25ddb2bd429', page: 'https://unsplash.com/s/photos/mountain-layers',
+      label: 'Unsplash · 层叠山峦', alt: '层层叠叠的远山在薄雾中呈现出淡蓝灰的渐变',
+      cap: '风光的时间成本占一半：等对光线，比换镜头更有效。' },
+    motion: { id: 'photo-1548199973-03cce0bbc87b', page: 'https://unsplash.com/s/photos/running-dog',
+      label: 'Unsplash · 动态', alt: '两只狗在土路上奔跑，四肢腾空，姿态充满动感',
+      cap: '动态题材考的是预判：快门速度决定凝固还是流动。' },
+    food: { id: 'photo-1504674900247-0877df9cc836', page: 'https://unsplash.com/s/photos/food-flatlay',
+      label: 'Unsplash · 美食', alt: '俯拍的美食桌面，多只盘子与香草辣椒错落摆放',
+      cap: '静物与美食：光比与背景干净度，往往比器材更决定成败。' },
+    night: { id: 'photo-1519681393784-d120267933ba', page: 'https://unsplash.com/s/photos/milky-way',
+      label: 'Unsplash · 星空', alt: '雪山之上的银河与繁星，夜空呈现深蓝到紫的过渡',
+      cap: '弱光先求「稳」再求「亮」：三脚架与长曝光是地基。' }
+  };
+
+  var FURTHER = [
+    { name: 'Magnum Photos', url: 'https://www.magnumphotos.com/' },
+    { name: '500px 摄影社区', url: 'https://500px.com.cn/' },
+    { name: '图虫', url: 'https://tuchong.com/' },
+    { name: 'LensCulture', url: 'https://www.lensculture.com/' },
+    { name: '1x', url: 'https://1x.com/' }
+  ];
+
+  /* 两张参数对比表：只讲目录要求里的「参数对比」，不新增目录项 */
+  var TABLES = {
+    ch2: {
+      kicker: '焦段速查',
+      title: '不同焦段带来什么',
+      head: ['焦段（全画幅）', '视角与空间', '常见用途', '要留意'],
+      rows: [
+        ['16–35mm 广角', '装得下广阔场景，近大远小被放大', '风光、建筑、室内、环境人像', '边缘易变形，靠近人物会显脸大'],
+        ['50mm 标准', '接近人眼观看，自然平实', '日常记录、半身人像、街拍', '视角普通，更依赖内容本身'],
+        ['85–135mm 中长焦', '压缩背景，主体与背景被拉近', '人像、静物、特写', '室内空间常不够退'],
+        ['200mm 以上长焦', '把远处主体拉近，背景更压缩', '生态、体育、舞台', '更考验稳定性与快门速度']
+      ],
+      hint: '换焦段不是换「更清楚」，而是换「观众站得多远看」。'
+    },
+    ch3: {
+      kicker: '曝光三要素',
+      title: '光圈 · 快门 · ISO 各管什么',
+      head: ['要素', '主要作用', '加大后', '代价'],
+      rows: [
+        ['光圈', '控制进光量与景深', '数字变小（f/1.8），更亮、背景更虚', '景深变浅，边缘与前后景易虚'],
+        ['快门', '控制感光时间与运动', '时间变长（1/30s），更亮、可记录轨迹', '手持易糊，移动主体拖影'],
+        ['ISO', '放大传感器信号', '数值变高（ISO 3200），更亮', '噪点增加，暗部细节变脏']
+      ],
+      hint: '三者此消彼长：先确定「谁必须清楚」，再去补另外两项。'
+    }
+  };
+
+  /* 曝光三要素示意图（内联 SVG，跟随主题变色） */
+  var TRIANGLE_SVG = '<svg class="tri" viewBox="0 0 220 168" role="img" aria-label="曝光三要素示意图：光圈与快门决定进光量，ISO 决定信号放大">' +
+    '<path d="M110 22 L196 150 L24 150 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity=".45"/>' +
+    '<circle cx="110" cy="22" r="4.5" fill="currentColor"/><circle cx="196" cy="150" r="4.5" fill="currentColor"/><circle cx="24" cy="150" r="4.5" fill="currentColor"/>' +
+    '<text x="110" y="14" text-anchor="middle">光圈 f</text>' +
+    '<text x="196" y="166" text-anchor="middle">快门 s</text>' +
+    '<text x="24" y="166" text-anchor="middle">ISO</text>' +
+    '<text x="110" y="96" text-anchor="middle" font-size="10">同一份亮度</text></svg>';
+
+  /* ------------------------------ 状态 ------------------------------ */
+  var theme = store.get('theme', 'paper');
+  var dark = store.get('dark', null);
+  if (dark === null) dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (['paper', 'cinema', 'grid'].indexOf(theme) === -1) theme = 'paper';
+
+  var readChapters = new Set(store.get('read', []));
+  var openUnits = new Set(store.get('openUnits', []));
+  var openTocSecs = new Set(store.get('openTocSecs', []));
+  var totalItems = DATA.reduce(function (n, c) { return n + c.sections.reduce(function (m, s) { return m + s.items.length; }, 0); }, 0);
+
+  /* ------------------------------ 图片渲染 ------------------------------ */
+  function imgTag(key, cls, eager) {
+    var p = PHOTOS[key];
+    if (!p) return '';
+    return '<img class="' + cls + '" src="https://images.unsplash.com/' + p.id +
+      '?auto=format&fit=crop&w=1400&q=78" alt="' + esc(p.alt) + '"' +
+      (eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async" data-key="' + key + '">';
+  }
+
+  function figureHTML(key) {
+    var p = PHOTOS[key];
+    if (!p) return '';
+    return '<figure class="figure" data-img="' + key + '">' +
+      '<div class="ph">' + imgTag(key, 'fig-img', false) + '</div>' +
+      '<figcaption><span class="cap">' + esc(p.cap || '') + '</span>' +
+      '<span class="credit">图片来源：<a href="' + p.page + '" target="_blank" rel="noopener noreferrer">' + esc(p.label) + ' ↗</a></span></figcaption></figure>';
+  }
+
+  /* ------------------------------ 渲染章节 ------------------------------ */
+  function tagHTML(tag) {
+    var t = ['理论', '实操', '提示'].indexOf(tag) === -1 ? '提示' : tag;
+    return '<span class="tag" data-t="' + t + '">' + t + '</span>';
+  }
+
+  function itemHTML(item, isCard) {
+    return '<article class="item' + (isCard ? ' topic-card' : '') + '" id="' + item.id + '" data-title="' + esc(item.title) + '">' +
+      '<div class="' + (isCard ? 'body' : 'item-inner') + '">' +
+        '<div class="item-head">' + tagHTML(item.tag) + '<h4>' + esc(item.title) + '</h4></div>' +
+        '<p class="item-text">' + esc(item.text) + '</p>' +
+        '<a class="item-detail" href="detail.html#' + encodeURIComponent(item.id) + '" aria-label="阅读「' + esc(item.title) + '」的完整详解">读详解 <span aria-hidden="true">→</span></a>' +
+      '</div></article>';
+  }
+
+  /* 题材章节：每个小节配一张与该题材对应的图（不再逐卡配图，避免图不对题） */
+  var GENRE_IMAGES = {
+    '8-1': ['portrait', '50% 22%'], '8-2': ['landscape', '50% 50%'], '8-3': ['motion', '50% 45%'],
+    '8-4': ['food', '50% 50%'], '8-5': ['night', '50% 55%']
+  };
+
+  function genreFigHTML(def) {
+    var p = PHOTOS[def[0]];
+    if (!p) return '';
+    return '<figure class="figure genre-fig" data-img="' + def[0] + '" style="--pos:' + def[1] + '">' +
+      '<div class="ph">' + imgTag(def[0], 'fig-img', false) + '</div>' +
+      '<figcaption><span class="cap">' + esc(p.cap || '') + '</span>' +
+      '<span class="credit">图片来源：<a href="' + p.page + '" target="_blank" rel="noopener noreferrer">' + esc(p.label) + ' ↗</a></span></figcaption></figure>';
+  }
+
+  function chaptersHTML() {
+    return DATA.map(function (ch, ci) {
+      var num = String(ci + 1).padStart(2, '0');
+      var units = ch.sections.map(function (sec, si) {
+        var isOpen = openUnits.has(sec.id) || (ci === 0 && !store.get('folded', false));
+        var isCard = sec.kind === 'card';
+        var items = sec.items.map(function (it) {
+          return itemHTML(it, isCard);
+        }).join('');
+        var gfig = GENRE_IMAGES[sec.id] ? genreFigHTML(GENRE_IMAGES[sec.id]) : '';
+        return '<section class="unit' + (isCard ? ' is-cards' : '') + '" id="' + sec.id + '"' +
+          ' data-chapter="' + ch.id + '" data-open="' + (isOpen ? 'true' : 'false') + '">' +
+          '<h3 class="unit-h"><button class="unit-head" type="button" aria-expanded="' + isOpen + '" aria-controls="' + sec.id + '-body">' +
+            '<span class="u-no" aria-hidden="true">' + String(si + 1).padStart(2, '0') + '</span>' +
+            '<span class="u-title">' + esc(sec.title) + '</span>' +
+            '<span class="u-count">' + sec.items.length + ' 条</span>' +
+            '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+          '</button></h3>' +
+          '<div class="unit-body" id="' + sec.id + '-body">' + gfig + items + '</div>' +
+        '</section>';
+      }).join('');
+
+      var table = TABLES[ch.id] ? tableHTML(TABLES[ch.id]) : '';
+      var figure = figureHTML(ch.id);
+      var further = (ch.id === 'ch5' || ch.id === 'ch8' || ch.id === 'ch10') ? furtherHTML() : '';
+
+      return '<section class="chapter" id="' + ch.id + '" data-n="' + (ci + 1) + '" data-index="' + ci + '">' +
+        '<header class="chapter-head">' +
+          '<span class="chapter-num" aria-hidden="true">CH.' + num + '</span>' +
+          '<h2>' + esc(ch.title) + '</h2>' +
+          '<button class="read-btn" type="button" data-read="' + ch.id + '" aria-pressed="false">标记已读</button>' +
+        '</header>' +
+        '<p class="chapter-meta"><span>' + ch.sections.length + ' 个小节</span><span>' +
+          ch.sections.reduce(function (m, s) { return m + s.items.length; }, 0) + ' 条要点</span><span>约 ' +
+          Math.max(3, Math.round(ch.intro.length / 90)) + ' 分钟</span></p>' +
+        '<p class="chapter-intro">' + esc(ch.intro) + '</p>' +
+        figure + table +
+        units +
+        '<div class="chapter-end">' +
+          '<div class="end-box"><h4>本章小结</h4><p>' + esc(ch.summary) + '</p></div>' +
+          '<div class="end-box practice"><h4>练习建议</h4><p>' + esc(ch.practice) + '</p></div>' +
+        '</div>' + further +
+      '</section>';
+    }).join('');
+  }
+
+  function tableHTML(t) {
+    return '<div class="cmp"><p class="cmp-title"><span>' + esc(t.kicker) + '</span><b>' + esc(t.title) + '</b></p>' +
+      '<div class="cmp-scroll"><table><thead><tr>' +
+      t.head.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') +
+      '</tr></thead><tbody>' +
+      t.rows.map(function (r) {
+        return '<tr><th scope="row">' + esc(r[0]) + '</th>' + r.slice(1).map(function (c) { return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>';
+      }).join('') +
+      '</tbody></table></div><p class="hint">' + esc(t.hint) + '</p></div>';
+  }
+
+  function furtherHTML() {
+    return '<div class="further"><span class="lbl">去看真正的好照片：</span>' +
+      FURTHER.map(function (f) {
+        return '<a href="' + f.url + '" target="_blank" rel="noopener noreferrer">' + esc(f.name) + ' ↗</a>';
+      }).join('') + '</div>';
+  }
+
+  /* ------------------------------ 目录 ------------------------------ */
+  function tocHTML() {
+    return DATA.map(function (ch, ci) {
+      var secs = ch.sections.map(function (sec) {
+        var isOpen = openTocSecs.has(sec.id);
+        return '<div class="toc-sec' + (isOpen ? ' is-open' : '') + '" data-sec="' + sec.id + '">' +
+          '<a class="toc-sec-link" href="#' + sec.id + '" data-toc="' + sec.id + '">' + esc(sec.title) + '</a>' +
+          '<button class="toc-sec-toggle" type="button" data-toggle-sec="' + sec.id + '" aria-expanded="' + isOpen +
+            '" aria-label="展开或收起「' + esc(sec.title) + '」下的三级标题">' +
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>' +
+          '<ul class="toc-leaves">' + sec.items.map(function (it) {
+            return '<li><a href="#' + it.id + '" data-leaf="' + it.id + '">' + esc(it.title) + '</a></li>';
+          }).join('') + '</ul>' +
+        '</div>';
+      }).join('');
+      return '<div class="toc-block' + (ci === 0 ? ' is-open' : '') + '" data-ch="' + ch.id + '">' +
+        '<a class="toc-ch" href="#' + ch.id + '" data-toc="' + ch.id + '"><span class="n">' + String(ci + 1).padStart(2, '0') + '</span>' +
+        '<span>' + esc(ch.title) + '</span></a>' +
+        '<div class="toc-secs">' + secs + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function footChaptersHTML() {
+    return DATA.map(function (ch, ci) {
+      return '<li><a href="#' + ch.id + '">' + String(ci + 1).padStart(2, '0') + '　' + esc(ch.title) + '</a></li>';
+    }).join('');
+  }
+
+  /* ------------------------------ 术语 ------------------------------ */
+  var usedTerms = Object.create(null);
+
+  function glossaryNodes() {
+    return $$('.chapter-intro, .item-text').filter(function (el) { return !el.closest('#glossaryDialog'); });
+  }
+
+  function annotateTerms() {
+    var terms = Object.keys(GLOSSARY).sort(function (a, b) { return b.length - a.length; });
+    glossaryNodes().forEach(function (el) {
+      var node = el.firstChild;
+      // 逐段扫描：每段文本只替换一次，避免替换后父节点引用失效
+      var texts = [];
+      Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+        if (n.nodeType === 3 && n.nodeValue.trim()) texts.push(n);
+      });
+      texts.forEach(function (t) {
+        var text = t.nodeValue;
+        var out = document.createDocumentFragment();
+        var cursor = 0;
+        while (cursor < text.length) {
+          var hit = null, hitAt = -1;
+          for (var i = 0; i < terms.length; i++) {
+            var term = terms[i];
+            if (usedTerms[term]) continue;
+            var at = text.indexOf(term, cursor);
+            if (at > -1 && (hitAt === -1 || at < hitAt)) { hit = term; hitAt = at; }
+          }
+          if (!hit) break;
+          if (hitAt > cursor) out.appendChild(document.createTextNode(text.slice(cursor, hitAt)));
+          var ab = document.createElement('abbr');
+          ab.className = 'term';
+          ab.title = GLOSSARY[hit];
+          ab.setAttribute('data-tip', GLOSSARY[hit]);
+          ab.setAttribute('tabindex', '0');
+          ab.textContent = hit;
+          out.appendChild(ab);
+          usedTerms[hit] = true;
+          cursor = hitAt + hit.length;
+        }
+        if (cursor === 0) return;
+        if (cursor < text.length) out.appendChild(document.createTextNode(text.slice(cursor)));
+        t.parentNode.replaceChild(out, t);
+      });
+    });
+  }
+
+  /* ------------------------------ 主题 ------------------------------ */
+  var THEME_COLORS = { paper: '#f7f2e8', cinema: '#f2f1ee', grid: '#f3f8f7' };
+  var THEME_COLORS_DARK = { paper: '#1b1713', cinema: '#0b0c0f', grid: '#0f1a1b' };
+
+  function applyTheme() {
+    var root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    root.setAttribute('data-dark', dark ? 'true' : 'false');
+    var meta = $('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', (dark ? THEME_COLORS_DARK : THEME_COLORS)[theme]);
+    $('#darkBtn').setAttribute('aria-pressed', dark ? 'true' : 'false');
+    $('#darkBtn').setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到暗色模式');
+    $$('[data-theme-choice]').forEach(function (b) {
+      b.setAttribute('aria-checked', b.getAttribute('data-theme-choice') === theme ? 'true' : 'false');
+    });
+  }
+
+  function setTheme(t, remember) {
+    theme = t;
+    if (remember !== false) store.set('theme', theme);
+    applyTheme();
+  }
+
+  function setDark(v) {
+    dark = !!v;
+    store.set('dark', dark);
+    applyTheme();
+  }
+
+  /* ------------------------------ 折叠 ------------------------------ */
+  function setUnit(unit, open) {
+    unit.setAttribute('data-open', open ? 'true' : 'false');
+    var head = $('.unit-head', unit);
+    if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) openUnits.add(unit.id); else openUnits.delete(unit.id);
+    store.set('openUnits', Array.from(openUnits));
+    store.set('folded', true);
+  }
+
+  function setTocSec(id, open) {
+    var sec = $('.toc-sec[data-sec="' + id + '"]');
+    if (!sec) return;
+    sec.classList.toggle('is-open', open);
+    var btn = $('.toc-sec-toggle', sec);
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) openTocSecs.add(id); else openTocSecs.delete(id);
+    store.set('openTocSecs', Array.from(openTocSecs));
+  }
+
+  /* ------------------------------ 进度 ------------------------------ */
+  function updateProgress() {
+    $('#progressText').textContent = readChapters.size + ' / ' + DATA.length;
+    $$('.read-btn').forEach(function (b) {
+      var done = readChapters.has(b.getAttribute('data-read'));
+      b.classList.toggle('done', done);
+      b.setAttribute('aria-pressed', done ? 'true' : 'false');
+      b.textContent = done ? '✓ 已读' : '标记已读';
+    });
+  }
+
+  /* ------------------------------ 搜索 ------------------------------ */
+  var search = { active: false, saved: null, q: '' };
+  var markNodes = [];
+
+  function clearMarks() {
+    markNodes.forEach(function (m) {
+      var parent = m.parentNode;
+      if (!parent) return;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+    markNodes = [];
+  }
+
+  function markIn(el, q) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentElement;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        if (['SCRIPT', 'STYLE', 'MARK'].indexOf(p.tagName) > -1) return NodeFilter.FILTER_REJECT;
+        return n.nodeValue.toLowerCase().indexOf(q) > -1 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var list = [];
+    while (walker.nextNode()) list.push(walker.currentNode);
+    list.forEach(function (node) {
+      var text = node.nodeValue, lower = text.toLowerCase();
+      var frag = document.createDocumentFragment();
+      var i = 0, pos;
+      while ((pos = lower.indexOf(q, i)) > -1) {
+        if (pos > i) frag.appendChild(document.createTextNode(text.slice(i, pos)));
+        var m = document.createElement('mark');
+        m.textContent = text.slice(pos, pos + q.length);
+        frag.appendChild(m);
+        markNodes.push(m);
+        i = pos + q.length;
+      }
+      if (i < text.length) frag.appendChild(document.createTextNode(text.slice(i)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  function resetSearchView() {
+    clearMarks();
+    $$('.item').forEach(function (el) { el.hidden = false; });
+    $$('.unit').forEach(function (u) {
+      u.hidden = false;
+      if (search.saved && Object.prototype.hasOwnProperty.call(search.saved, u.id)) setUnit(u, search.saved[u.id]);
+    });
+    $$('.chapter').forEach(function (c) { c.hidden = false; });
+    $$('.figure, .cmp, .chapter-end, .further, .chapter-meta, .chapter-intro').forEach(function (el) { el.hidden = false; });
+    $$('.toc-block, .toc-sec, .toc-leaves a').forEach(function (el) { el.hidden = false; });
+    $('#emptyState').classList.remove('show');
+    $('#searchBar').classList.remove('show');
+    search.active = false;
+    search.saved = null;
+  }
+
+  function doSearch(raw) {
+    var q = raw.trim().toLowerCase();
+    search.q = raw.trim();
+    $('#searchClear').hidden = !q;
+    $('#searchClear').classList.toggle('show', !!q);
+
+    if (!q) { resetSearchView(); return; }
+
+    if (!search.active) {
+      search.saved = {};
+      $$('.unit').forEach(function (u) { search.saved[u.id] = u.getAttribute('data-open') === 'true'; });
+      search.active = true;
+    }
+    clearMarks();
+
+    var hits = 0, firstHit = null;
+    $$('.item').forEach(function (el) {
+      var hay = (el.getAttribute('data-title') + ' ' + el.textContent).toLowerCase();
+      var match = hay.indexOf(q) > -1;
+      el.hidden = !match;
+      if (match) { hits++; if (!firstHit) firstHit = el; }
+    });
+
+    $$('.unit').forEach(function (u) {
+      var any = $$('.item', u).some(function (i) { return !i.hidden; });
+      u.hidden = !any;
+      if (any) {
+        var head = $('.unit-head', u);
+        u.setAttribute('data-open', 'true');
+        if (head) head.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    $$('.chapter').forEach(function (c) {
+      var any = $$('.unit', c).some(function (u) { return !u.hidden; });
+      c.hidden = !any;
+      $$('.chapter-intro, .figure, .cmp, .chapter-end, .further, .chapter-meta', c).forEach(function (el) { el.hidden = true; });
+    });
+
+    var visibleLeaves = new Set();
+    $$('.item').forEach(function (it) { if (!it.hidden) visibleLeaves.add(it.id); });
+    $$('.toc-block').forEach(function (b) { b.hidden = true; });
+    $$('.toc-sec').forEach(function (s) { s.hidden = true; });
+    DATA.forEach(function (ch) {
+      var block = $('.toc-block[data-ch="' + ch.id + '"]');
+      var chHit = ch.sections.some(function (sec) { return sec.items.some(function (it) { return visibleLeaves.has(it.id); }); });
+      if (!block || !chHit) return;
+      block.hidden = false;
+      ch.sections.forEach(function (sec) {
+        var secEl = $('.toc-sec[data-sec="' + sec.id + '"]', block);
+        var secHit = sec.items.some(function (it) { return visibleLeaves.has(it.id); });
+        if (secEl) secEl.hidden = !secHit;
+        $$('li a', secEl || document.createElement('div')).forEach(function (a) {
+          a.hidden = !visibleLeaves.has(a.getAttribute('data-leaf'));
+        });
+        var toggle = $('.toc-sec-toggle', secEl || document.createElement('div'));
+        if (toggle) toggle.hidden = !secHit;
+        if (secEl && secHit) secEl.classList.add('is-open');
+      });
+    });
+
+    if (hits) {
+      markIn($('#chapters'), q);
+      // 术语节点内的 mark 需要还原成 abbr 结构，这里只标标题与正文，不再动 abbr
+    }
+
+    $('#emptyState').classList.toggle('show', hits === 0);
+    var bar = $('#searchBar');
+    bar.classList.add('show');
+    bar.innerHTML = hits
+      ? '搜索「<b>' + esc(raw.trim()) + '</b>」· 命中 <b>' + hits + '</b> 条要点 · 共 ' + totalItems + ' 条<button type="button" class="reset" id="resetSearch">清空搜索</button>'
+      : '搜索「<b>' + esc(raw.trim()) + '</b>」· 没有匹配的三级标题<button type="button" class="reset" id="resetSearch">清空搜索</button>';
+    var reset = $('#resetSearch');
+    if (reset) reset.addEventListener('click', function () { $('#search').value = ''; doSearch(''); $('#search').focus(); });
+
+    if (hits && !reduceMotion.matches && window.innerWidth < 1041) closeToc();
+  }
+
+  /* ------------------------------ 目录抽屉 ------------------------------ */
+  function openToc() {
+    document.body.classList.add('toc-open');
+    $('#tocBtn').setAttribute('aria-expanded', 'true');
+    $('#mask').hidden = false;
+  }
+  function closeToc() {
+    document.body.classList.remove('toc-open');
+    $('#tocBtn').setAttribute('aria-expanded', 'false');
+    $('#mask').hidden = true;
+  }
+
+  /* ------------------------------ 滚动监听 ------------------------------ */
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      $('#progressBar').style.width = (docH > 0 ? Math.min(100, (y / docH) * 100) : 0) + '%';
+      $('#toTop').classList.toggle('show', y > 520);
+
+      var chapters = $$('.chapter');
+      var current = null;
+      for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].getBoundingClientRect().top <= 130) current = chapters[i];
+      }
+      if (!current && chapters.length) current = chapters[0];
+      var chId = current ? current.id : null;
+
+      $$('.toc-block').forEach(function (b) {
+        b.classList.toggle('is-current', b.getAttribute('data-ch') === chId);
+      });
+
+      // 当前小节与条目
+      var curSec = null, curLeaf = null;
+      var units = current ? $$('.unit', current) : [];
+      for (var j = 0; j < units.length; j++) {
+        if (units[j].getBoundingClientRect().top <= 150) curSec = units[j];
+      }
+      if (curSec) {
+        var items = $$('.item', curSec);
+        for (var k = 0; k < items.length; k++) {
+          if (items[k].getBoundingClientRect().top <= 150) curLeaf = items[k];
+        }
+      }
+      $$('.toc-sec').forEach(function (s) {
+        s.classList.toggle('is-current', !!curSec && s.getAttribute('data-sec') === curSec.id);
+      });
+      $$('.toc-leaves a').forEach(function (a) {
+        a.classList.toggle('is-active', !!curLeaf && a.getAttribute('data-leaf') === curLeaf.id);
+      });
+
+      var activeLeaf = curLeaf ? $('.toc-leaves a[data-leaf="' + curLeaf.id + '"]') : null;
+      if (activeLeaf && window.innerWidth > 1040) {
+        var toc = $('#toc');
+        var rect = activeLeaf.getBoundingClientRect();
+        var trect = toc.getBoundingClientRect();
+        if (rect.top < trect.top + 40 || rect.bottom > trect.bottom - 40) {
+          toc.scrollTop += rect.top - trect.top - trect.height / 2;
+        }
+      }
+      ticking = false;
+    });
+  }
+
+  /* ------------------------------ 图片失败降级 ------------------------------ */
+  function bindImages() {
+    $$('img[data-key]').forEach(function (img) {
+      if (img.dataset.bound) return;
+      img.dataset.bound = '1';
+      img.addEventListener('error', function () {
+        img.style.visibility = 'hidden';
+        var host = img.closest('.figure, .topic-card');
+        if (host) host.classList.add('img-error');
+        if (img.id === 'heroImg') {
+          img.style.display = 'none';
+          var hero = img.closest('.hero');
+          if (hero) hero.style.background = 'linear-gradient(135deg,#2a231c,#4b3a2c 55%,#8a5f3f)';
+        }
+      });
+    });
+  }
+
+  /* ------------------------------ 术语弹层 ------------------------------ */
+  function fillGlossary() {
+    var terms = Object.keys(GLOSSARY).sort(function (a, b) { return a.localeCompare(b, 'zh-Hans-CN'); });
+    $('#glossList').innerHTML = terms.map(function (t) {
+      return '<div class="gloss-item"><dt>' + esc(t) + '</dt><dd>' + esc(GLOSSARY[t]) + '</dd></div>';
+    }).join('');
+  }
+
+  /* ------------------------------ 事件绑定 ------------------------------ */
+  function bind() {
+    // 折叠
+    $('#chapters').addEventListener('click', function (e) {
+      var head = e.target.closest('.unit-head');
+      if (head) {
+        var unit = head.closest('.unit');
+        setUnit(unit, unit.getAttribute('data-open') !== 'true');
+        return;
+      }
+      var readBtn = e.target.closest('[data-read]');
+      if (readBtn) {
+        var id = readBtn.getAttribute('data-read');
+        if (readChapters.has(id)) readChapters.delete(id); else readChapters.add(id);
+        store.set('read', Array.from(readChapters));
+        updateProgress();
+      }
+    });
+
+    // 目录
+    $('#tocList').addEventListener('click', function (e) {
+      var toggle = e.target.closest('[data-toggle-sec]');
+      if (toggle) {
+        e.preventDefault();
+        var secId = toggle.getAttribute('data-toggle-sec');
+        var secEl = toggle.closest('.toc-sec');
+        setTocSec(secId, !secEl.classList.contains('is-open'));
+        return;
+      }
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var targetId = link.getAttribute('href').slice(1);
+      var target = document.getElementById(targetId);
+      if (!target) return;
+      var unit = target.classList.contains('unit') ? target : target.closest('.unit');
+      if (unit) setUnit(unit, true);
+      if (link.getAttribute('data-leaf')) {
+        var sec = target.closest('.unit');
+        if (sec) setTocSec(sec.id, true);
+      }
+      if (window.innerWidth <= 1040) closeToc();
+    });
+
+    $('#tocBtn').addEventListener('click', function () {
+      if (document.body.classList.contains('toc-open')) closeToc(); else openToc();
+    });
+    $('#tocClose').addEventListener('click', closeToc);
+    $('#mask').addEventListener('click', closeToc);
+
+    // 主题
+    $('#themeBtn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      var menu = $('#themeMenu');
+      var open = !menu.classList.contains('open');
+      menu.classList.toggle('open', open);
+      menu.hidden = !open;
+      $('#themeBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        var cur = $('[data-theme-choice="' + theme + '"]');
+        if (cur) cur.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.theme-wrap')) closeThemeMenu();
+    });
+    $$('[data-theme-choice]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        setTheme(b.getAttribute('data-theme-choice'));
+        closeThemeMenu();
+        $('#themeBtn').focus();
+      });
+      b.addEventListener('keydown', function (e) {
+        var items = $$('[data-theme-choice]');
+        var i = items.indexOf(b);
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          var next = items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length];
+          if (next) next.focus();
+        }
+      });
+    });
+
+    $('#darkBtn').addEventListener('click', function () { setDark(!dark); });
+
+    // 搜索
+    var input = $('#search');
+    var timer;
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var v = input.value;
+      timer = setTimeout(function () { doSearch(v); }, 90);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        input.value = '';
+        doSearch('');
+        input.blur();
+      }
+    });
+    $('#searchClear').addEventListener('click', function () {
+      input.value = '';
+      doSearch('');
+      input.focus();
+    });
+    $('#searchToggle').addEventListener('click', function () {
+      var open = !document.body.classList.contains('search-open');
+      document.body.classList.toggle('search-open', open);
+      $('#searchToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) input.focus();
+    });
+    $('#emptyState').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-suggest]');
+      if (!b) return;
+      input.value = b.getAttribute('data-suggest');
+      doSearch(input.value);
+    });
+
+    // 回到顶部
+    $('#toTop').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      var brand = $('.brand');
+      if (brand) brand.focus({ preventScroll: true });
+    });
+
+    // 查看目录
+    $('#viewToc').addEventListener('click', function (e) {
+      if (window.innerWidth <= 1040) {
+        e.preventDefault();
+        openToc();
+      } else {
+        var toc = $('#toc');
+        toc.classList.remove('flash');
+        void toc.offsetWidth;
+        toc.classList.add('flash');
+        var first = $('.toc-ch');
+        if (first) first.focus();
+      }
+    });
+
+    // 术语表
+    var dlg = $('#glossaryDialog');
+    $('#glossaryBtn').addEventListener('click', function () {
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else dlg.setAttribute('open', '');
+    });
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg) dlg.close();
+    });
+
+    // 键盘
+    document.addEventListener('keydown', function (e) {
+      var tag = (document.activeElement && document.activeElement.tagName) || '';
+      var typing = ['INPUT', 'TEXTAREA', 'SELECT'].indexOf(tag) > -1;
+      if (e.key === 'Escape') {
+        closeThemeMenu();
+        closeToc();
+        if (document.body.classList.contains('search-open')) {
+          document.body.classList.remove('search-open');
+          $('#searchToggle').setAttribute('aria-expanded', 'false');
+        }
+      }
+      if (e.key === '/' && !typing) {
+        e.preventDefault();
+        if (window.getComputedStyle($('.search-wrap')).display === 'none') {
+          document.body.classList.add('search-open');
+          $('#searchToggle').setAttribute('aria-expanded', 'true');
+        }
+        input.focus();
+        input.select();
+      }
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+
+  function closeThemeMenu() {
+    var menu = $('#themeMenu');
+    menu.classList.remove('open');
+    menu.hidden = true;
+    $('#themeBtn').setAttribute('aria-expanded', 'false');
+  }
+
+  /* 术语提示定位：气泡用 position:fixed 贴在术语上方，靠边时自动收进视口
+     （fixed 不参与布局，因此不会撑出横向滚动条） */
+  var lastTip = null;
+
+  function placeTip(el) {
+    var r = el.getBoundingClientRect();
+    var vw = window.innerWidth;
+    var maxW = Math.min(280, vw - 32);
+    var x = Math.min(Math.max(r.left, 8), Math.max(8, vw - maxW - 8));
+    var below = r.top < 96;                       // 顶部空间不足时翻到下方
+    el.style.setProperty('--tip-x', x + 'px');
+    el.style.setProperty('--tip-y', (below ? r.bottom + 8 : r.top - 8) + 'px');
+    el.style.setProperty('--tip-ty', below ? '0' : '-100%');
+    lastTip = el;
+  }
+
+  function bindTips() {
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest('.term');
+      if (t) placeTip(t);
+    }, { passive: true });
+    document.addEventListener('focusin', function (e) {
+      var t = e.target.closest('.term');
+      if (t) placeTip(t);
+    });
+    var queued = false;
+    window.addEventListener('scroll', function () {
+      if (queued || !lastTip) return;
+      queued = true;
+      requestAnimationFrame(function () {
+        queued = false;
+        if (lastTip && lastTip.isConnected) placeTip(lastTip);
+      });
+    }, { passive: true });
+    window.addEventListener('resize', function () {
+      if (lastTip && lastTip.isConnected) placeTip(lastTip);
+    }, { passive: true });
+  }
+
+  /* ------------------------------ 启动 ------------------------------ */
+  function init() {
+    $('#chapters').innerHTML = chaptersHTML();
+    $('#tocList').innerHTML = tocHTML();
+    $('#footChapters').innerHTML = footChaptersHTML();
+    var hero = PHOTOS.hero;
+    var heroImg = $('#heroImg');
+    heroImg.src = 'https://images.unsplash.com/' + hero.id + '?auto=format&fit=crop&w=1900&q=80';
+    heroImg.alt = hero.alt;
+    heroImg.setAttribute('data-key', 'hero');
+
+    // ch3 曝光示意图
+    var ch3 = $('#ch3');
+    if (ch3) {
+      var tri = document.createElement('div');
+      tri.className = 'tri-wrap';
+      tri.innerHTML = TRIANGLE_SVG + '<p class="tri-text">三要素共同决定亮度：<b>光圈</b>决定进光量与景深，<b>快门</b>决定时间与运动，<b>ISO</b>决定放大与噪点。动一个，另外两个就要跟着让。</p>';
+      var introEl = $('.chapter-intro', ch3);
+      if (introEl) introEl.parentNode.insertBefore(tri, introEl.nextSibling);
+    }
+
+    applyTheme();
+    updateProgress();
+    bind();
+    bindImages();
+    annotateTerms();
+    bindTips();
+    fillGlossary();
+    onScroll();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
+</body>
+</html>

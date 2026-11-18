@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper" data-dark="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拾影 · 要点详解</title>
+<meta name="description" content="拾影摄影入门：每个三级标题的短教程详解，讲透原理、操作步骤、常见误区与实例。">
+<meta name="theme-color" content="#f7f2e8">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b0503a'/%3E%3Ctext x='16' y='23' font-size='19' font-family='serif' fill='%23fffdf9' text-anchor='middle'%3E拾%3C/text%3E%3C/svg%3E">
+<style>
+/*__BASE_CSS__*/
+/*__DETAIL_CSS__*/
+</style>
+</head>
+<body>
+<a class="skip-link" href="#dt-main">跳到正文</a>
+
+<header class="dt-topbar">
+  <button class="dt-back" id="dtBack" aria-label="返回学习主页">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span>拾影主页</span>
+  </button>
+  <p class="dt-crumb" id="dtCrumb"></p>
+  <div class="dt-top-actions">
+    <button class="tb-btn icon-only dt-side-toggle" id="dtSideToggle" aria-label="打开要点目录" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="theme-wrap">
+      <button class="tb-btn icon-only" id="dtThemeBtn" aria-label="切换界面模板" aria-expanded="false" aria-haspopup="true" aria-controls="dtThemeMenu" title="界面模板">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18h1.2a2 2 0 002-2 2 2 0 00-2-2H12a3 3 0 010-6h5.5A3.5 3.5 0 0021 7.5 5.5 5.5 0 0015.5 3z"/><circle cx="7.5" cy="11.5" r=".9"/><circle cx="10" cy="7.4" r=".9"/><circle cx="15" cy="7.8" r=".9"/></svg>
+      </button>
+      <div class="theme-menu" id="dtThemeMenu" role="menu" aria-label="界面模板" hidden>
+        <p class="tm-title">三套界面模板</p>
+        <button class="tm-item" role="menuitemradio" aria-checked="true" data-theme-choice="paper">
+          <span class="tm-swatch" aria-hidden="true"><i style="background:#f7f2e8"></i><i style="background:#fffdf7"></i><i style="background:#b0503a"></i><i style="background:#2f2923"></i></span>
+          <span><span class="tm-name">A · 暖纸杂志</span><span class="tm-desc">米白纸感、宋体标题、朱砂色重点。</span></span>
+        </button>
+        <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="cinema">
+          <span class="tm-swatch" aria-hidden="true"><i style="background:#0b0c0f"></i><i style="background:#17191f"></i><i style="background:#d8a53f"></i><i style="background:#e4e6ea"></i></span>
+          <span><span class="tm-name">B · 影院暗调</span><span class="tm-desc">无衬线、直角、图片满幅。</span></span>
+        </button>
+        <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="grid">
+          <span class="tm-swatch" aria-hidden="true"><i style="background:#f3f8f7"></i><i style="background:#ffffff"></i><i style="background:#1f8a7e"></i><i style="background:#1f3033"></i></span>
+          <span><span class="tm-name">C · 网格手册</span><span class="tm-desc">浅青网格、圆角卡片。</span></span>
+        </button>
+      </div>
+    </div>
+    <button class="tb-btn icon-only" id="dtDarkBtn" aria-label="切换暗色模式" aria-pressed="false" title="暗色模式">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.4 8.4 0 019.4 4 8.5 8.5 0 1020 14.6z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="dt-mask" id="dtMask" hidden></div>
+
+<div class="dt-layout">
+  <nav class="dt-side" id="dtSide" aria-label="全部要点目录">
+    <p class="dt-side-head">全部要点 · 135 条</p>
+    <p class="dt-side-hint">点击任一条可跳转阅读。当前条目会高亮。</p>
+    <div id="dtToc"></div>
+  </nav>
+
+  <main class="dt-main" id="dt-main">
+    <div id="dtArticle" aria-live="polite"></div>
+  </main>
+</div>
+
+<button class="dt-totop" id="dtToTop" aria-label="回到顶部" title="回到顶部">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+/*__DATA__*/
+/*__APP__*/
+</script>
+</body>
+</html>

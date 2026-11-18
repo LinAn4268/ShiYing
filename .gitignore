@@ -1,0 +1,18 @@
+# 本地截图与审计产出
+.shots/
+tools/*.png
+tools/cand/
+tools/content_dump.txt
+tools/probe*.txt
+
+# 旧版构建残留
+index.template.html
+
+# 系统 / 编辑器
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+__pycache__/
+*.pyc
