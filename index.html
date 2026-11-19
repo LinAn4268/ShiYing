@@ -411,7 +411,7 @@ body.toc-open .mask{opacity:1;visibility:visible}
 .btn-ghost:hover{background:rgba(255,255,255,.18)}
 .hero-credit{position:absolute;right:16px;top:16px;z-index:3;font-size:11px;line-height:1.7;
   color:rgba(255,255,255,.86);text-align:right;max-width:min(56%,430px);
-  padding:5px 9px;border-radius:8px;background:rgba(12,10,8,.34);
+  padding:5px 9px;border-radius:8px;background:rgba(12,10,8,.62);
   -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .hero-credit a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.55)}
 .hero-credit .pid{opacity:.7;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}
@@ -814,10 +814,17 @@ body.look-open .look{transform:none}
   border-radius:var(--r-sm);background:var(--panel-2);text-align:left;transition:.16s}
 .look-theme:hover{border-color:var(--accent)}
 .look-theme[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
-.look-theme .bar{display:flex;height:26px;border-radius:3px;overflow:hidden}
+.look-theme .bar{display:flex;height:14px;border-radius:3px;overflow:hidden;margin-top:-2px}
 .look-theme .bar i{flex:1}
-.look-theme .nm{font-size:12px;color:var(--text);font-weight:600}
+.look-theme .thumb{display:block;position:relative;aspect-ratio:16/9;border-radius:3px;
+  overflow:hidden;background:var(--panel)}
+.look-theme .thumb img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .4s ease,filter .3s}
+.look-theme[data-look-theme="mono"] .thumb img{filter:grayscale(1) contrast(1.05)}
+.look-theme:hover .thumb img{transform:scale(1.04)}
+.look-theme .nm{font-size:12px;color:var(--text);font-weight:600;margin-top:2px}
 .look-theme .ds{font-size:10.5px;color:var(--faint);line-height:1.4}
+.look-theme .lay{font-size:10px;color:var(--accent);line-height:1.45;letter-spacing:.02em}
 .look-foot{padding:14px 18px;border-top:1px solid var(--line);display:flex;gap:10px}
 .look-reset{flex:1;padding:11px;border:1px solid var(--line);border-radius:var(--r-sm);
   font-size:13px;color:var(--muted);transition:.16s}
@@ -849,6 +856,148 @@ body.look-open .look{transform:none}
   .chapter{page-break-inside:avoid;border-bottom:1px solid #ccc}
   a{color:#000;text-decoration:underline}
   .figure .ph{aspect-ratio:auto}
+}
+
+
+/* ================= 版式差异层 =================
+   前四层解决「颜色不同」，这一层解决「摆放逻辑不同」：
+   每套模板的 Hero、章节头、条目排布、插图、目录各有自己的结构，而不是同一套骨架换皮。 */
+
+/* ---------- A 暖纸杂志：图文上下、双栏条目、左侧章节号 ---------- */
+html[data-theme="paper"] .hero{min-height:clamp(520px,68vh,700px)}
+html[data-theme="paper"] .hero-inner{padding-left:clamp(24px,7vw,96px)}
+html[data-theme="paper"] .chapter-head{align-items:flex-end}
+html[data-theme="paper"] .chapter-num{margin-top:0}
+html[data-theme="paper"] .unit-body{--unit-cols:repeat(auto-fill,minmax(336px,1fr))}
+html[data-theme="paper"] .item{border-left:2px solid transparent}
+html[data-theme="paper"] .item:hover{border-left-color:var(--accent)}
+html[data-theme="paper"] .figure{box-shadow:0 1px 0 var(--line)}
+html[data-theme="paper"] .toc-ch .n{font-family:var(--font-head)}
+
+/* ---------- B 影院：满屏 Hero 居中、居中章节头、单栏长文 ---------- */
+html[data-theme="cinema"] .hero{min-height:min(88vh,780px);align-items:center;justify-content:center;text-align:center}
+html[data-theme="cinema"] .hero-inner{max-width:820px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px)}
+html[data-theme="cinema"] .hero .eyebrow{justify-content:center}
+html[data-theme="cinema"] .hero .lede{margin-left:auto;margin-right:auto}
+html[data-theme="cinema"] .hero-actions{justify-content:center}
+html[data-theme="cinema"] .hero h1{letter-spacing:.22em}
+html[data-theme="cinema"] .chapter{max-width:1040px;margin:0 auto}
+html[data-theme="cinema"] .chapter-head{justify-content:center;text-align:center;align-items:center}
+html[data-theme="cinema"] .chapter-head h2{flex:1 1 100%}
+html[data-theme="cinema"] .chapter-num{order:-1;margin:0 auto}
+html[data-theme="cinema"] .read-btn{order:3;margin:6px auto 0}
+html[data-theme="cinema"] .chapter-meta{justify-content:center}
+html[data-theme="cinema"] .chapter-intro{text-align:left}
+html[data-theme="cinema"] .chapter-end,
+html[data-theme="cinema"] .cmp,
+html[data-theme="cinema"] .figure{max-width:1000px;margin-left:auto;margin-right:auto}
+html[data-theme="cinema"] .path-grid{max-width:1040px;margin:0 auto}
+
+/* ---------- C 网格手册：图在上、文在下的 Hero；三栏紧凑条目 ---------- */
+html[data-theme="grid"] .hero{display:block;min-height:0;padding:0;background:var(--panel);color:var(--text);align-items:stretch}
+html[data-theme="grid"] .hero-img{position:relative;inset:auto;display:block;width:100%;
+  height:clamp(280px,42vh,470px);z-index:0;border-radius:0}
+html[data-theme="grid"] .hero::after{display:none}
+html[data-theme="grid"] .hero-inner{max-width:1140px;margin:0 auto;color:var(--text);
+  padding:clamp(26px,3.4vw,46px) clamp(20px,4vw,40px) clamp(30px,4vw,52px)}
+html[data-theme="grid"] .hero .eyebrow{color:var(--accent)}
+html[data-theme="grid"] .hero .eyebrow::before{background:var(--accent);width:26px}
+html[data-theme="grid"] .hero h1{color:var(--text-strong);text-shadow:none}
+html[data-theme="grid"] .hero .subtitle{color:var(--text-strong);text-shadow:none}
+html[data-theme="grid"] .hero .lede{color:var(--muted)}
+html[data-theme="grid"] .hero .btn-ghost{background:var(--panel-2);color:var(--text);border-color:var(--line)}
+html[data-theme="grid"] .hero .btn-ghost:hover{background:var(--panel);border-color:var(--accent);color:var(--accent)}
+html[data-theme="grid"] .path{margin-top:-30px}
+html[data-theme="grid"] .unit-body{--unit-cols:repeat(auto-fill,minmax(238px,1fr));gap:10px}
+html[data-theme="grid"] .unit-head{background:var(--panel-2);letter-spacing:.01em}
+html[data-theme="grid"] .item{padding:13px 13px 14px}
+html[data-theme="grid"] .item .item-head{gap:6px}
+html[data-theme="grid"] .figure .ph{aspect-ratio:21/9}
+html[data-theme="grid"] .chapter-head{display:grid;grid-template-columns:auto 1fr auto;
+  grid-template-areas:"num title read";align-items:center;gap:10px 16px}
+html[data-theme="grid"] .chapter-num{grid-area:num;margin:0}
+html[data-theme="grid"] .chapter-head h2{grid-area:title;flex:none}
+html[data-theme="grid"] .read-btn{grid-area:read;margin:0}
+
+/* ---------- D 水墨：左文右图的 Hero；窄阅读栏；无卡片、发线分隔的条目 ---------- */
+html[data-theme="ink"] .hero{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  align-items:stretch;gap:clamp(16px,2.6vw,40px);padding:clamp(14px,2.4vw,30px);
+  min-height:clamp(430px,60vh,620px);background:var(--bg);color:var(--text)}
+html[data-theme="ink"] .hero-img{position:relative;inset:auto;order:2;width:100%;height:100%;
+  min-height:290px;z-index:0;border-radius:2px}
+html[data-theme="ink"] .hero::after{display:none}
+html[data-theme="ink"] .hero-inner{order:1;display:flex;flex-direction:column;justify-content:center;
+  max-width:560px;padding:clamp(8px,2.6vw,32px)}
+html[data-theme="ink"] .hero .eyebrow{color:var(--accent);margin-bottom:22px}
+html[data-theme="ink"] .hero .eyebrow::before{background:var(--accent);width:26px}
+html[data-theme="ink"] .hero h1{color:var(--text);text-shadow:none;font-size:clamp(50px,7vw,84px);
+  letter-spacing:.2em;margin-bottom:20px}
+html[data-theme="ink"] .hero .subtitle{color:var(--text-strong);text-shadow:none}
+html[data-theme="ink"] .hero .lede{color:var(--muted)}
+html[data-theme="ink"] .hero .btn-ghost{background:transparent;color:var(--text);border-color:var(--line-strong)}
+html[data-theme="ink"] .hero .btn-ghost:hover{background:var(--panel-2)}
+html[data-theme="ink"] .chapter{max-width:880px;margin:0 auto}
+html[data-theme="ink"] .chapter-head{flex-direction:column;align-items:flex-start;gap:8px;
+  padding-bottom:14px;border-bottom:1px solid var(--line)}
+html[data-theme="ink"] .chapter-num{margin:0;border:0;padding:0;letter-spacing:.3em}
+html[data-theme="ink"] .chapter-head h2{flex:0 0 auto;line-height:1.5}
+html[data-theme="ink"] .read-btn{margin:0 0 0 auto}
+html[data-theme="ink"] .unit{border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;
+  box-shadow:none;margin-bottom:0}
+html[data-theme="ink"] .unit-head{padding:18px 4px}
+html[data-theme="ink"] .unit-body{--unit-cols:1fr;gap:0;padding:0 4px 22px}
+html[data-theme="ink"] .item{border:0;border-radius:0;background:transparent;
+  padding:4px 0 20px;border-bottom:1px solid var(--line);margin-bottom:14px}
+html[data-theme="ink"] .item:last-child{border-bottom:0;margin-bottom:0}
+html[data-theme="ink"] .item-text{font-size:14px;line-height:2.05}
+html[data-theme="ink"] .figure{max-width:660px;margin-left:auto;margin-right:auto;background:transparent;border:0}
+html[data-theme="ink"] .figure figcaption{background:transparent;border-top:1px solid var(--line);padding-left:2px;padding-right:2px}
+html[data-theme="ink"] .chapter-end{grid-template-columns:1fr}
+html[data-theme="ink"] .path{margin-top:0}
+
+/* ---------- E 银盐：接触印相式顶部；灰度图；发线双栏、无卡片 ---------- */
+html[data-theme="mono"] .hero{display:block;min-height:0;padding:0;background:var(--panel);color:var(--text)}
+html[data-theme="mono"] .hero-img{position:relative;inset:auto;display:block;width:100%;
+  height:clamp(300px,45vh,500px);z-index:0;border-radius:0;filter:grayscale(1) contrast(1.06)}
+html[data-theme="mono"] .hero::after{display:none}
+html[data-theme="mono"] .hero-inner{max-width:1140px;margin:0 auto;color:var(--text);
+  border-top:3px solid var(--text-strong);
+  padding:clamp(22px,3vw,38px) clamp(20px,4vw,40px) clamp(26px,3.6vw,44px)}
+html[data-theme="mono"] .hero .eyebrow{color:var(--muted);letter-spacing:.28em}
+html[data-theme="mono"] .hero .eyebrow::before{background:var(--text);width:30px}
+html[data-theme="mono"] .hero h1{color:var(--text-strong);text-shadow:none;letter-spacing:.14em;
+  font-size:clamp(42px,6vw,68px)}
+html[data-theme="mono"] .hero .subtitle{color:var(--text-strong);text-shadow:none;max-width:720px}
+html[data-theme="mono"] .hero .lede{color:var(--muted);max-width:640px}
+html[data-theme="mono"] .hero .btn-ghost{background:transparent;color:var(--text);border-color:var(--text-strong)}
+html[data-theme="mono"] .hero .btn-ghost:hover{background:var(--panel-2)}
+html[data-theme="mono"] .figure img,
+html[data-theme="mono"] .unit-body>.genre-fig img{filter:grayscale(1) contrast(1.06)}
+html[data-theme="mono"] .figure{background:transparent;border:0;border-radius:0}
+html[data-theme="mono"] .figure figcaption{background:transparent;border-top:1px solid var(--line);justify-content:flex-end}
+html[data-theme="mono"] .chapter-head{border-bottom:1px solid var(--text-strong);padding-bottom:12px}
+html[data-theme="mono"] .chapter-num{border-radius:0;border-color:var(--line-strong)}
+html[data-theme="mono"] .unit-body{--unit-cols:repeat(auto-fill,minmax(320px,1fr));gap:0 30px}
+html[data-theme="mono"] .item{border:0;border-top:1px solid var(--line);border-radius:0;
+  background:transparent;padding:15px 0}
+html[data-theme="mono"] .item:hover{box-shadow:none}
+html[data-theme="mono"] .tag{background:transparent;border-color:var(--line-strong)}
+html[data-theme="mono"] .chapter-end .end-box{border-radius:0}
+html[data-theme="mono"] .path-card{border-radius:0;box-shadow:none}
+
+/* 窄屏：左右分栏的 Hero 一律回到单列，图片在上 */
+@media (max-width:900px){
+  html[data-theme="ink"] .hero{grid-template-columns:1fr;min-height:0;padding-bottom:8px}
+  html[data-theme="ink"] .hero-img{order:0;height:clamp(230px,40vh,330px);min-height:0}
+  html[data-theme="ink"] .hero-inner{max-width:none}
+  html[data-theme="ink"] .read-btn{position:static;margin-top:4px}
+}
+@media (max-width:760px){
+  html[data-theme="cinema"] .hero{min-height:min(74vh,620px)}
+  html[data-theme="grid"] .hero-img{height:clamp(220px,36vh,320px)}
+  html[data-theme="mono"] .hero-img{height:clamp(220px,38vh,320px)}
+  html[data-theme="grid"] .chapter-head{grid-template-columns:auto 1fr;grid-template-areas:"num title" "read read"}
+  html[data-theme="grid"] .read-btn{justify-self:start;margin-top:2px}
 }
 
 </style>
@@ -2008,12 +2157,24 @@ var GLOSSARY={"f数":"光圈值，焦距与入射光瞳直径的比值；数字�
 
   var K = { font: 'lookFont', size: 'lookSize', lead: 'lookLead', density: 'lookDensity', accent: 'lookAccent' };
 
+  var U = 'https://images.unsplash.com/photo-';
+  var THUMB = '?auto=format&fit=crop&w=320&h=180&q=70';
   var THEMES = [
-    { id: 'paper', name: 'A · 暖纸杂志', desc: '米白 · 宋体 · 朱砂', bar: ['#f7f2e8', '#fffdf7', '#b0503a', '#2f2923'] },
-    { id: 'cinema', name: 'B · 影院暗调', desc: '直角 · 无衬线 · 胶片金', bar: ['#0b0c0f', '#17191f', '#d8a53f', '#e4e6ea'] },
-    { id: 'grid', name: 'C · 网格手册', desc: '点阵 · 圆角 · 青绿', bar: ['#f3f8f7', '#ffffff', '#17706a', '#1f3033'] },
-    { id: 'ink', name: 'D · 水墨纸本', desc: '宣纸 · 宋体 · 墨绿', bar: ['#f4f2ec', '#fbfaf6', '#2f5d57', '#252b2c'] },
-    { id: 'mono', name: 'E · 银盐黑白', desc: '黑白 · 极简 · 直角', bar: ['#f4f4f4', '#ffffff', '#1f1f1f', '#1b1b1b'] }
+    { id: 'paper', name: 'A · 暖纸杂志', desc: '米白 · 宋体 · 朱砂', layout: '通栏大图 · 双栏条目',
+      bar: ['#f7f2e8', '#fffdf7', '#b0503a', '#2f2923'],
+      img: U + '1441974231531-c6227db76b6e' + THUMB, alt: '晨光穿过林间树冠' },
+    { id: 'cinema', name: 'B · 影院暗调', desc: '直角 · 无衬线 · 胶片金', layout: '满屏 Hero · 居中标题 · 单栏',
+      bar: ['#0b0c0f', '#17191f', '#d8a53f', '#e4e6ea'],
+      img: U + '1519608487953-e999c86e7455' + THUMB, alt: '夜色里的霓虹街道' },
+    { id: 'grid', name: 'C · 网格手册', desc: '点阵 · 圆角 · 青绿', layout: '图上文下 · 三栏卡片',
+      bar: ['#f3f8f7', '#ffffff', '#17706a', '#1f3033'],
+      img: U + '1487958449943-2429e8be8625' + THUMB, alt: '现代建筑的几何立面' },
+    { id: 'ink', name: 'D · 水墨纸本', desc: '宣纸 · 宋体 · 墨绿', layout: '左文右图 · 窄阅读栏',
+      bar: ['#f4f2ec', '#fbfaf6', '#2f5d57', '#252b2c'],
+      img: U + '1470071459604-3b5ec3a7fe05' + THUMB, alt: '远山在晨雾中层层退远' },
+    { id: 'mono', name: 'E · 银盐黑白', desc: '黑白 · 极简 · 直角', layout: '灰度图 · 粗线分隔 · 双栏',
+      bar: ['#f4f4f4', '#ffffff', '#1f1f1f', '#1b1b1b'],
+      img: U + '1519681393784-d120267933ba' + THUMB, alt: '银河下的雪山剪影' }
   ];
   var FONTS = [{ id: '', name: '跟随模板' }, { id: 'serif', name: '全宋体' }, { id: 'sans', name: '全黑体' }];
   var SIZES = [{ id: 's', name: '小' }, { id: 'm', name: '标准' }, { id: 'l', name: '大' }, { id: 'xl', name: '特大' }];
@@ -2177,10 +2338,12 @@ var GLOSSARY={"f数":"光圈值，焦距与入射光瞳直径的比值；数字�
     return THEMES.map(function (t) {
       return '<button type="button" class="look-theme" data-look-theme="' + t.id + '" aria-pressed="' +
         (t.id === cur ? 'true' : 'false') + '">' +
+        '<span class="thumb"><img src="' + t.img + '" alt="' + t.alt + '" width="320" height="180" loading="lazy" decoding="async"></span>' +
         '<span class="bar" aria-hidden="true">' + t.bar.map(function (c) {
           return '<i style="background:' + c + '"></i>';
         }).join('') + '</span>' +
-        '<span class="nm">' + t.name + '</span><span class="ds">' + t.desc + '</span></button>';
+        '<span class="nm">' + t.name + '</span><span class="ds">' + t.desc + '</span>' +
+        '<span class="lay">' + t.layout + '</span></button>';
     }).join('');
   }
 

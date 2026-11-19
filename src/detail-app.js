@@ -127,6 +127,15 @@
     if (d.example) {
       html += '<section class="dt-block"><h2 class="dt-h2"><span class="dt-no">4</span>举个例子</h2><div class="dt-example">' + paratext(d.example) + '</div></section>';
     }
+    if (d.case && d.case.scene) {
+      var cs = d.case;
+      var rows = '<div><dt>场景</dt><dd>' + esc(cs.scene) + '</dd></div>' +
+        '<div><dt>怎么设</dt><dd>' + esc(cs.setup || '') + '</dd></div>' +
+        '<div class="is-why"><dt>为什么</dt><dd>' + esc(cs.why || '') + '</dd></div>';
+      if (cs.note) rows += '<div class="is-note"><dt>提醒</dt><dd>' + esc(cs.note) + '</dd></div>';
+      html += '<section class="dt-block dt-case"><h2 class="dt-h2"><span class="dt-no">5</span>案例</h2>' +
+        '<dl class="dt-case-grid">' + rows + '</dl></section>';
+    }
     if (d.takeaway) {
       html += '<aside class="dt-takeaway"><span class="dt-q" aria-hidden="true">“</span><p>' + esc(d.takeaway) + '</p></aside>';
     }

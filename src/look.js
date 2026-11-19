@@ -22,12 +22,24 @@
 
   var K = { font: 'lookFont', size: 'lookSize', lead: 'lookLead', density: 'lookDensity', accent: 'lookAccent' };
 
+  var U = 'https://images.unsplash.com/photo-';
+  var THUMB = '?auto=format&fit=crop&w=320&h=180&q=70';
   var THEMES = [
-    { id: 'paper', name: 'A · 暖纸杂志', desc: '米白 · 宋体 · 朱砂', bar: ['#f7f2e8', '#fffdf7', '#b0503a', '#2f2923'] },
-    { id: 'cinema', name: 'B · 影院暗调', desc: '直角 · 无衬线 · 胶片金', bar: ['#0b0c0f', '#17191f', '#d8a53f', '#e4e6ea'] },
-    { id: 'grid', name: 'C · 网格手册', desc: '点阵 · 圆角 · 青绿', bar: ['#f3f8f7', '#ffffff', '#17706a', '#1f3033'] },
-    { id: 'ink', name: 'D · 水墨纸本', desc: '宣纸 · 宋体 · 墨绿', bar: ['#f4f2ec', '#fbfaf6', '#2f5d57', '#252b2c'] },
-    { id: 'mono', name: 'E · 银盐黑白', desc: '黑白 · 极简 · 直角', bar: ['#f4f4f4', '#ffffff', '#1f1f1f', '#1b1b1b'] }
+    { id: 'paper', name: 'A · 暖纸杂志', desc: '米白 · 宋体 · 朱砂', layout: '通栏大图 · 双栏条目',
+      bar: ['#f7f2e8', '#fffdf7', '#b0503a', '#2f2923'],
+      img: U + '1441974231531-c6227db76b6e' + THUMB, alt: '晨光穿过林间树冠' },
+    { id: 'cinema', name: 'B · 影院暗调', desc: '直角 · 无衬线 · 胶片金', layout: '满屏 Hero · 居中标题 · 单栏',
+      bar: ['#0b0c0f', '#17191f', '#d8a53f', '#e4e6ea'],
+      img: U + '1519608487953-e999c86e7455' + THUMB, alt: '夜色里的霓虹街道' },
+    { id: 'grid', name: 'C · 网格手册', desc: '点阵 · 圆角 · 青绿', layout: '图上文下 · 三栏卡片',
+      bar: ['#f3f8f7', '#ffffff', '#17706a', '#1f3033'],
+      img: U + '1487958449943-2429e8be8625' + THUMB, alt: '现代建筑的几何立面' },
+    { id: 'ink', name: 'D · 水墨纸本', desc: '宣纸 · 宋体 · 墨绿', layout: '左文右图 · 窄阅读栏',
+      bar: ['#f4f2ec', '#fbfaf6', '#2f5d57', '#252b2c'],
+      img: U + '1470071459604-3b5ec3a7fe05' + THUMB, alt: '远山在晨雾中层层退远' },
+    { id: 'mono', name: 'E · 银盐黑白', desc: '黑白 · 极简 · 直角', layout: '灰度图 · 粗线分隔 · 双栏',
+      bar: ['#f4f4f4', '#ffffff', '#1f1f1f', '#1b1b1b'],
+      img: U + '1519681393784-d120267933ba' + THUMB, alt: '银河下的雪山剪影' }
   ];
   var FONTS = [{ id: '', name: '跟随模板' }, { id: 'serif', name: '全宋体' }, { id: 'sans', name: '全黑体' }];
   var SIZES = [{ id: 's', name: '小' }, { id: 'm', name: '标准' }, { id: 'l', name: '大' }, { id: 'xl', name: '特大' }];
@@ -191,10 +203,12 @@
     return THEMES.map(function (t) {
       return '<button type="button" class="look-theme" data-look-theme="' + t.id + '" aria-pressed="' +
         (t.id === cur ? 'true' : 'false') + '">' +
+        '<span class="thumb"><img src="' + t.img + '" alt="' + t.alt + '" width="320" height="180" loading="lazy" decoding="async"></span>' +
         '<span class="bar" aria-hidden="true">' + t.bar.map(function (c) {
           return '<i style="background:' + c + '"></i>';
         }).join('') + '</span>' +
-        '<span class="nm">' + t.name + '</span><span class="ds">' + t.desc + '</span></button>';
+        '<span class="nm">' + t.name + '</span><span class="ds">' + t.desc + '</span>' +
+        '<span class="lay">' + t.layout + '</span></button>';
     }).join('');
   }
 

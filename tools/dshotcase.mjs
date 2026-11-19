@@ -1,0 +1,15 @@
+import { connect } from './cdp.mjs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const file = 'file:///' + path.resolve(__dirname, '..', 'detail.html').replace(/\\/g, '/');
+const [id = '8-2-3', name = 'case'] = process.argv.slice(2);
+const c = await connect(file + '#' + id);
+await c.send('Page.enable');
+await c.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+await c.sleep(2500);
+await c.evaluate(`document.querySelector('.dt-case').scrollIntoView({block:'center'})`);
+await c.sleep(500);
+await c.screenshot('.shots/' + name + '.png');
+console.log(JSON.stringify(await c.evaluate(`({case: !!document.querySelector('.dt-case'), rows: document.querySelectorAll('.dt-case-grid>div').length, h: document.documentElement.scrollHeight})`)));
+c.close();

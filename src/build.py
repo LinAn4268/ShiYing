@@ -31,12 +31,13 @@ def js(obj):
     return s.replace('</', '<\\/').replace('\\u2028', '\\\\u2028').replace('\\u2029', '\\\\u2029')
 
 css = read(os.path.join(SRC, 'style.css'))
+layout = read(os.path.join(SRC, 'layout.css'))
 app = read(os.path.join(SRC, 'app.js'))
 look = read(os.path.join(SRC, 'look.js'))
 tpl = read(os.path.join(SRC, 'body.html'))
 
 out = (tpl
-  .replace('/*__CSS__*/', css)
+  .replace('/*__CSS__*/', css + '\n' + layout)
   .replace('/*__DATA__*/', 'var DATA=' + js(chapters) + ';')
   .replace('/*__GLOSSARY__*/', 'var GLOSSARY=' + js(glossary) + ';')
   .replace('/*__APP__*/', app)
@@ -52,7 +53,7 @@ print('index.html: chapters=%d sections=%d items=%d terms=%d bytes=%d' % (
     len(chapters), secs, items, len(glossary), len(out.encode('utf-8'))))
 
 # ---------------- 详情页 detail.html ----------------
-DETAIL_FIELDS = ('lead', 'principle', 'steps', 'mistakes', 'example', 'takeaway', 'keywords')
+DETAIL_FIELDS = ('lead', 'principle', 'steps', 'mistakes', 'example', 'case', 'takeaway', 'keywords')
 
 def norm_step(v):
     """把步骤统一成可读字符串：兼容 str / dict{name,title,action,desc,params}。"""
@@ -101,7 +102,15 @@ for i in range(1, 11):
             'chapterId': d['chapterId'], 'chapterTitle': d['chapterTitle'],
         }
         for fld in DETAIL_FIELDS:
-            if fld in ('steps', 'mistakes', 'keywords'):
+            if fld == 'case':
+                c = it.get('case')
+                rec['case'] = {
+                    'scene': (c.get('scene') or '').strip(),
+                    'setup': (c.get('setup') or '').strip(),
+                    'why': (c.get('why') or '').strip(),
+                    'note': (c.get('note') or '').strip(),
+                } if isinstance(c, dict) and (c.get('scene') or '').strip() else None
+            elif fld in ('steps', 'mistakes', 'keywords'):
                 rec[fld] = norm_list(it.get(fld, []), fld)
             else:
                 rec[fld] = it.get(fld, '')

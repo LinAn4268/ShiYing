@@ -36,13 +36,19 @@ for (const [name, url] of [['index', idx], ['detail', det + '#8-1-1']]) {
   await c.sleep(1500);
   // 展开全部小节以触发所有渲染路径
   if (name === 'index') {
-    await c.evaluate(`document.querySelectorAll('.unit-toggle').forEach(b => { if (b.getAttribute('aria-expanded') === 'false') b.click(); })`);
+    await c.evaluate(`document.querySelectorAll('.unit-head').forEach(b => { if (b.getAttribute('aria-expanded') === 'false') b.click(); })`);
     await c.sleep(800);
   }
   const errs = c.events.filter(e => e.method === 'Runtime.exceptionThrown' || (e.method === 'Log.entryAdded' && e.params.entry.level === 'error'));
   rep(name + ' errors', errs.map(e => e.params.entry ? e.params.entry.text : e.params.exceptionDetails.text).slice(0, 5));
-  const imgs = await c.evaluate(`[...document.images].map(i => ({ src: i.currentSrc.slice(0, 60), ok: i.complete && i.naturalWidth > 0, alt: !!i.alt }))`);
-  rep(name + ' imgs', { total: imgs.length, ok: imgs.filter(i => i.ok).length, noAlt: imgs.filter(i => !i.alt).length, bad: imgs.filter(i => !i.ok).map(i => i.src).slice(0, 5) });
+  const imgs = await c.evaluate(`[...document.images].map(i => ({ src: i.currentSrc.slice(0, 60), done: i.complete, ok: i.complete && i.naturalWidth > 0, alt: !!i.alt }))`);
+  rep(name + ' imgs', {
+    total: imgs.length,
+    ok: imgs.filter(i => i.ok).length,
+    pending: imgs.filter(i => !i.done).length,
+    noAlt: imgs.filter(i => !i.alt).length,
+    bad: imgs.filter(i => i.done && !i.ok).map(i => i.src).slice(0, 5)
+  });
 }
 
 // ---- 3. 详情页：135 条全量渲染 ----
