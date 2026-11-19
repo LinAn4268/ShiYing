@@ -156,7 +156,7 @@ await click('#themeBtn');
 await sleep(300);
 s = await state();
 ok('主题按钮 → 打开菜单', s.menuHidden === false, 'hidden=' + s.menuHidden);
-for (const th of ['cinema', 'grid', 'paper']) {
+for (const th of ['cinema', 'grid', 'paper', 'ink', 'mono']) {
   await click(`[data-theme-choice="${th}"]`);
   await sleep(300);
   s = await state();

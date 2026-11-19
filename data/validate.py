@@ -47,7 +47,7 @@ checks = {
     'viewport': 'name="viewport"' in html,
     'description': 'name="description"' in html,
     'skip link': 'class="skip-link"' in html,
-    '3 themes': all('data-theme="%s"' % t in html for t in ['paper', 'cinema', 'grid']),
+    '5 themes': all('data-theme="%s"' % t in html for t in ['paper', 'cinema', 'grid', 'ink', 'mono']),
     'dark mode': 'data-dark' in html,
     'search': 'id="search"' in html and 'doSearch' in html,
     'toc': 'id="tocList"' in html,

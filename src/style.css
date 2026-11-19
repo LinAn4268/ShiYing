@@ -102,6 +102,70 @@ html[data-theme="grid"][data-dark="true"] {
   --grid-dots:radial-gradient(circle at 1px 1px,rgba(95,208,192,.14) 1px,transparent 0) 0 0/22px 22px;
 }
 
+/* ------------------------- 模板 D · 水墨纸本 ------------------------- */
+html[data-theme="ink"] {
+  --bg:#f4f2ec; --bg-2:#eae7de; --panel:#fbfaf6; --panel-2:#f1ede3;
+  --text:#252b2c; --text-strong:#111617; --muted:#4e5657; --faint:#626a6c;
+  --accent:#2f5d57; --accent-2:#24463f; --accent-soft:#dfeae5; --on-accent:#fbfaf6;
+  --line:#ded9cd; --line-strong:#c5bfb0;
+  --shadow:0 16px 40px rgba(36,48,46,.09); --shadow-sm:0 4px 14px rgba(36,48,46,.06);
+  --r:6px; --r-sm:4px; --fig-r:2px;
+  --font-head:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --font-body:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --head-ls:.06em; --label-ls:.34em;
+  --hero-grad:linear-gradient(180deg,rgba(18,26,25,.2) 0%,rgba(18,26,25,.46) 46%,rgba(18,26,25,.8) 100%);
+  --unit-cols:repeat(auto-fill,minmax(290px,1fr));
+  --unit-bg:transparent; --unit-border:var(--line); --unit-radius:var(--r);
+  --toc-w:296px; --lh:2;
+  --tag-theory-bg:#eef2f0; --tag-theory-fg:#4d6b66; --tag-theory-bd:#d8e3df;
+  --tag-do-bg:#f0e7dd; --tag-do-fg:#8a4a33; --tag-do-bd:#e2d2c3;
+  --tag-tip-bg:#f2efe2; --tag-tip-fg:#6f6234; --tag-tip-bd:#e3ddc4;
+  --grid-dots:none;
+}
+html[data-theme="ink"][data-dark="true"] {
+  --bg:#131719; --bg-2:#191f21; --panel:#1a2022; --panel-2:#202729;
+  --text:#dde5e3; --text-strong:#f1f7f5; --muted:#a8b4b1; --faint:#93a09d;
+  --accent:#7fb8ac; --accent-2:#a3d3c7; --accent-soft:#22322f; --on-accent:#0c1513;
+  --line:#2b3335; --line-strong:#3d484a;
+  --shadow:0 20px 50px rgba(0,0,0,.46); --shadow-sm:0 5px 18px rgba(0,0,0,.36);
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.24) 0%,rgba(0,0,0,.52) 46%,rgba(0,0,0,.86) 100%);
+  --tag-theory-bg:#1b272a; --tag-theory-fg:#9dc0ba; --tag-theory-bd:#2a3a3d;
+  --tag-do-bg:#33221c; --tag-do-fg:#e0a48d; --tag-do-bd:#4a332b;
+  --tag-tip-bg:#2a2718; --tag-tip-fg:#d3c083; --tag-tip-bd:#3f3924;
+}
+
+/* ------------------------- 模板 E · 银盐黑白 ------------------------- */
+html[data-theme="mono"] {
+  --bg:#f4f4f4; --bg-2:#e9e9e9; --panel:#ffffff; --panel-2:#f7f7f7;
+  --text:#1b1b1b; --text-strong:#000000; --muted:#525252; --faint:#6a6a6a;
+  --accent:#1f1f1f; --accent-2:#000000; --accent-soft:#e9e9e9; --on-accent:#ffffff;
+  --line:#dcdcdc; --line-strong:#bdbdbd;
+  --shadow:0 18px 44px rgba(0,0,0,.12); --shadow-sm:0 4px 14px rgba(0,0,0,.08);
+  --r:0px; --r-sm:0px; --fig-r:0px;
+  --font-head:"Times New Roman",Didot,"Songti SC","STSong",serif;
+  --font-body:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --head-ls:.02em; --label-ls:.5em;
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.5) 44%,rgba(0,0,0,.88) 100%);
+  --unit-cols:repeat(auto-fill,minmax(300px,1fr));
+  --unit-bg:transparent; --unit-border:var(--line); --unit-radius:0px;
+  --toc-w:290px; --lh:1.86;
+  --tag-theory-bg:#efefef; --tag-theory-fg:#4d4d4d; --tag-theory-bd:#dedede;
+  --tag-do-bg:#ececec; --tag-do-fg:#3d3d3d; --tag-do-bd:#dcdcdc;
+  --tag-tip-bg:#f2f2f2; --tag-tip-fg:#5a5a5a; --tag-tip-bd:#e2e2e2;
+  --grid-dots:none;
+}
+html[data-theme="mono"][data-dark="true"] {
+  --bg:#0d0d0e; --bg-2:#131314; --panel:#161617; --panel-2:#1c1c1d;
+  --text:#e9e9e9; --text-strong:#ffffff; --muted:#b0b0b0; --faint:#949494;
+  --accent:#f0f0f0; --accent-2:#ffffff; --accent-soft:#242426; --on-accent:#111111;
+  --line:#2b2b2c; --line-strong:#3d3d3f;
+  --shadow:0 24px 60px rgba(0,0,0,.62); --shadow-sm:0 6px 18px rgba(0,0,0,.5);
+  --hero-grad:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.52) 44%,rgba(0,0,0,.9) 100%);
+  --tag-theory-bg:#1e1e1f; --tag-theory-fg:#bfbfbf; --tag-theory-bd:#333333;
+  --tag-do-bg:#262626; --tag-do-fg:#e0e0e0; --tag-do-bd:#3a3a3a;
+  --tag-tip-bg:#242422; --tag-tip-fg:#cfcfcf; --tag-tip-bd:#3a3a39;
+}
+
 /* ------------------------------- 基础 ------------------------------- */
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:96px;color-scheme:light}
@@ -299,9 +363,11 @@ body.toc-open .mask{opacity:1;visibility:visible}
 .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.5);
   backdrop-filter:blur(6px)}
 .btn-ghost:hover{background:rgba(255,255,255,.18)}
-.hero-credit{position:absolute;right:18px;top:18px;z-index:3;font-size:11px;line-height:1.7;
-  color:rgba(255,255,255,.72);text-align:right;max-width:min(56%,430px);text-shadow:0 1px 8px rgba(0,0,0,.75)}
-.hero-credit a{color:rgba(255,255,255,.88);text-decoration:underline}
+.hero-credit{position:absolute;right:16px;top:16px;z-index:3;font-size:11px;line-height:1.7;
+  color:rgba(255,255,255,.86);text-align:right;max-width:min(56%,430px);
+  padding:5px 9px;border-radius:8px;background:rgba(12,10,8,.34);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.hero-credit a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.55)}
 .hero-credit .pid{opacity:.7;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}
 
 /* 学习路径 */
@@ -607,6 +673,115 @@ kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;bor
   .brand{font-size:17px}
   .brand .en{display:none}
   .hero-credit .pid{display:none}
+}
+
+/* ===================== 外观偏好（字体 / 字号 / 行距 / 密度） =====================
+   由 look.js 写在 <html> 上的 data-* 属性驱动，和主题、明暗互不干扰：
+   data-font   = serif | sans          标题/正文的字体方案
+   data-size   = s | m | l | xl        字号档
+   data-lead   = tight | normal | loose
+   data-density= airy | compact       版式疏密
+   强调色由 JS 计算后以行内变量覆盖 --accent / --accent-2 / --accent-soft / --on-accent。
+   ============================================================================ */
+html{--ts:1}
+html[data-size="s"]{--ts:.94}
+html[data-size="l"]{--ts:1.08}
+html[data-size="xl"]{--ts:1.16}
+
+body{font-size:calc(16px * var(--ts))}
+.chapter-intro{font-size:calc(16px * var(--ts))}
+.item-text{font-size:calc(13.5px * var(--ts))}
+.item h4{font-size:calc(13.5px * var(--ts))}
+.tri-text{font-size:calc(13px * var(--ts))}
+.hero .lede{font-size:calc(14.5px * var(--ts))}
+.hero .subtitle{font-size:clamp(calc(17px * var(--ts)),2.1vw,calc(23px * var(--ts)))}
+.chapter-head h2{font-size:clamp(calc(26px * var(--ts)),3.6vw,calc(36px * var(--ts)))}
+.unit-head .u-title{font-size:calc(15.5px * var(--ts))}
+.toc-sec-link{font-size:calc(12px * var(--ts))}
+.toc-leaves a{font-size:calc(11.5px * var(--ts))}
+.dt-h1{font-size:clamp(calc(28px * var(--ts)),3.4vw,calc(40px * var(--ts)))}
+.dt-p{font-size:calc(15px * var(--ts))}
+.dt-lead{font-size:calc(16px * var(--ts))}
+.dt-steps li{font-size:calc(14px * var(--ts))}
+.dt-mistakes li{font-size:calc(14px * var(--ts))}
+.dt-kw span{font-size:calc(12px * var(--ts))}
+
+/* 字体方案：不设 data-font 时用各主题自带的搭配 */
+html[data-font="serif"]{
+  --font-head:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --font-body:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+}
+html[data-font="sans"]{
+  --font-head:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --font-body:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+}
+
+/* 行距 */
+html[data-lead="tight"]{--lh:1.72}
+html[data-lead="loose"]{--lh:2.12}
+html[data-lead="tight"] .chapter-intro,
+html[data-lead="tight"] .dt-p,
+html[data-lead="tight"] .item-text{line-height:1.75}
+
+/* 版式疏密 */
+html[data-density="compact"] .chapter{margin-bottom:26px;padding-bottom:22px}
+html[data-density="compact"] .unit{margin-bottom:10px}
+html[data-density="compact"] .unit-head{padding:11px 16px}
+html[data-density="compact"] .unit-body{padding:0 16px 12px;gap:9px}
+html[data-density="compact"] .item{padding:13px 15px}
+html[data-density="compact"] .hero{padding-bottom:26px}
+html[data-density="compact"] .path-grid{gap:12px}
+html[data-density="compact"] .path-card{padding:16px 18px}
+html[data-density="compact"] .chapter-end{gap:12px;margin-top:20px}
+
+/* ------------------------------ 外观面板 ------------------------------ */
+.look-mask{position:fixed;inset:0;background:rgba(18,14,10,.44);z-index:380;opacity:0;
+  pointer-events:none;transition:opacity .24s}
+body.look-open .look-mask{opacity:1;pointer-events:auto}
+.look{position:fixed;top:0;right:0;z-index:390;height:100dvh;width:min(92vw,344px);
+  background:var(--panel);border-left:1px solid var(--line);box-shadow:var(--shadow);
+  transform:translateX(102%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column}
+body.look-open .look{transform:none}
+.look-head{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:18px 18px 14px;border-bottom:1px solid var(--line)}
+.look-head h2{margin:0;font-size:15px;letter-spacing:.06em;font-family:var(--font-head)}
+.look-head p{margin:2px 0 0;font-size:11.5px;color:var(--faint);line-height:1.5}
+.look-close{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;color:var(--muted)}
+.look-close:hover{background:var(--panel-2);color:var(--accent)}
+.look-body{flex:1;overflow:auto;padding:6px 18px 18px;overscroll-behavior:contain}
+.look-group{padding:16px 0;border-bottom:1px solid var(--line)}
+.look-group:last-of-type{border-bottom:0}
+.look-group h3{margin:0 0 4px;font-size:11.5px;letter-spacing:.16em;color:var(--faint);
+  font-weight:700;text-transform:uppercase;font-family:var(--font-body)}
+.look-group .look-note{margin:0 0 10px;font-size:11.5px;color:var(--faint);line-height:1.6}
+.look-opts{display:flex;flex-wrap:wrap;gap:8px}
+.look-opt{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;min-height:38px;
+  border:1px solid var(--line);border-radius:var(--r-sm);font-size:12.5px;color:var(--text);
+  background:var(--panel-2);transition:.16s}
+.look-opt:hover{border-color:var(--accent);color:var(--accent)}
+.look-opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
+  color:var(--on-accent);font-weight:600}
+.look-opt .sw{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.18);flex:0 0 auto}
+.look-themes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.look-theme{display:flex;flex-direction:column;gap:7px;padding:9px;border:1px solid var(--line);
+  border-radius:var(--r-sm);background:var(--panel-2);text-align:left;transition:.16s}
+.look-theme:hover{border-color:var(--accent)}
+.look-theme[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.look-theme .bar{display:flex;height:26px;border-radius:3px;overflow:hidden}
+.look-theme .bar i{flex:1}
+.look-theme .nm{font-size:12px;color:var(--text);font-weight:600}
+.look-theme .ds{font-size:10.5px;color:var(--faint);line-height:1.4}
+.look-foot{padding:14px 18px;border-top:1px solid var(--line);display:flex;gap:10px}
+.look-reset{flex:1;padding:11px;border:1px solid var(--line);border-radius:var(--r-sm);
+  font-size:13px;color:var(--muted);transition:.16s}
+.look-reset:hover{border-color:var(--accent);color:var(--accent)}
+
+@media (max-width:560px){
+  .look{width:100vw}
+  /* 窄屏上模板入口由外观面板承担，顶栏只留目录/搜索/外观/暗色四个按钮 */
+  .topbar .theme-wrap{display:none}
+  .dt-top-actions .theme-wrap{display:none}
 }
 
 /* --------------------------- 减少动态 --------------------------- */

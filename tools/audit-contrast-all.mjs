@@ -2,7 +2,7 @@
 import { connect } from './cdp.mjs';
 import path from 'node:path';
 
-const themes = ['paper', 'cinema', 'grid'];
+const themes = ['paper', 'cinema', 'grid', 'ink', 'mono'];
 const darks = [false, true];
 const c = await connect('about:blank');
 await c.send('Page.enable');

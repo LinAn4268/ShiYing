@@ -22,8 +22,8 @@
       try { localStorage.setItem('shiying:' + k, JSON.stringify(v)); } catch (e) { /* 隐私模式静默失败 */ }
     }
   };
-  var THEME_COLORS = { paper: '#f7f2e8', cinema: '#f2f1ee', grid: '#f3f8f7' };
-  var THEME_COLORS_DARK = { paper: '#1b1713', cinema: '#0b0c0f', grid: '#0f1a1b' };
+  var THEME_COLORS = { paper: '#f7f2e8', cinema: '#f2f1ee', grid: '#f3f8f7', ink: '#f4f2ec', mono: '#f4f4f4' };
+  var THEME_COLORS_DARK = { paper: '#1b1713', cinema: '#0b0c0f', grid: '#0f1a1b', ink: '#131719', mono: '#0d0d0e' };
 
   var all = (typeof DETAILS !== 'undefined' && Array.isArray(DETAILS)) ? DETAILS.slice() : [];
   var byId = {};
@@ -33,7 +33,7 @@
   var theme = store.get('theme', 'paper');
   var dark = store.get('dark', null);
   if (dark === null) dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (['paper', 'cinema', 'grid'].indexOf(theme) === -1) theme = 'paper';
+  if (['paper', 'cinema', 'grid', 'ink', 'mono'].indexOf(theme) === -1) theme = 'paper';
 
   function applyTheme() {
     var root = document.documentElement;
@@ -47,6 +47,16 @@
       b.setAttribute('aria-checked', b.getAttribute('data-theme-choice') === theme ? 'true' : 'false');
     });
   }
+
+  /* 供外观面板（look.js）调用 */
+  window.SY = {
+    setTheme: function (t) {
+      if (['paper', 'cinema', 'grid', 'ink', 'mono'].indexOf(t) === -1) return;
+      theme = t; store.set('theme', theme); applyTheme();
+    },
+    setDark: function (v) { dark = !!v; store.set('dark', dark); applyTheme(); },
+    getTheme: function () { return theme; }
+  };
 
   function buildToc() {
     var box = $('#dtToc');

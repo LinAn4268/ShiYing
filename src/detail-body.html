@@ -26,11 +26,18 @@
 (function () {
   try {
     var r = document.documentElement, t = localStorage.getItem('shiying:theme');
-    if (t) { t = JSON.parse(t); if (t === 'paper' || t === 'cinema' || t === 'grid') r.setAttribute('data-theme', t); }
+    if (t) { t = JSON.parse(t); if (t === 'paper' || t === 'cinema' || t === 'grid' || t === 'ink' || t === 'mono') r.setAttribute('data-theme', t); }
     var d = localStorage.getItem('shiying:dark');
     if (d === null) d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     else d = JSON.parse(d);
     r.setAttribute('data-dark', d ? 'true' : 'false');
+    var map = { lookFont: 'data-font', lookSize: 'data-size', lookLead: 'data-lead', lookDensity: 'data-density' };
+    Object.keys(map).forEach(function (k) {
+      var v = localStorage.getItem('shiying:' + k);
+      if (!v) return;
+      try { v = JSON.parse(v); } catch (e2) { return; }
+      if (typeof v === 'string' && v) r.setAttribute(map[k], v);
+    });
   } catch (e) { /* 隐私模式下 localStorage 不可用，用默认模板 */ }
 })();
 </script>
@@ -51,12 +58,15 @@
     <button class="tb-btn icon-only dt-side-toggle" id="dtSideToggle" aria-label="打开要点目录" aria-expanded="false">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
+    <button class="tb-btn icon-only" id="lookBtn" aria-label="自定义外观" aria-expanded="false" aria-controls="lookPanel" title="外观：模板、字体、字号、强调色">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 7h7M16 7h3M5 12h3M12 12h7M5 17h9M18 17h1"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="16" cy="17" r="2"/></svg>
+    </button>
     <div class="theme-wrap">
       <button class="tb-btn icon-only" id="dtThemeBtn" aria-label="切换界面模板" aria-expanded="false" aria-haspopup="true" aria-controls="dtThemeMenu" title="界面模板">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 100 18h1.2a2 2 0 002-2 2 2 0 00-2-2H12a3 3 0 010-6h5.5A3.5 3.5 0 0021 7.5 5.5 5.5 0 0015.5 3z"/><circle cx="7.5" cy="11.5" r=".9"/><circle cx="10" cy="7.4" r=".9"/><circle cx="15" cy="7.8" r=".9"/></svg>
       </button>
       <div class="theme-menu" id="dtThemeMenu" role="menu" aria-label="界面模板" hidden>
-        <p class="tm-title">三套界面模板</p>
+        <p class="tm-title">五套界面模板</p>
         <button class="tm-item" role="menuitemradio" aria-checked="true" data-theme-choice="paper">
           <span class="tm-swatch" aria-hidden="true"><i style="background:#f7f2e8"></i><i style="background:#fffdf7"></i><i style="background:#b0503a"></i><i style="background:#2f2923"></i></span>
           <span><span class="tm-name">A · 暖纸杂志</span><span class="tm-desc">米白纸感、宋体标题、朱砂色重点。</span></span>
@@ -69,6 +79,16 @@
           <span class="tm-swatch" aria-hidden="true"><i style="background:#f3f8f7"></i><i style="background:#ffffff"></i><i style="background:#1f8a7e"></i><i style="background:#1f3033"></i></span>
           <span><span class="tm-name">C · 网格手册</span><span class="tm-desc">浅青网格、圆角卡片。</span></span>
         </button>
+        <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="ink">
+          <span class="tm-swatch" aria-hidden="true"><i style="background:#f4f2ec"></i><i style="background:#fbfaf6"></i><i style="background:#2f5d57"></i><i style="background:#252b2c"></i></span>
+          <span><span class="tm-name">D · 水墨纸本</span><span class="tm-desc">宣纸底色、全宋体、墨绿。</span></span>
+        </button>
+        <button class="tm-item" role="menuitemradio" aria-checked="false" data-theme-choice="mono">
+          <span class="tm-swatch" aria-hidden="true"><i style="background:#f4f4f4"></i><i style="background:#ffffff"></i><i style="background:#1f1f1f"></i><i style="background:#1b1b1b"></i></span>
+          <span><span class="tm-name">E · 银盐黑白</span><span class="tm-desc">纯灰阶、全直角。</span></span>
+        </button>
+        <hr>
+        <p class="tm-foot">模板与暗色层可任意叠加、分别记忆；字号、行距与强调色在「外观」面板里调。</p>
       </div>
     </div>
     <button class="tb-btn icon-only" id="dtDarkBtn" aria-label="切换暗色模式" aria-pressed="false" title="暗色模式">
@@ -95,9 +115,12 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<div id="lookRoot"></div>
+
 <script>
 /*__DATA__*/
 /*__APP__*/
+/*__LOOK__*/
 </script>
 </body>
 </html>

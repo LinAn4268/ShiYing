@@ -22,11 +22,12 @@
 ├── .gitignore / .gitattributes ← 发布用（忽略截图与临时文件、统一 LF）
 ├── src/                ← 可维护源码（改内容请改这里，再运行构建脚本）
 │   ├── body.html       ← 主页静态骨架与占位符
-│   ├── style.css       ← 三套模板 + 主页组件样式（含浅/暗两套变量）
+│   ├── style.css       ← 五套模板 + 外观偏好层 + 主页组件样式（含浅/暗两套变量）
 │   ├── app.js          ← 主页原生 JS：渲染 / 折叠 / 搜索 / 主题 / 进度 / 术语
 │   ├── detail-body.html ← 详情页骨架（目录侧栏 + 正文 + 主题按钮）
 │   ├── detail.css      ← 详情页专属样式（dt- 前缀，复用主题变量）
 │   ├── detail-app.js   ← 详情页原生 JS：135 条目录 / 锚点切换 / 主题 / 上下篇
+│   ├── look.js         ← 外观面板：模板 / 字体 / 字号 / 行距 / 疏密 / 强调色（两页共用）
 │   └── build.py        ← 构建脚本：把 src + data 合成 index.html 与 detail.html
 ├── data/               ← 内容数据（唯一内容源）
 │   ├── ch1-3.json / ch4-7.json / ch8-10.json   ← 十章正文
@@ -39,7 +40,8 @@
 └── tools/              ← 本地验收工具（CDP 驱动 Edge，非交付必需）
     ├── cdp.mjs / check.mjs / interact.mjs / shots.mjs / imgcheck.mjs
     ├── check-detail.mjs / dshot.mjs / check-tip.mjs / shoturl.mjs
-    ├── check-toc.mjs / shotdrawer.mjs
+    ├── check-toc.mjs / shotdrawer.mjs / shotlook.mjs
+    ├── check-look.mjs / check-accent.mjs / palette_check.py
     ├── audit-page.mjs / audit-contrast-all.mjs / audit-contrast-page.mjs
     ├── audit-controls.mjs / audit_content.py
     └── sheet.py / probe*.mjs
@@ -49,21 +51,46 @@
 
 ---
 
-## 二、三套 UI 模板
+## 二、五套 UI 模板 + 外观面板
 
-通过右上角「主题」切换，选择保存在 localStorage，刷新后保留。每套模板都自带浅色与暗色两套配色（暗色按钮独立切换并记忆）。
+模板决定整体气质，通过右上角「主题」快速切换；更细的字号、行距、疏密与强调色在「外观」面板里调。所有选择都保存在 localStorage，刷新后保留。每套模板都自带浅色与暗色两套配色（月亮按钮独立切换并记忆），**模板 × 明暗 × 字体 × 字号 × 行距 × 疏密 × 强调色**可以任意组合。
 
 | 模板 | 气质 | 主色 / 字体 | 造型语言 | 适用场景 |
 |---|---|---|---|---|
 | **纸刊 paper**（默认） | 暖纸杂志、安静文学感 | 朱砂 `#b0503a`；标题宋体、正文无衬线 | 圆角 14px、柔和阴影、留白充裕；第一章导语带引号装饰 | 长时间沉浸阅读、文学化引入 |
 | **影院 cinema** | 暗调胶片、克制高级 | 暗底 `#0b0c0f` + 金 `#d8a53f`；无衬线 | 直角 2px、图片满幅出血、小节用上下细线分割而非卡片 | 作品欣赏、偏视觉/摄影氛围 |
 | **网格 grid** | 清爽手册、效率感 | 青绿 `#1f8a7e`；无衬线 | 点阵背景、白色卡片圆角 18px、信息密度高 | 快速查阅、偏教程/工具手册 |
+| **水墨 ink** | 纸本、安静、留白多 | 墨绿 `#2f5d57`；标题与正文都用宋体 | 圆角 6px、极淡分隔线、行高 2.0 | 想读得慢一点、偏东方气质 |
+| **银盐 mono** | 黑白影集、零装饰 | 纯灰阶，强调色为黑/白；标题 Times+宋体、正文黑体 | 全直角、无阴影色偏、标签去色 | 专注结构、构图与影调 |
 
-实现位置：`src/style.css` 顶部 `html[data-theme="..."]` 与 `html[data-theme="..."][data-dark="true"]` 两组 CSS 变量，覆盖 bg / panel / text / accent / line / shadow / 圆角 / 字体 / 标签三色 / 卡片列数 / Hero 渐变 / 点阵等。
+实现位置：`src/style.css` 顶部 `html[data-theme="..."]` 与 `html[data-theme="..."][data-dark="true"]` 两组 CSS 变量，覆盖 bg / panel / text / accent / line / shadow / 圆角 / 字体 / 标签三色 / 卡片列数 / Hero 渐变 / 点阵等。五套模板 × 浅暗共 10 组配色，每组都跑过 477 个文本元素的自动对比度审计（`below=0`）。
+
+### 外观面板
+
+右上角滑杆图标打开，右侧抽屉，改动即时生效并记住：
+
+| 维度 | 可选值 | 实现 |
+|---|---|---|
+| 界面模板 | 5 套 | `html[data-theme]`，与主题菜单双向同步 |
+| 字体方案 | 跟随模板 / 全宋体 / 全黑体 | `html[data-font]` 覆盖 `--font-head` `--font-body` |
+| 字号 | 小 / 标准 / 大 / 特大 | `html[data-size]` 写 `--ts`（.94 / 1 / 1.08 / 1.16），正文/标题/目录/详解页文字一起缩放 |
+| 行距 | 紧凑 / 标准 / 宽松 | `html[data-lead]` 覆盖 `--lh`（1.72 / 主题默认 / 2.12） |
+| 版式疏密 | 宽松 / 紧凑 | `html[data-density="compact"]` 收紧章节、小节、条目与路径卡的内边距 |
+| 强调色 | 跟随模板 / 6 个预设 | 见下 |
+
+强调色不是「取色即用」：选中后由 `src/look.js` 把颜色转到 HSL，在明度轴上寻找**最近的**、同时满足「对 bg、panel、panel-2 均 ≥4.5」「`--on-accent` 对强调色 ≥4.5」「强调色压在同色淡底 `--accent-soft` 上 ≥4.5」的取值，再写回行内变量；换模板或切暗色时自动重算。实测 5 模板 × 明暗 × 6 预设 = **60 组全部达标，最差一组 4.51**（`tools/check-accent.mjs`）。
+
+三个「记忆键」彼此独立：`shiying:theme`（模板）、`shiying:dark`（明暗）、`shiying:look*`（外观五项）。首帧前由 `<head>` 内联脚本一次性套用，避免闪白。
 
 ---
 
 ## 三、功能清单
+
+**外观与多元化**
+- 五套 UI 模板（paper / cinema / grid / ink / mono），可在顶栏主题菜单或外观面板里切换。
+- 外观面板：字体方案、4 档字号、3 档行距、2 档版式疏密、6 个预设强调色 + 跟随模板、一键恢复默认。
+- 强调色自动校正明度，保证对比度 ≥4.5；换模板、切暗色都会重算。
+- 抽屉式面板：Esc 关闭、Tab 焦点陷阱、`aria-modal`、`aria-pressed` 状态、操作播报到 `aria-live`。
 
 **要点详解页（detail.html）**
 - 主页每条三级标题下方有「读详解 →」入口，链接为 `detail.html#条目ID`，如 `detail.html#8-1-3`。
@@ -142,7 +169,11 @@
 | 目录每章可单独收起（含第一章）+ 状态记忆 | ✅ | check-toc.mjs 10 项全 PASS；audit-controls.mjs 章级箭头两项 PASS |
 | 三级折叠（默认第一章展开）+ 目录点击自动展开定位 | ✅ | interact：默认 3 个小节展开、目录点击滚动到位 |
 | 搜索过滤 / 高亮 / 空状态 / 建议词 / 清空还原 | ✅ | interact：命中 11 条、56 处 mark、空态与还原均通过 |
-| 三套主题切换 + 暗色 + 持久化 | ✅ | interact + paper/cinema/grid 浅暗截图 |
+| 五套主题切换 + 暗色 + 持久化 | ✅ | interact + paper/cinema/grid/ink/mono 浅暗截图 |
+| 外观面板：模板 / 字体 / 字号 / 行距 / 疏密 / 强调色 / 重置 | ✅ | `check-look.mjs` 全部 PASS（含刷新持久化、Esc 关闭、Tab 焦点陷阱） |
+| 强调色对比度（5 模板 × 明暗 × 6 预设） | ✅ | `check-accent.mjs`：checked=60 below=0，最差 4.51 |
+| 五套模板浅暗各 477 个文本元素对比度 | ✅ | `audit-contrast-all.mjs`：10 组 below=0 |
+| 极端组合（特大字+宽松行距+紧凑版式）390px 无横向滚动 | ✅ | `check-look.mjs`：scrollW 390 = 视口 390，越界元素 0 |
 | 图片来源 / alt / 新标签外链 / 失败降级 | ✅ | 32 图全 ok（旧版），改版后 15 图全 ok；imgfail 截图验证降级 |
 | 参数对比表格 / 卡片 / 曝光三角 SVG | ✅ | check：tables 2、cards 22、triangle 截图 |
 | 术语首现标注 + 术语表弹层（62 条） | ✅ | interact：术语弹层与条目数通过 |
@@ -252,3 +283,24 @@
 | 5 | 搜索与折叠状态互不干扰 | 搜索时命中的章全部临时展开；搜索期间暂停滚动自动开合（避免滚动位置跳变把刚展开的章又收回去）；清空搜索后按存储状态还原 |
 
 验证：新增 `tools/check-toc.mjs`（10 项断言：默认展开、点击收起、刷新后保持收起、再次展开、滚动自动展开且不影响手动章、搜索全展开、清空还原、按钮可聚焦）→ `TOC PROBLEMS: none`；回归 `validate.py`（182/182）、`check.mjs`、`interact.mjs`（34 项）、`check-detail.mjs`（22 项）、`audit-controls.mjs`（55 项）、`audit-page.mjs`（8 组宽度无横向滚动、`noName:0`）、`audit-contrast-all.mjs`（6 组各 439 元素 `below=0`）全部无回归。
+
+
+## 十、第四轮：UI 多元化与外观面板
+
+用户要求：「UI 和设计风格能不能再多元化、自由度高一点，最好可供用户在一定范围自动选择」。做法是把「一套固定皮肤」改成「五套模板 + 一组可自由组合的外观偏好」，并且所有可选值都经过对比度约束，避免自由调节破坏可读性。
+
+| # | 改动 | 说明 |
+|---|---|---|
+| 1 | 新增两套模板：水墨 `ink`、银盐 `mono` | ink：宣纸底 `#f4f2ec` + 墨绿 `#2f5d57`，标题与正文都用宋体，行高 2.0、留白最多；mono：纯灰阶、全直角、标题 Times+宋体、正文黑体，几乎不带彩色 |
+| 2 | 新增外观面板 `src/look.js` | 右侧抽屉（`role="dialog"` + `aria-modal`），分六组：界面模板（5 张带四色条的卡片）、字体、字号、行距、版式疏密、强调色；底部「恢复默认外观」。Esc 关闭、Tab 焦点陷阱、焦点回到触发按钮、改动通过 `aria-live` 播报 |
+| 3 | 偏好层与主题/暗色解耦 | 偏好写在 `<html>` 的 `data-font` / `data-size` / `data-lead` / `data-density`，与 `data-theme`、`data-dark` 正交；存储键 `shiying:look*` 与 `shiying:theme`、`shiying:dark` 分别记忆 |
+| 4 | 强调色带对比度求解 | 取色 → HSL 明度轴上搜索最近的可行值，要求对 bg / panel / panel-2 ≥4.5、`--on-accent` 对强调色 ≥4.5、强调色压在同色淡底上 ≥4.5；换模板或切暗色时用 `MutationObserver` 自动重算 |
+| 5 | 首帧一次性套用全部偏好 | `<head>` 内联脚本从 `localStorage` 读模板、明暗与外观五项，在首次绘制前写好属性，避免「先按默认排版闪一下再变」 |
+| 6 | 移动端收敛入口 | ≤560px 时隐藏顶栏的模板按钮（面板里同样能选），顶栏只留目录 / 搜索 / 外观 / 暗色四个按钮，避免挤压 |
+| 7 | Hero 图片来源标注加底片 | 亮天空背景下白字几乎看不清，改为半透明深色圆角底 + 轻微模糊，全主题统一可读 |
+
+验证：
+- `tools/check-look.mjs`：模板卡片数量、抽屉开合与焦点、五套模板切换、字体/字号/行距/疏密生效与持久化、6 个强调色对比度、暗色与换模板后重算、刷新保留、Esc 与 Tab 焦点陷阱、重置、极端组合 390px 无横向滚动、详情页同样可用 → `LOOK PROBLEMS: none`。
+- `tools/check-accent.mjs`：5 模板 × 明暗 × 6 预设 = 60 组，`below=0`，最差 4.51。
+- `tools/audit-contrast-all.mjs` / `audit-contrast-page.mjs` 扩到五套模板：10 组 × 477（主页）/ 每组 218（详情页），`below=0`。
+- 回归：`validate.py` 182/182、`check.mjs`（`PROBLEMS: none`）、`interact.mjs` 34 项、`check-toc.mjs` 10 项、`check-detail.mjs` 22 项、`audit-controls.mjs`（含新增 26 个面板控件，`CONTROL PROBLEMS: none`）、`audit-page.mjs`（8 组宽度无横向滚动、`noName:0`）全部无回归。

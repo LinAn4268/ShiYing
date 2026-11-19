@@ -32,13 +32,15 @@ def js(obj):
 
 css = read(os.path.join(SRC, 'style.css'))
 app = read(os.path.join(SRC, 'app.js'))
+look = read(os.path.join(SRC, 'look.js'))
 tpl = read(os.path.join(SRC, 'body.html'))
 
 out = (tpl
   .replace('/*__CSS__*/', css)
   .replace('/*__DATA__*/', 'var DATA=' + js(chapters) + ';')
   .replace('/*__GLOSSARY__*/', 'var GLOSSARY=' + js(glossary) + ';')
-  .replace('/*__APP__*/', app))
+  .replace('/*__APP__*/', app)
+  .replace('/*__LOOK__*/', look))
 
 path = os.path.join(BASE, 'index.html')
 with io.open(path, 'w', encoding='utf-8', newline='\n') as fh:
@@ -127,7 +129,8 @@ detail_html = (detail_body
   .replace('/*__BASE_CSS__*/', css)
   .replace('/*__DETAIL_CSS__*/', detail_css)
   .replace('/*__DATA__*/', 'var DETAILS=' + js(details) + ';')
-  .replace('/*__APP__*/', detail_app))
+  .replace('/*__APP__*/', detail_app)
+  .replace('/*__LOOK__*/', look))
 detail_path = os.path.join(BASE, 'detail.html')
 with io.open(detail_path, 'w', encoding='utf-8', newline='\n') as fh:
     fh.write(detail_html)
