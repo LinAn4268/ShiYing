@@ -2,7 +2,7 @@
 
 **线上访问：<https://linan4268.github.io/ShiYing/>** ｜ 仓库：<https://github.com/LinAn4268/ShiYing>
 
-一个**双击即可运行**的摄影入门学习网页，包含主页 `index.html` 与共用的要点详解页 `detail.html`。目录严格取自《摄影前期拍摄知识概况目录》，10 章 / 37 小节 / 135 条三级标题逐条保留、顺序一致，不增不减不改。每条三级标题都配有一篇短教程（导语 / 先懂原理 / 动手步骤 / 常见误区 / 举个例子 / 一句话小结 / 关键词），可从主页每条要点的「读详解 →」进入。
+一个**双击即可运行**的摄影入门学习网页，包含主页 `index.html` 与共用的要点详解页 `detail.html`。目录严格取自《摄影前期拍摄知识概况目录》，10 章 / 37 小节 / 135 条三级标题逐条保留、顺序一致，不增不减不改。每条三级标题都配有一篇短教程（导语 / 先懂原理 / 动手步骤 / 常见误区 / 举个例子 / 案例 / 一句话小结 / 关键词）与一张内容对应的配图，可从主页每条要点的「读详解 →」进入。
 
 内容篇幅（实测 135 条）：纯散文部分（导语 + 原理 + 举例 + 小结）**250–637 字，中位数 391**；加上步骤、误区、关键词后的整条正文 **394–974 字，中位数 651**。中位数落在 300–500 区间，个别条目因主题简单或需要更多前提说明而偏短/偏长，均保证叙述完整、无凑字。
 
@@ -35,14 +35,18 @@
 │   ├── glossary.json   ← 62 条术语首现解释
 │   ├── directory.txt   ← 182 行标题清单（校验基准）
 │   ├── validate.py     ← 目录完整性 + 关键特性校验
+│   ├── photos/         ← 详解页配图
+│   │   ├── detail.json ← 135 条 → Pexels 图片映射（id / 来源页 / 摄影师 / alt / srcset）
+│   │   └── raw.txt     ← 采集时记录的候选（小节 / id / 摄影师 / 英文标题）
 │   └── detail/         ← 135 条短教程内容
 │       ├── input/chN.json   ← 从十章正文抽出的标题元信息（N=1..10）
-│       └── out/chN.json     ← 扩写后的详解内容（lead/principle/steps/mistakes/example/takeaway/keywords）
+│       └── out/chN.json     ← 扩写后的详解内容（lead/principle/steps/mistakes/example/case/takeaway/keywords）
 └── tools/              ← 本地验收工具（CDP 驱动 Edge，非交付必需）
     ├── cdp.mjs / check.mjs / interact.mjs / shots.mjs / imgcheck.mjs
     ├── check-detail.mjs / dshot.mjs / check-tip.mjs / shoturl.mjs
     ├── check-toc.mjs / shotdrawer.mjs / shotlook.mjs
     ├── check-look.mjs / check-accent.mjs / palette_check.py
+    ├── make_photos.py（生成配图映射 + HEAD 校验）/ check-photos.mjs（配图结构与加载测试）
     ├── shotlook.mjs / livelook.mjs（线上外观面板验证）
     ├── audit-page.mjs / audit-contrast-all.mjs / audit-contrast-page.mjs
     ├── audit-controls.mjs / audit_content.py
@@ -164,6 +168,28 @@
 - [LensCulture](https://www.lensculture.com/)
 - [1x](https://1x.com/)
 
+### 详解页配图（135 张，逐条对应）
+
+135 个详解页各配一张 **Pexels** 图片，共 135 个互不重复的图片 ID，按小节内容挑选、按条目逐条对应。直链格式：
+`https://images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?auto=compress&cs=tinysrgb&w=1000`，
+来源链接为 `https://www.pexels.com/photo/<slug>-<id>/`（摄影师名一并显示在图片下方）。
+
+| 章节 | 配图主题（对应小节） | 条目数 |
+|---|---|---|
+| 第一章 | 林间光柱、举机拍摄、学摄影的少年 | 9 |
+| 第二章 | 机身与画幅、镜头与焦段、附件与装备 | 11 |
+| 第三章 | 光圈叶片、慢门水流、夜间街道噪点、测光与刻度盘 | 13 |
+| 第四章 | 取景器、浅景深花草、手持姿态 | 12 |
+| 第五章 | 侧光人像、窗光空房、影棚柔光箱、雾中低影调 | 15 |
+| 第六章 | 冷暖天空、颜料与色彩、老相机静物 | 10 |
+| 第七章 | 极简雾景、俯拍街景、对称建筑、引导线、透视 | 15 |
+| 第八章 | 黄金时刻人像、山湖日出、运动模糊、美食平铺、夜景星空 | 22 |
+| 第九章 | 车流光轨、全景山谷、多重曝光、影棚硬光 | 14 |
+| 第十章 | 器材与拨盘、户外拍摄现场、回看照片 | 14 |
+
+图片规范：`srcset`（640w / 1000w）+ `sizes`、`alt` 为 12–29 字的中文内容描述、`figcaption` 显示「图片：Pexels · 摄影师」并新标签打开、加载失败时整块收起（`.dt-fig.is-broken`）、银盐模板下统一转灰度。
+数据与工具：`data/photos/detail.json`（135 条映射）、`tools/make_photos.py`（生成 + HEAD 校验）、`tools/check-photos.mjs`（结构与加载测试）。
+
 ---
 
 ## 五、验收自检表
@@ -206,6 +232,12 @@
 | 分享卡片与规范链接 | ✅ | index / detail 均含 `og:title/description/image/url`、`twitter:card=summary_large_image`、`rel=canonical` |
 | 无 JS 降级提示 | ✅ | `<noscript>` 说明条（`.noscript-note`），开启 JS 时不显示 |
 | 线上 404 / 抓取与站点文件 | ✅ | `404.html`（同风格）、`robots.txt`、`sitemap.xml`、`.nojekyll` 已随仓库发布 |
+
+| 135 个详解页逐条配图（图文对应） | ✅ | `validate.py`：photos 135 / 135，missing 0；`check-photos.mjs`：135 个 figure 全有图，图片 ID 无重复 |
+| 配图 alt 与来源可查 | ✅ | 135 个 `alt` 均 12–29 字中文描述；`figcaption` 为「图片：Pexels · 摄影师」并链接 Pexels 单图页 |
+| 配图加载与降级 | ✅ | `check-photos.mjs` 抽样 20 张（每章 2 张）真实加载成功；人为断图后 figure 自动隐藏（`display:none`） |
+| 配图响应式与性能 | ✅ | `srcset` 640w/1000w + `sizes`、固定宽高比占位、`decoding=async`；银盐模板转灰度 |
+| 配图不影响对比度 | ✅ | `audit-contrast-page.mjs`：详情页 10 组合各 262 元素 `below=0` |
 
 > 所有断言最终结果：`PROBLEMS: none`（check.mjs 与 interact.mjs 双套件）、`DETAIL PROBLEMS: none`（check-detail.mjs）、`TIP PROBLEMS: none`（check-tip.mjs）。
 
@@ -349,3 +381,39 @@
 - 对比度：五套模板 × 浅暗共 10 组，主页 482 个文本元素、详情页 261 个文本元素，全部 `below=0`。
 - 无横向滚动：`audit-page.mjs` 320/360/390/430 四档 × 两页；`check-look.mjs` 极端组合（390px + 特大字 + 宽松行距 + 紧凑版式 + mono）仍为 390/390。
 - 截图核对：五套模板桌面 Hero、ink/mono 正文版式、390px 三套新模板、案例块、主题卡配图（`.shots/n-*-0.png`、`.shots/n2-*.png`、`.shots/m-*-0.png`、`.shots/case-block.png`、`.shots/look-thumbs.png`、`.shots/look-mob2.png`）。
+
+---
+
+## 十二、第六轮：详解页逐条配图
+
+用户要求「对 135 个详解页逐条配图，图片与内容对应，图文并茂」。
+
+### 1. 落点与选图
+
+- 位置：详情页正文「导语」之后、第 1 块「先懂原理」之前，作为这一条的视觉入口。
+- 选图原则：按**小节**定主题池，再按**条目**逐条落到最贴近的具体画面。例如 5.3.2「主光、辅光、轮廓光」配三盏灯架的影棚实拍；8.4.2「主光位置与材质质感」配侧逆光的寿司；9.3.1「机内多重曝光」配人物与天空叠影的胶片照。
+- 结果：135 条各一张、**135 个互不重复的图片 ID**（无一条复用），全部来自 Pexels 免费可商用图库。
+
+### 2. 图片规范
+
+| 项 | 做法 |
+|---|---|
+| 直链 | `images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?auto=compress&cs=tinysrgb&w=1000` |
+| 响应式 | `srcset` 640w / 1000w + `sizes="(max-width:760px) 100vw, 720px"` |
+| 占位 | 容器固定 `aspect-ratio:3/2`（窄屏 4/3），提前占位不抖动 |
+| alt | 12–29 字中文内容描述，描述画面本身而不是复述标题 |
+| 署名 | 图注「图片：Pexels · 摄影师」，`target=_blank` + `rel=noopener noreferrer`，链接到 Pexels 单图页 |
+| 降级 | 触发 `error` 时给 `figure` 加 `.is-broken`（`display:none`），不留下破图框 |
+| 主题适配 | 银盐（mono）模板下配图统一 `grayscale(1)`，与版面一致 |
+
+### 3. 采集与校验链路
+
+Pexels/Unsplash 的站内搜索页有 Cloudflare 拦截、官方 API 需 key，最终走「`site:pexels.com photo <英文主题>` 检索 → 取单图页的 id/摄影师/标题 → 拼 CDN 直链 → 逐条 HEAD 校验」。
+`tools/make_photos.py` 内置这张 135 行的映射表，`--check` 会对 135 个 ID 全部 HEAD 一次（本次结果 `checked 135 unique ids, bad []`），再生成 `data/photos/detail.json`。
+
+### 4. 验证
+
+- `validate.py`：`photos: 135 / 135 items, missing 0, duplicate images 0`；新增断言 `PASS photos 135`。
+- `check-photos.mjs`：135 个 figure 结构全通过（`src` 与映射一致、`srcset` 存在、`alt` 长度合规、来源链接指向对应 Pexels 页面且安全打开）；抽样 20 张（每章首尾各一）真实加载 `naturalWidth > 0`；人为断图后 `figure` 变为 `display:none`；`ERRS []`。
+- 回归：`check` / `interact` / `check-toc` / `check-detail` / `check-look` / `audit-controls` / `check-accent`(60 组) 全部 `none`；主页 10 组合各 1006 元素、详情页 10 组合各 262 元素 `below=0`；`audit-page.mjs` 详情页 `imgs {total:6, ok:6, bad:[]}`、`index a11y noName:0`。
+- 截图核对：`.shots/fig-111.png`（1.1.1）、`.shots/fig-532.png`（5.3.2，影棚三灯）、`.shots/fig-842.png`（8.4.2）、`.shots/fig-grid.png`（9.3.1）、`.shots/fig-mono-mob.png`（8.5.4 银盐暗色移动端）、`.shots/fig-mob-paper.png`（2.2.3 移动端）。

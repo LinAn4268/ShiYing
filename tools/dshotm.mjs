@@ -1,0 +1,10 @@
+import { connect } from './cdp.mjs';
+const [hash, theme, dark, w, h, name] = process.argv.slice(2);
+const c = await connect('file:///C:/Users/32289/Desktop/%E6%8B%BE%E5%BD%B1/detail.html#' + hash);
+await c.send('Page.enable');
+await c.send('Emulation.setDeviceMetricsOverride', { width: +w, height: +h, deviceScaleFactor: 1, mobile: +w < 600 });
+await c.evaluate(`localStorage.clear(); localStorage.setItem('shiying:theme', JSON.stringify('${theme}')); localStorage.setItem('shiying:dark', '${dark}');`);
+await c.send('Page.reload'); await c.sleep(4200);
+await c.screenshot('.shots/' + name + '.png');
+console.log('saved', name);
+c.close();

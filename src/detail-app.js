@@ -115,6 +115,16 @@
     html += '<div class="dt-meta">' + tagHTML(d.tag) + '<span class="dt-sec">拾影 · 要点详解</span></div>';
     html += '<p class="dt-lead">' + esc(d.lead || d.text || '') + '</p>';
 
+    if (d.photo) {
+      var pt = d.photo;
+      html += '<figure class="dt-fig">' +
+        '<div class="dt-fig-ph"><img src="' + pt.src + '" srcset="' + pt.srcset + '"' +
+        ' sizes="(max-width:760px) 100vw, 720px" alt="' + esc(pt.alt) + '"' +
+        ' width="1000" height="667" loading="eager" decoding="async"></div>' +
+        '<figcaption><a class="dt-fig-credit" href="' + pt.page + '" target="_blank" rel="noopener noreferrer">' +
+        '图片：Pexels · ' + esc(pt.ph) + ' <span aria-hidden="true">↗</span></a></figcaption></figure>';
+    }
+
     html += '<section class="dt-block"><h2 class="dt-h2"><span class="dt-no">1</span>先懂原理</h2>' + paratext(d.principle || d.text) + '</section>';
     if (d.steps && d.steps.length) {
       html += '<section class="dt-block"><h2 class="dt-h2"><span class="dt-no">2</span>动手步骤</h2><ol class="dt-steps">' +
@@ -199,6 +209,15 @@
       render(currentId());
     }
     applyTheme();
+
+    // 配图加载失败时整块收起，避免出现破图占位
+    $('#dtArticle').addEventListener('error', function (e) {
+      var t = e.target;
+      if (t && t.tagName === 'IMG') {
+        var fig = t.closest('.dt-fig');
+        if (fig) fig.classList.add('is-broken');
+      }
+    }, true);
 
     window.addEventListener('hashchange', function () {
       var h = decodeURIComponent(location.hash.replace(/^#/, ''));

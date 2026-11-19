@@ -89,6 +89,8 @@ def norm_list(v, field):
 
 details = []
 missing = []
+PHOTOS = json.loads(read(os.path.join(DATA, 'photos', 'detail.json')))
+no_photo = []
 for i in range(1, 11):
     p = os.path.join(DATA, 'detail', 'out', 'ch%d.json' % i)
     if not os.path.exists(p):
@@ -114,7 +116,15 @@ for i in range(1, 11):
                 rec[fld] = norm_list(it.get(fld, []), fld)
             else:
                 rec[fld] = it.get(fld, '')
+        ph = PHOTOS.get(it['id'])
+        if ph:
+            rec['photo'] = ph
+        else:
+            no_photo.append(it['id'])
         details.append(rec)
+
+if no_photo:
+    print('WARNING: details without photo:', ', '.join(no_photo[:10]), '(+%d)' % max(0, len(no_photo) - 10))
 
 if missing:
     print('WARNING: missing detail files:', ', '.join(missing))

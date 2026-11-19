@@ -16,3 +16,4 @@ desktop.ini
 .idea/
 __pycache__/
 *.pyc
+nohup.out

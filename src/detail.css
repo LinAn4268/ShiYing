@@ -57,6 +57,23 @@
   border-radius:0 var(--r) var(--r) 0;margin:0 0 30px}
 
 .dt-block{margin:0 0 34px}
+
+/* 详情页配图 */
+.dt-fig{margin:0 0 32px}
+.dt-fig-ph{position:relative;aspect-ratio:3/2;overflow:hidden;background:var(--panel-2);
+  border:1px solid var(--line);border-radius:var(--r)}
+.dt-fig-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.dt-fig figcaption{margin-top:9px;font-size:11.5px;line-height:1.6;color:var(--faint);text-align:right}
+.dt-fig-credit{color:var(--faint);text-decoration:none;border-bottom:1px solid transparent;
+  padding-bottom:1px;transition:color .16s,border-color .16s}
+.dt-fig-credit:hover,.dt-fig-credit:focus-visible{color:var(--accent);border-bottom-color:currentColor}
+.dt-fig.is-broken{display:none}
+/* 银盐模板下配图统一转灰度，与版面气质一致 */
+html[data-theme="mono"] .dt-fig-ph img{filter:grayscale(1) contrast(1.05)}
+@media (max-width:560px){
+  .dt-fig-ph{aspect-ratio:4/3}
+  .dt-fig figcaption{text-align:left;font-size:11px}
+}
 .dt-h2{display:flex;align-items:center;gap:11px;font-size:20px;margin:0 0 16px;font-weight:700}
 .dt-h2 .dt-no{display:inline-grid;place-items:center;width:28px;height:28px;flex:0 0 28px;
   border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:13px;
