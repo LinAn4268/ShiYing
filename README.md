@@ -42,6 +42,7 @@
     ├── check-detail.mjs / dshot.mjs / check-tip.mjs / shoturl.mjs
     ├── check-toc.mjs / shotdrawer.mjs / shotlook.mjs
     ├── check-look.mjs / check-accent.mjs / palette_check.py
+    ├── shotlook.mjs / livelook.mjs（线上外观面板验证）
     ├── audit-page.mjs / audit-contrast-all.mjs / audit-contrast-page.mjs
     ├── audit-controls.mjs / audit_content.py
     └── sheet.py / probe*.mjs
