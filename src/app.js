@@ -130,6 +130,8 @@
   var readChapters = new Set(store.get('read', []));
   var openUnits = new Set(store.get('openUnits', []));
   var openTocSecs = new Set(store.get('openTocSecs', []));
+  var openChapters = new Set(store.get('openChapters', []));
+  var closedChapters = new Set(store.get('closedChapters', []));
   var totalItems = DATA.reduce(function (n, c) { return n + c.sections.reduce(function (m, s) { return m + s.items.length; }, 0); }, 0);
 
   /* ------------------------------ 图片渲染 ------------------------------ */
@@ -262,9 +264,15 @@
           }).join('') + '</ul>' +
         '</div>';
       }).join('');
-      return '<div class="toc-block' + (ci === 0 ? ' is-open' : '') + '" data-ch="' + ch.id + '">' +
-        '<a class="toc-ch" href="#' + ch.id + '" data-toc="' + ch.id + '"><span class="n">' + String(ci + 1).padStart(2, '0') + '</span>' +
-        '<span>' + esc(ch.title) + '</span></a>' +
+      var chOpen = tocChOpen(ch.id);
+      return '<div class="toc-block' + (chOpen ? ' is-open' : '') + '" data-ch="' + ch.id + '">' +
+        '<div class="toc-ch-row">' +
+          '<a class="toc-ch" href="#' + ch.id + '" data-toc="' + ch.id + '"><span class="n">' + String(ci + 1).padStart(2, '0') + '</span>' +
+          '<span>' + esc(ch.title) + '</span></a>' +
+          '<button class="toc-ch-toggle" type="button" data-toggle-ch="' + ch.id + '" aria-expanded="' + chOpen +
+            '" aria-label="展开或收起第' + (ci + 1) + '章的目录">' +
+            '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>' +
+        '</div>' +
         '<div class="toc-secs">' + secs + '</div>' +
       '</div>';
     }).join('');
@@ -372,6 +380,55 @@
     store.set('openTocSecs', Array.from(openTocSecs));
   }
 
+  function paintTocCh(id, open) {
+    var block = $('.toc-block[data-ch="' + id + '"]');
+    if (!block) return;
+    block.classList.toggle('is-open', open);
+    var btn = $('.toc-ch-toggle', block);
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  /* 展开/收起状态 = 手动展开 ∪ 滚动到的那一章，手动收起优先（不会自己弹开） */
+  function tocChOpen(id) {
+    return !closedChapters.has(id) && (openChapters.has(id) || id === autoOpenCh);
+  }
+
+  function setTocCh(id, open) {
+    if (open) { openChapters.add(id); closedChapters.delete(id); }
+    else { openChapters.delete(id); closedChapters.add(id); }
+    store.set('openChapters', Array.from(openChapters));
+    store.set('closedChapters', Array.from(closedChapters));
+    paintTocCh(id, open);
+  }
+
+  /* 滚动到新的一章：自动展开它，并把上一章那段「自动展开」收起来（手动的保持不动） */
+  var autoOpenCh = null;
+  function applyTocAuto(chId) {
+    if (!chId) return;
+    if (autoOpenCh === null) { autoOpenCh = chId; paintTocCh(chId, tocChOpen(chId)); return; }
+    if (chId === autoOpenCh) return;
+    var prev = autoOpenCh;
+    autoOpenCh = chId;
+    paintTocCh(prev, openChapters.has(prev) && !closedChapters.has(prev));
+    paintTocCh(chId, tocChOpen(chId));
+  }
+
+  /* 把「哪一章折叠、哪一小节展开」的存储状态同步回 DOM（搜索还原等场景用） */
+  function syncTocOpen() {
+    $$('.toc-block').forEach(function (b) {
+      var open = tocChOpen(b.getAttribute('data-ch'));
+      b.classList.toggle('is-open', open);
+      var t = $('.toc-ch-toggle', b);
+      if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    $$('.toc-sec').forEach(function (s) {
+      var open = openTocSecs.has(s.getAttribute('data-sec'));
+      s.classList.toggle('is-open', open);
+      var t = $('.toc-sec-toggle', s);
+      if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   /* ------------------------------ 进度 ------------------------------ */
   function updateProgress() {
     $('#progressText').textContent = readChapters.size + ' / ' + DATA.length;
@@ -435,6 +492,7 @@
     $$('.chapter').forEach(function (c) { c.hidden = false; });
     $$('.figure, .cmp, .chapter-end, .further, .chapter-meta, .chapter-intro').forEach(function (el) { el.hidden = false; });
     $$('.toc-block, .toc-sec, .toc-leaves a').forEach(function (el) { el.hidden = false; });
+    syncTocOpen();
     $('#emptyState').classList.remove('show');
     $('#searchBar').classList.remove('show');
     search.active = false;
@@ -489,6 +547,9 @@
       var chHit = ch.sections.some(function (sec) { return sec.items.some(function (it) { return visibleLeaves.has(it.id); }); });
       if (!block || !chHit) return;
       block.hidden = false;
+      block.classList.add('is-open');
+      var chBt = $('.toc-ch-toggle', block);
+      if (chBt) chBt.setAttribute('aria-expanded', 'true');
       ch.sections.forEach(function (sec) {
         var secEl = $('.toc-sec[data-sec="' + sec.id + '"]', block);
         var secHit = sec.items.some(function (it) { return visibleLeaves.has(it.id); });
@@ -553,6 +614,7 @@
       $$('.toc-block').forEach(function (b) {
         b.classList.toggle('is-current', b.getAttribute('data-ch') === chId);
       });
+      if (!search.active) applyTocAuto(chId);
 
       // 当前小节与条目
       var curSec = null, curLeaf = null;
@@ -633,6 +695,14 @@
 
     // 目录
     $('#tocList').addEventListener('click', function (e) {
+      var chToggle = e.target.closest('[data-toggle-ch]');
+      if (chToggle) {
+        e.preventDefault();
+        var chId = chToggle.getAttribute('data-toggle-ch');
+        var block = chToggle.closest('.toc-block');
+        setTocCh(chId, !block.classList.contains('is-open'));
+        return;
+      }
       var toggle = e.target.closest('[data-toggle-sec]');
       if (toggle) {
         e.preventDefault();

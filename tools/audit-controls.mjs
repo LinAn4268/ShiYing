@@ -199,6 +199,22 @@ await sleep(300);
 s = await state();
 ok('再按一次 → 取消已读', /0\s*\/\s*10/.test(s.progress), s.progress);
 
+// 12b TOC 章级展开按钮（第一章可收起）
+await open('index.html');
+await click('.toc-ch-toggle', 0);
+await sleep(300);
+const chToc = await ev(`(function(){
+  var b=document.querySelector('.toc-block[data-ch="ch1"]');
+  var t=b.querySelector('.toc-ch-toggle');
+  return {open:b.classList.contains('is-open'), exp:t.getAttribute('aria-expanded'),
+          disp:getComputedStyle(b.querySelector('.toc-secs')).display};
+})()`);
+ok('目录章级箭头 → 收起第一章', chToc.open === false && chToc.exp === 'false' && chToc.disp === 'none', JSON.stringify(chToc));
+await click('.toc-ch-toggle', 0);
+await sleep(250);
+const chToc2 = await ev(`document.querySelector('.toc-block[data-ch="ch1"]').classList.contains('is-open')`);
+ok('目录章级箭头 → 再点展开（状态可逆）', chToc2 === true, String(chToc2));
+
 // 12 TOC 小节展开按钮
 await open('index.html');
 await click('.toc-sec-toggle', 2);

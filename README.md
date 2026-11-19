@@ -39,6 +39,7 @@
 └── tools/              ← 本地验收工具（CDP 驱动 Edge，非交付必需）
     ├── cdp.mjs / check.mjs / interact.mjs / shots.mjs / imgcheck.mjs
     ├── check-detail.mjs / dshot.mjs / check-tip.mjs / shoturl.mjs
+    ├── check-toc.mjs / shotdrawer.mjs
     ├── audit-page.mjs / audit-contrast-all.mjs / audit-contrast-page.mjs
     ├── audit-controls.mjs / audit_content.py
     └── sheet.py / probe*.mjs
@@ -74,7 +75,7 @@
 
 **导航与结构**
 - 顶部导航：拾影 logo、目录抽屉按钮、搜索、主题菜单、暗色开关、学习进度。
-- 侧栏抽屉目录：10 章 → 37 小节 → 135 条三级标题三级树；滚动时自动高亮当前章；目录节点自动滚动跟随。
+- 侧栏抽屉目录：10 章 → 37 小节 → 135 条三级标题三级树；每章右侧有独立箭头，可单独收起/展开整章（第一章可收起）；滚动到新的一章时自动展开该章并收起上一章自动展开的那段，手动开合过的章不会被自动改动；状态记忆。
 - 首页 Hero：站名「拾影」、副标题、开始学习 / 查看目录两个按钮、来源标注。
 - 学习路径三步引导、十章正文、页脚（章节索引、术语表入口、站外欣赏链接）。
 - 第一章为感性文学化引入；每章 80–120 字导语；章末「本章小结 + 练习建议」（非目录项）。
@@ -138,6 +139,7 @@
 | 标题全部嵌入 index.html | ✅ | `validate.py`：titles not found = 0 |
 | 每章导语 80–120 字 | ✅ | check：110/118/109/115/111/118/108/110/116/109 |
 | 顶部导航 / 侧栏抽屉目录 / 滚动高亮 | ✅ | interact 全通过 |
+| 目录每章可单独收起（含第一章）+ 状态记忆 | ✅ | check-toc.mjs 10 项全 PASS；audit-controls.mjs 章级箭头两项 PASS |
 | 三级折叠（默认第一章展开）+ 目录点击自动展开定位 | ✅ | interact：默认 3 个小节展开、目录点击滚动到位 |
 | 搜索过滤 / 高亮 / 空状态 / 建议词 / 清空还原 | ✅ | interact：命中 11 条、56 处 mark、空态与还原均通过 |
 | 三套主题切换 + 暗色 + 持久化 | ✅ | interact + paper/cinema/grid 浅暗截图 |
@@ -202,6 +204,7 @@
 | 暗色按钮 | 切换明暗并记忆 | `data-dark` true→false |
 | 小节折叠按钮（37 个） | 改变展开状态、内容真实收起 | 展开数 3→4 + `.unit-body` 高度 |
 | 标记已读（10 个） | 进度 0→1→0，可取消 | 进度徽章文本 |
+| 目录章级箭头（10 个） | 收起/展开整章（含第一章），可记忆、可被滚动自动展开 | `.is-open` + `aria-expanded` + `.toc-secs` display |
 | 目录小节箭头（37 个） | 展开/收起三级条目 | `aria-expanded` + 条目数 |
 | 目录小节链接 / 三级条目 | 锚点跳转、自动展开所属小节 | hash + scrollY |
 | 术语表按钮 / 关闭按钮 | 打开 62 条术语弹层、可关闭 | `dialog.open` + 条目数 |
@@ -235,3 +238,17 @@
 
 验证：`check.mjs`（`PROBLEMS: none`）、`interact.mjs`（34 项全 PASS）、`check-detail.mjs`（22 项全 PASS）、`audit-controls.mjs`（55 项全 PASS）、`audit-page.mjs`（8 组宽度无横向滚动、`noName:0`）、`audit-contrast-all.mjs` / `audit-contrast-page.mjs`（6 组主题各 439 / 218 元素，`below=0`）、`validate.py`（182 行目录全 PASS）——改完逐项复跑，均无回归。
 
+
+## 九、第三轮优化（目录可收纳）
+
+用户反馈：「网页左侧的目录第一章无法收纳」。原因是旧实现里第一章的展开状态被硬编码（`ci === 0` 加 `is-open`），而且「当前章」的样式规则 `.toc-block.is-current .toc-secs{display:block}` 会强制把正在阅读的那一章撑开——于是只要你还在第一章，它就永远收不起来。
+
+| # | 改动 | 说明 |
+|---|---|---|
+| 1 | 每章新增独立的「收起/展开」按钮 | 章标题右侧 30×30（触屏 40×40）的箭头按钮，`aria-expanded` 同步，`aria-label` 为「展开或收起第 N 章的目录」；章标题本身仍是跳转链接，不再兼任折叠开关 |
+| 2 | 状态模型改为「手动 ∪ 当前章，手动优先」 | `openChapters` / `closedChapters` 两个集合记忆在 `localStorage`；`is-open = 当前章 && 未被手动收起 || 被手动展开`。手动收起的章不会被滚动自动弹开 |
+| 3 | 滚动跟随改为手风琴式 | 滚到新的一章时自动展开该章，并收起「上一章那段自动展开的」；手动开合过的章不受影响，列表不会随着阅读越滚越长 |
+| 4 | 去掉 `.is-current` 强制展开 | 当前章只用红色底标识位置，不再强制显示三级标题，这是「第一章收不起来」的直接原因 |
+| 5 | 搜索与折叠状态互不干扰 | 搜索时命中的章全部临时展开；搜索期间暂停滚动自动开合（避免滚动位置跳变把刚展开的章又收回去）；清空搜索后按存储状态还原 |
+
+验证：新增 `tools/check-toc.mjs`（10 项断言：默认展开、点击收起、刷新后保持收起、再次展开、滚动自动展开且不影响手动章、搜索全展开、清空还原、按钮可聚焦）→ `TOC PROBLEMS: none`；回归 `validate.py`（182/182）、`check.mjs`、`interact.mjs`（34 项）、`check-detail.mjs`（22 项）、`audit-controls.mjs`（55 项）、`audit-page.mjs`（8 组宽度无横向滚动、`noName:0`）、`audit-contrast-all.mjs`（6 组各 439 元素 `below=0`）全部无回归。

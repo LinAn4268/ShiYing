@@ -269,16 +269,25 @@ p{margin:0}
 .toc-hint{font-size:11px;color:var(--faint);line-height:1.6;padding:0 8px 12px;
   border-bottom:1px solid var(--line);margin-bottom:10px}
 .toc-block{margin-bottom:2px}
-.toc-ch{display:flex;gap:9px;align-items:baseline;padding:8px 9px;border-radius:var(--r-sm);
-  color:var(--text-strong);font-weight:700;font-size:13.5px;line-height:1.5;transition:.15s}
-.toc-ch:hover{background:var(--panel-2);text-decoration:none}
+.toc-ch-row{display:flex;align-items:stretch;gap:2px;border-radius:var(--r-sm);transition:.15s}
+.toc-ch-row:hover{background:var(--panel-2)}
+.toc-ch{display:flex;gap:9px;align-items:baseline;padding:8px 4px 8px 9px;flex:1;min-width:0;
+  color:var(--text-strong);font-weight:700;font-size:13.5px;line-height:1.5;border-radius:var(--r-sm);transition:.15s}
+.toc-ch:hover{text-decoration:none}
 .toc-ch .n{font-size:10.5px;letter-spacing:.06em;color:var(--faint);font-variant-numeric:tabular-nums;
   font-weight:700;flex-shrink:0}
-.toc-block.is-current>.toc-ch{background:var(--accent);color:var(--on-accent)}
-.toc-block.is-current>.toc-ch .n{color:var(--on-accent);opacity:.75}
-.toc-block.is-current>.toc-ch:hover{text-decoration:none}
+.toc-ch-toggle{flex:0 0 30px;display:grid;place-items:center;border:0;background:none;color:var(--faint);
+  border-radius:var(--r-sm);cursor:pointer}
+.toc-ch-toggle:hover{color:var(--accent)}
+.toc-ch-toggle svg{width:13px;height:13px;transition:transform .2s}
+.toc-block.is-open .toc-ch-toggle svg{transform:rotate(90deg)}
+.toc-block.is-current>.toc-ch-row{background:var(--accent)}
+.toc-block.is-current>.toc-ch-row .toc-ch{color:var(--on-accent)}
+.toc-block.is-current>.toc-ch-row .toc-ch .n{color:var(--on-accent);opacity:.75}
+.toc-block.is-current>.toc-ch-row .toc-ch-toggle{color:var(--on-accent)}
+.toc-block.is-current>.toc-ch-row:hover{text-decoration:none}
 .toc-secs{margin:1px 0 8px 14px;padding-left:8px;border-left:1px solid var(--line);display:none}
-.toc-block.is-open .toc-secs,.toc-block.is-current .toc-secs{display:block}
+.toc-block.is-open .toc-secs{display:block}
 .toc-sec{position:relative}
 .toc-sec-link{display:block;font-size:12px;line-height:1.55;color:var(--muted);padding:5px 26px 5px 8px;
   border-radius:6px;transition:.15s;word-break:break-word}
@@ -592,7 +601,11 @@ kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;bor
   body.toc-open .toc{transform:none}
   body.toc-open{overflow:hidden}
   .toc-close{display:grid}
-  .toc-block.is-open .toc-secs,.toc-block.is-current .toc-secs{display:block}
+  .toc-block.is-open .toc-secs{display:block}
+  /* 触屏上把「整章收起」按钮放大到 40×40，避免误点 */
+  .toc-ch{padding:10px 4px 10px 10px}
+  .toc-ch-toggle{flex:0 0 40px}
+  .toc-sec-toggle{width:32px;height:32px;top:0}
   .path-grid{grid-template-columns:1fr}
   .chapter-end{grid-template-columns:1fr}
 }
