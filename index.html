@@ -8,6 +8,34 @@
 <meta name="theme-color" content="#f7f2e8">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b0503a'/%3E%3Ctext x='16' y='23' font-size='19' font-family='serif' fill='%23fffdf9' text-anchor='middle'%3E拾%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://linan4268.github.io/ShiYing/">
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="拾影">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="拾影 · 摄影前期拍摄入门">
+<meta property="og:description" content="十章、135 个要点：从看见到曝光、光线、构图与题材思路，写给零基础者的摄影前期拍摄入门。">
+<meta property="og:url" content="https://linan4268.github.io/ShiYing/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<meta property="og:image:alt" content="晨雾中的山野，日出把云层与草地染成暖橙色">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="拾影 · 摄影前期拍摄入门">
+<meta name="twitter:description" content="十章、135 个要点：写给零基础者的摄影前期拍摄入门。">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80">
+<script>
+/* 首帧前套用已保存的模板与明暗，避免深色偏好用户看到白屏闪一下 */
+(function () {
+  try {
+    var r = document.documentElement, t = localStorage.getItem('shiying:theme');
+    if (t) { t = JSON.parse(t); if (t === 'paper' || t === 'cinema' || t === 'grid') r.setAttribute('data-theme', t); }
+    var d = localStorage.getItem('shiying:dark');
+    if (d === null) d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    else d = JSON.parse(d);
+    r.setAttribute('data-dark', d ? 'true' : 'false');
+  } catch (e) { /* 隐私模式下 localStorage 不可用，用默认模板 */ }
+})();
+</script>
 <style>
 /* =========================================================================
    拾影 · 样式
@@ -139,6 +167,10 @@ p{margin:0}
 .skip-link{position:fixed;left:14px;top:-70px;z-index:400;background:var(--accent);color:var(--on-accent);
   padding:11px 20px;border-radius:var(--r-sm);font-weight:600;transition:top .2s}
 .skip-link:focus{top:12px;text-decoration:none}
+
+/* 未启用 JavaScript 时的提示 */
+.noscript-note{margin:0;padding:14px 22px;background:var(--accent-soft);color:var(--text);
+  border-bottom:1px solid var(--line);font-size:14px;line-height:1.7}
 
 /* 顶部阅读进度条 */
 #progressBar{position:fixed;inset:0 auto auto 0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));
@@ -628,6 +660,7 @@ kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;bor
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
+<noscript><p class="noscript-note">本页的十章正文、目录、搜索与折叠交互由 JavaScript 生成。请在浏览器中启用 JavaScript 后阅读——内容与排版不会因此改变。</p></noscript>
 <div id="progressBar" aria-hidden="true"></div>
 
 <header class="topbar">
@@ -928,8 +961,11 @@ var GLOSSARY={"f数":"光圈值，焦距与入射光瞳直径的比值；数字�
   function imgTag(key, cls, eager) {
     var p = PHOTOS[key];
     if (!p) return '';
-    return '<img class="' + cls + '" src="https://images.unsplash.com/' + p.id +
-      '?auto=format&fit=crop&w=1400&q=78" alt="' + esc(p.alt) + '"' +
+    var base = 'https://images.unsplash.com/' + p.id + '?auto=format&fit=crop&q=';
+    return '<img class="' + cls + '" src="' + base + '78&w=1400"' +
+      ' srcset="' + base + '72&w=760 760w, ' + base + '78&w=1400 1400w"' +
+      ' sizes="(max-width:760px) 100vw, 640px"' +
+      ' alt="' + esc(p.alt) + '"' +
       (eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async" data-key="' + key + '">';
   }
 
@@ -1631,7 +1667,10 @@ var GLOSSARY={"f数":"光圈值，焦距与入射光瞳直径的比值；数字�
     $('#footChapters').innerHTML = footChaptersHTML();
     var hero = PHOTOS.hero;
     var heroImg = $('#heroImg');
-    heroImg.src = 'https://images.unsplash.com/' + hero.id + '?auto=format&fit=crop&w=1900&q=80';
+    var hb = 'https://images.unsplash.com/' + hero.id + '?auto=format&fit=crop&q=';
+    heroImg.src = hb + '80&w=1600';
+    heroImg.setAttribute('srcset', hb + '72&w=900 900w, ' + hb + '78&w=1300 1300w, ' + hb + '80&w=1900 1900w');
+    heroImg.setAttribute('sizes', '100vw');
     heroImg.alt = hero.alt;
     heroImg.setAttribute('data-key', 'hero');
 

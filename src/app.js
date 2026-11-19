@@ -136,8 +136,11 @@
   function imgTag(key, cls, eager) {
     var p = PHOTOS[key];
     if (!p) return '';
-    return '<img class="' + cls + '" src="https://images.unsplash.com/' + p.id +
-      '?auto=format&fit=crop&w=1400&q=78" alt="' + esc(p.alt) + '"' +
+    var base = 'https://images.unsplash.com/' + p.id + '?auto=format&fit=crop&q=';
+    return '<img class="' + cls + '" src="' + base + '78&w=1400"' +
+      ' srcset="' + base + '72&w=760 760w, ' + base + '78&w=1400 1400w"' +
+      ' sizes="(max-width:760px) 100vw, 640px"' +
+      ' alt="' + esc(p.alt) + '"' +
       (eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async" data-key="' + key + '">';
   }
 
@@ -839,7 +842,10 @@
     $('#footChapters').innerHTML = footChaptersHTML();
     var hero = PHOTOS.hero;
     var heroImg = $('#heroImg');
-    heroImg.src = 'https://images.unsplash.com/' + hero.id + '?auto=format&fit=crop&w=1900&q=80';
+    var hb = 'https://images.unsplash.com/' + hero.id + '?auto=format&fit=crop&q=';
+    heroImg.src = hb + '80&w=1600';
+    heroImg.setAttribute('srcset', hb + '72&w=900 900w, ' + hb + '78&w=1300 1300w, ' + hb + '80&w=1900 1900w');
+    heroImg.setAttribute('sizes', '100vw');
     heroImg.alt = hero.alt;
     heroImg.setAttribute('data-key', 'hero');
 

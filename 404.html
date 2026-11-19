@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>页面没找到 · 拾影</title>
+<meta name="description" content="拾影：这个地址没有内容，回到学习主页继续。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f2e8">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b0503a'/%3E%3Ctext x='16' y='23' font-size='19' font-family='serif' fill='%23fffdf9' text-anchor='middle'%3E拾%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f7f2e8; --text:#2f2923; --muted:#655b4f; --line:#e2d8c7;
+  --accent:#b0503a; --on-accent:#fffdf9; --panel:#fffdf7;
+  --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,"Times New Roman",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1b1713; --text:#efe7da; --muted:#a2957f; --line:#332c24;
+    --accent:#c9705a; --on-accent:#20160f; --panel:#26211a}
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);color:var(--text);font-family:var(--sans);padding:32px 20px;
+  background-image:radial-gradient(circle at 20% 15%,rgba(176,80,58,.07),transparent 55%);}
+main{max-width:560px;text-align:center}
+.seal{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;
+  border-radius:12px;background:var(--accent);color:var(--on-accent);font-family:var(--serif);
+  font-size:28px;margin-bottom:26px}
+h1{font-family:var(--serif);font-size:clamp(26px,5vw,34px);line-height:1.35;margin:0 0 14px;letter-spacing:.01em}
+p{color:var(--muted);line-height:1.9;margin:0 0 30px;font-size:15px}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+a{display:inline-block;padding:12px 26px;border-radius:999px;text-decoration:none;font-size:15px;
+  min-height:44px;line-height:20px;border:1px solid var(--line);color:var(--text);transition:background .18s,border-color .18s}
+a.primary{background:var(--accent);color:var(--on-accent);border-color:transparent;font-weight:600}
+a:hover{border-color:var(--accent)}
+a.primary:hover{background:var(--accent);filter:brightness(1.06)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){a{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <p class="seal" aria-hidden="true">拾</p>
+  <h1>这个地址没有照片</h1>
+  <p>页面可能被移动了，或者链接少了一个字母。<br>回到主页，从第一章重新开始也不会花太久。</p>
+  <div class="actions">
+    <a class="primary" href="/ShiYing/">回到拾影主页</a>
+    <a href="/ShiYing/detail.html">去要点详解</a>
+  </div>
+</main>
+</body>
+</html>

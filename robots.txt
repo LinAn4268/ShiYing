@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://linan4268.github.io/ShiYing/sitemap.xml

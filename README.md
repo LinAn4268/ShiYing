@@ -15,6 +15,11 @@
 ├── index.html          ← 交付物：主页单文件（HTML+CSS+JS 全内联），双击即可运行
 ├── detail.html         ← 交付物：要点详解单文件（135 条短教程，锚点切换），双击即可运行
 ├── README.md           ← 本说明（结构 / UI 模板 / 功能 / 来源 / 验收）
+├── 404.html            ← 线上 404 页（GitHub Pages 自动使用，风格与主页一致）
+├── robots.txt          ← 允许搜索引擎抓取，指向 sitemap
+├── sitemap.xml         ← 两条 URL（主页 / 详解页），便于收录
+├── .nojekyll           ← 告诉 GitHub Pages 不要走 Jekyll 处理
+├── .gitignore / .gitattributes ← 发布用（忽略截图与临时文件、统一 LF）
 ├── src/                ← 可维护源码（改内容请改这里，再运行构建脚本）
 │   ├── body.html       ← 主页静态骨架与占位符
 │   ├── style.css       ← 三套模板 + 主页组件样式（含浅/暗两套变量）
@@ -33,7 +38,7 @@
 │       └── out/chN.json     ← 扩写后的详解内容（lead/principle/steps/mistakes/example/takeaway/keywords）
 └── tools/              ← 本地验收工具（CDP 驱动 Edge，非交付必需）
     ├── cdp.mjs / check.mjs / interact.mjs / shots.mjs / imgcheck.mjs
-    ├── check-detail.mjs / dshot.mjs / check-tip.mjs
+    ├── check-detail.mjs / dshot.mjs / check-tip.mjs / shoturl.mjs
     ├── audit-page.mjs / audit-contrast-all.mjs / audit-contrast-page.mjs
     ├── audit-controls.mjs / audit_content.py
     └── sheet.py / probe*.mjs
@@ -155,6 +160,11 @@
 | 文本对比度 ≥ 4.5（三模板 × 明暗，共 6 组） | ✅ | `audit-contrast-all.mjs`：主页每组 439 元素、详情页每组 218 元素，`below=0` |
 | 术语提示可悬停 / 可键盘聚焦 / 贴边不越界 / 不撑破页面 | ✅ | `check-tip.mjs`：桌面与移动端 18 项全 PASS |
 | 搜索框等可聚焦元素均有可访问名称 | ✅ | `audit-page.mjs`：`noName: 0`（focusable 132） |
+| 首帧无主题闪烁（已存 dark+grid 时） | ✅ | `<head>` 内联脚本读 localStorage 后先写属性；`.shots/opt1-0.png` 深色 grid 首屏正常 |
+| 响应式图片 | ✅ | `currentSrc` 实测：1440px → `w=1900`，390px@2x → `w=900`；章节图 → `w=760/1400` |
+| 分享卡片与规范链接 | ✅ | index / detail 均含 `og:title/description/image/url`、`twitter:card=summary_large_image`、`rel=canonical` |
+| 无 JS 降级提示 | ✅ | `<noscript>` 说明条（`.noscript-note`），开启 JS 时不显示 |
+| 线上 404 / 抓取与站点文件 | ✅ | `404.html`（同风格）、`robots.txt`、`sitemap.xml`、`.nojekyll` 已随仓库发布 |
 
 > 所有断言最终结果：`PROBLEMS: none`（check.mjs 与 interact.mjs 双套件）、`DETAIL PROBLEMS: none`（check-detail.mjs）、`TIP PROBLEMS: none`（check-tip.mjs）。
 
@@ -207,3 +217,21 @@
 链接完整性：主页 196 个页内锚点全部指向存在的元素、135 个「读详解」全部指向有效条目、36 个外链均为 `target=_blank` + `noopener`；详情页 138 个链接（含 skip link）全部有效。
 
 本轮唯一的代码改动：详情页上下篇链接补上 `rel="prev"` / `rel="next"`（语义更准确，也便于工具识别）。其余 6 项「失败」经核查均为**审计脚本自身的判定错误**（把 `body.toc-open` 当成 `.toc.open`；把 `<button>` + JS 跳转的返回键当成 `<a href>`；用 `rel` 选择器找没有 `rel` 的链接；`#top` / `#dt-main` 这类页内锚点未识别；长页面平滑滚动等待不足；CDP 合成 Enter 键未带 `char` 事件故不触发按钮默认行为），已分别修正断言后全部通过——产品本身没有发现死按钮。
+
+---
+
+## 八、第二轮优化（性能、分享与发布质量）
+
+这一轮不改内容与视觉，只补「上线之后才会暴露」的问题：
+
+| # | 优化 | 解决什么 | 实现 |
+|---|---|---|---|
+| 1 | 首帧前套用主题 | 深色偏好用户打开页面会先白闪一下再变暗（单文件页面解析到 `</body>` 才执行 JS，中间可能已绘制一帧） | 在 `<head>` 里加一段 ~10 行的内联脚本，从 `localStorage`（`shiying:theme` / `shiying:dark`）读值并在首帧前写好 `data-theme` / `data-dark`；无存储时跟随系统 `prefers-color-scheme`。两个页面共用同一段逻辑 |
+| 2 | 图片按屏宽取不同尺寸 | 手机也要下载 1900px 大图 | Hero 用 `srcset`（900 / 1300 / 1900w + `sizes="100vw"`），章节配图与题材图用 `srcset`（760 / 1400w + `sizes`）。实测 1440px 桌面取 1900w、390px@2x 取 900w |
+| 3 | 预连接图床 | 首屏图要等 DNS + TLS 才能开始下载 | `<link rel="preconnect" href="https://images.unsplash.com" crossorigin>` + `dns-prefetch` |
+| 4 | 分享卡与规范链接 | 链接发到微信/Twitter 没有标题、描述、缩略图 | 补齐 `og:*`（type/site_name/locale/title/description/url/image/image:alt）、`twitter:card=summary_large_image`、`rel="canonical"` |
+| 5 | 无 JS 时的提示 | 关掉 JavaScript 只看到空壳，不知道原因 | `<noscript>` 一句话说明「正文与交互由 JavaScript 生成」，并给 `.noscript-note` 样式，不影响开启 JS 的渲染 |
+| 6 | Pages 站点文件 | 默认 404 是 GitHub 的默认页；`_` 开头的目录可能被 Jekyll 忽略 | 新增 `404.html`（同风格，含返回主页/详解页按钮）、`.nojekyll`、`robots.txt`、`sitemap.xml` |
+
+验证：`check.mjs`（`PROBLEMS: none`）、`interact.mjs`（34 项全 PASS）、`check-detail.mjs`（22 项全 PASS）、`audit-controls.mjs`（55 项全 PASS）、`audit-page.mjs`（8 组宽度无横向滚动、`noName:0`）、`audit-contrast-all.mjs` / `audit-contrast-page.mjs`（6 组主题各 439 / 218 元素，`below=0`）、`validate.py`（182 行目录全 PASS）——改完逐项复跑，均无回归。
+
