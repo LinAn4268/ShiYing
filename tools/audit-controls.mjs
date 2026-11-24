@@ -354,18 +354,21 @@ const badDetail = detailIds.filter((id) => !validDetailIds.includes(id));
 ok('页面内锚点全部存在', linkAudit ? linkAudit.badCount === 0 : true, linkAudit ? JSON.stringify(linkAudit.bad) : 'DETAIL_IDS 未定义，独立校验');
 ok('「读详解」链接全部指向存在的条目', badDetail.length === 0, JSON.stringify(badDetail.slice(0, 5)) + ' / 共 ' + detailIds.length);
 const linkStats = await ev(`(function(){
-  var anchors=0,detail=0,ext=0,bad=[];
+  var anchors=0,detail=0,ext=0,page=0,pages=[],bad=[];
   [].forEach.call(document.querySelectorAll('a[href]'), function(a){
     var h=a.getAttribute('href');
     if(h.charAt(0)==='#'){anchors++; if(!document.getElementById(h.slice(1))) bad.push(h);}
     else if(h.indexOf('detail.html#')===0) detail++;
+    else if(/\.html(#[^#]*)?$/.test(h)){page++; pages.push(h.split('#')[0]);}
     else if(/^https?:/.test(h)){ext++;
       if(a.getAttribute('target')!=='_blank'||!/noopener/.test(a.getAttribute('rel')||'')) bad.push(h);}
     else bad.push(h);
   });
-  return {anchors:anchors, detail:detail, ext:ext, bad:bad.slice(0,6), badCount:bad.length};
+  return {anchors:anchors, detail:detail, page:page, ext:ext, pages:pages, bad:bad.slice(0,6), badCount:bad.length};
 })()`);
-ok('所有链接形式合法（锚点存在 / 外链新标签 + noopener）', linkStats.badCount === 0, JSON.stringify(linkStats));
+const missingPages = [...new Set(linkStats.pages || [])].filter((p) => !fs.existsSync(path.join(ROOT, p)));
+ok('所有链接形式合法（锚点存在 / 外链新标签 + noopener）', linkStats.badCount === 0 && missingPages.length === 0,
+  JSON.stringify({ ...linkStats, missingPages }));
 
 /* -------- 控件覆盖：确认没有「看起来可点但没绑定」的元素 -------- */
 const controls = await ev(`(function(){

@@ -155,3 +155,17 @@ with io.open(detail_path, 'w', encoding='utf-8', newline='\n') as fh:
     fh.write(detail_html)
 
 print('detail.html: items=%d bytes=%d' % (len(details), len(detail_html.encode('utf-8'))))
+
+# ---------------- 练习台 camsim.html ----------------
+camsim_css = read(os.path.join(SRC, 'camsim.css'))
+camsim_app = read(os.path.join(SRC, 'camsim.js'))
+camsim_tpl = read(os.path.join(SRC, 'camsim-body.html'))
+camsim_html = (camsim_tpl
+  .replace('/*__BASE_CSS__*/', css)
+  .replace('/*__CAMSIM_CSS__*/', camsim_css)
+  .replace('/*__APP__*/', camsim_app)
+  .replace('/*__LOOK__*/', look))
+camsim_path = os.path.join(BASE, 'camsim.html')
+with io.open(camsim_path, 'w', encoding='utf-8', newline='\n') as fh:
+    fh.write(camsim_html)
+print('camsim.html: bytes=%d' % len(camsim_html.encode('utf-8')))

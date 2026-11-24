@@ -14,6 +14,8 @@
 拾影/
 ├── index.html          ← 交付物：主页单文件（HTML+CSS+JS 全内联），双击即可运行
 ├── detail.html         ← 交付物：要点详解单文件（135 条短教程，锚点切换），双击即可运行
+├── camsim.html         ← 交付物：练习台（CamSim 相机模拟器介绍 + 使用说明，外链入口，不嵌入）
+├── assets/camsim-ui.jpg ← 练习台的界面示意图（1200×750，~87 KB）
 ├── README.md           ← 本说明（结构 / UI 模板 / 功能 / 来源 / 验收）
 ├── 404.html            ← 线上 404 页（GitHub Pages 自动使用，风格与主页一致）
 ├── robots.txt          ← 允许搜索引擎抓取，指向 sitemap
@@ -25,11 +27,14 @@
 │   ├── style.css       ← 配色层与组件样式（五套模板 × 浅/暗变量 + 外观偏好）
 │   ├── layout.css      ← 版式层：五套模板各自的 Hero / 章节头 / 条目 / 插图 / 目录摆放
 │   ├── app.js          ← 主页原生 JS：渲染 / 折叠 / 搜索 / 主题 / 进度 / 术语
+│   ├── camsim-body.html ← 练习台骨架（介绍 / 上手 / 分区 / 任务 / 快捷键）
+│   ├── camsim.css      ← 练习台页面级样式（截图卡、步骤卡、任务列表、快捷键表）
+│   ├── camsim.js       ← 练习台交互（主题 / 暗色 / 外观面板 / 回到顶部）
 │   ├── detail-body.html ← 详情页骨架（目录侧栏 + 正文 + 主题按钮）
 │   ├── detail.css      ← 详情页专属样式（dt- 前缀，复用主题变量）
 │   ├── detail-app.js   ← 详情页原生 JS：135 条目录 / 锚点切换 / 主题 / 上下篇
 │   ├── look.js         ← 外观面板：模板 / 字体 / 字号 / 行距 / 疏密 / 强调色（两页共用）
-│   └── build.py        ← 构建脚本：把 src + data 合成 index.html 与 detail.html
+│   └── build.py        ← 构建脚本：把 src + data 合成 index.html / detail.html / camsim.html
 ├── data/               ← 内容数据（唯一内容源）
 │   ├── ch1-3.json / ch4-7.json / ch8-10.json   ← 十章正文
 │   ├── glossary.json   ← 62 条术语首现解释
@@ -46,6 +51,7 @@
     ├── check-detail.mjs / dshot.mjs / check-tip.mjs / shoturl.mjs
     ├── check-toc.mjs / shotdrawer.mjs / shotlook.mjs
     ├── check-look.mjs / check-accent.mjs / palette_check.py
+    ├── check-camsim.mjs（练习台页面、外链与详情锚点校验）
     ├── make_photos.py（生成配图映射 + HEAD 校验）/ check-photos.mjs（配图结构与加载测试）
     ├── shotlook.mjs / livelook.mjs（线上外观面板验证）
     ├── audit-page.mjs / audit-contrast-all.mjs / audit-contrast-page.mjs
@@ -53,7 +59,7 @@
     └── sheet.py / probe*.mjs
 ```
 
-**重新构建**：`python src/build.py`（需 Python 3）。产物 `index.html` 与 `detail.html` 均为 UTF-8 / LF 编码，无任何外部 JS/CSS 依赖；图片来自网络，离线时自动降级为占位图，页面其余功能照常可用。两个 HTML 必须放在同一目录：主页「读详解」链接指向 `detail.html#条目ID`。
+**重新构建**：`python src/build.py`（需 Python 3）。产物 `index.html`、`detail.html`、`camsim.html` 均为 UTF-8 / LF 编码，无任何外部 JS/CSS 依赖；图片来自网络，离线时自动降级为占位图，页面其余功能照常可用。三个 HTML 必须放在同一目录：主页「读详解」链接指向 `detail.html#条目ID`，主页与详解页都有通往 `camsim.html` 的入口。
 
 ---
 
@@ -417,3 +423,49 @@ Pexels/Unsplash 的站内搜索页有 Cloudflare 拦截、官方 API 需 key，�
 - `check-photos.mjs`：135 个 figure 结构全通过（`src` 与映射一致、`srcset` 存在、`alt` 长度合规、来源链接指向对应 Pexels 页面且安全打开）；抽样 20 张（每章首尾各一）真实加载 `naturalWidth > 0`；人为断图后 `figure` 变为 `display:none`；`ERRS []`。
 - 回归：`check` / `interact` / `check-toc` / `check-detail` / `check-look` / `audit-controls` / `check-accent`(60 组) 全部 `none`；主页 10 组合各 1006 元素、详情页 10 组合各 262 元素 `below=0`；`audit-page.mjs` 详情页 `imgs {total:6, ok:6, bad:[]}`、`index a11y noName:0`。
 - 截图核对：`.shots/fig-111.png`（1.1.1）、`.shots/fig-532.png`（5.3.2，影棚三灯）、`.shots/fig-842.png`（8.4.2）、`.shots/fig-grid.png`（9.3.1）、`.shots/fig-mono-mob.png`（8.5.4 银盐暗色移动端）、`.shots/fig-mob-paper.png`（2.2.3 移动端）。
+
+---
+
+## 十三、练习台：CamSim 介绍页
+
+用户需求：在拾影里给 CamSim 单开一页并附使用说明；**明确不把 CamSim 嵌进页面**，只做介绍与入口。
+
+### 1. 定位与边界
+
+- `camsim.html` 是**介绍页 + 使用说明**，不是模拟器本体。CamSim 是独立部署的网页应用（`https://linan4268.github.io/CamSim/`，React + three.js + WebGL2），本页只放界面示意图与文字说明，所有「开练」动作都是新标签页跳转。
+- 页面不含 `<iframe>`，因此不承担模拟器的加载时间、权限与跨域风险；`validate.py` 里有 `camsim no iframe` 断言守住这条边界。
+- 界面示意图是本项目自己截的 `assets/camsim-ui.jpg`（1200×750，87 KB），带 `alt` 与 `figcaption`，只作示意，不冒充交互。
+
+### 2. 页面结构
+
+| 区块 | 内容 |
+|---|---|
+| Hero | 主标题「把参数拨一遍，比读十遍更快懂」+ 说明它是什么 + 两个按钮（打开模拟器 / 先看使用说明） |
+| 先看一眼它的样子 | 界面截图 + 图注（顶部转盘 / 取景器 / 右侧面板 / 底部直方图）+ 外链按钮 |
+| 五分钟上手 | 4 张步骤卡：先看取景器 → 认识四个转盘 → 盯住三个反馈 → 用六个面板做专项练习 |
+| 界面分区 | 6 张卡：顶部转盘区、取景器、右侧参数面板、底部曝光刻度与直方图、顶栏开关、快捷键提示 |
+| 八条练习任务 | 每条都给出具体做法 + 对应拾影条目的深链（共 14 个 `detail.html#条目ID`） |
+| 快捷键 | 7 行双列表格（空格/R、↑↓、←→、[ ]、, .、M/F、P/D、Z/G/H/B） |
+| 几个提醒 | 模拟器不等于真机、窄屏体验打折、参数没有唯一答案 |
+
+### 3. 说明从哪来
+
+对照模拟器实际界面逐项核对后写成，不是凭想象补的：
+
+- 右侧六个面板的标题与控件：曝光（快门/光圈/ISO/补偿/ND/等效快门/测光 EV/建议快门）、对焦（AF-MF、对焦距离、峰值、景深预览、景深范围、超焦距、安全快门、对焦区域、测光模式、斑马纹/构图线/水平仪）、色彩（白平衡模式与色温、色调、胶片模拟 ST/PT/LS/BW/S-LOG、LUT）、驱动（机械/电子快门、单张/连拍/定时、IBIS、闪光、包围）、镜头（14-35/24-85/70-200、焦距、全画幅/APS-C/M4-3、等效焦距、水平视角、衍射模糊、JPEG/RAW）、设置（主光强度与色温、环境光、运动速度、预设导入导出、重置）。
+- 快捷键取自界面底部常驻提示，逐条转写；两条控制台命令（`__cameraSelfTest()`、`__cameraEngine.setQuality('low')`）也来自该提示。
+
+### 4. 入口位置
+
+- 主页学习路径下方新增一条 `.practice-banner`（「练习台：CamSim 相机模拟器 →」），移动端收起右侧箭头。
+- 主页页脚「关于」列新增「练习工具：CamSim 相机模拟器」。
+- 详情页正文底部新增 `.dt-tooltip` 引导条：「想把这一条的原理当场拨一遍？打开 CamSim…」。
+- 练习台自身页脚反链回主页、第三章、第四章、第六章与详解页。
+
+### 5. 验证
+
+- `validate.py` 新增 7 项：标题、无 iframe、示意图存在、六个分区、8 条任务、外链安全、主页有入口 —— 全部 `PASS`。
+- `tools/check-camsim.mjs`：`iframes: 0`、`shot {src, alt 94 字, 1440×900, lazy}`、`ext 5 / extUnsafe 0 / simLinks 4`、`saysIndependent true`、`tasks 8 / cards 6 / steps 4 / keyRows 7`、`lookCards 5`、`escClosed true`、`scrollTop 0`、`focusable 57 / noName 0`、`h1Count 1`、`scrollW 1425 = vw`、`ERRS []`；14 个详情页深链逐个切换 hash 后均渲染出正文（`missing []`）。
+- 对比度：`camsim.html` 10 组模板×明暗各 195 个文本元素 `below=0`（此前「载入模拟器」按钮用 `#fff` 在浅色 accent 上只有 1.14–2.24，已改用 `--on-accent`）。
+- 回归：`check` / `interact` / `check-toc` / `check-detail` / `check-look` / `check-accent`(60 组) / `audit-controls`（含新增 `.html` 页面级链接校验）全 `none`；主页 10 组各 486 元素、详情页 10 组各 264 元素 `below=0`；320/360/390/430 四档与 390px 移动端无横向滚动。
+- 截图核对：`.shots/cs3-top.png`（Hero）、`.shots/cs2-shot.png`（界面图与图注）、`.shots/cs-mob.png`（390px）、`.shots/cs-dark.png`（cinema 暗色）。

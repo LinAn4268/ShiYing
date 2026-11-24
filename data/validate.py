@@ -77,3 +77,22 @@ for k, v in checks.items():
 print('img tags:', html.count('<img'))
 print('unsplash refs:', html.count('unsplash.com'))
 print('target blank links:', html.count('target="_blank"'))
+
+# ---------------- 练习台 camsim.html ----------------
+camsim_path = os.path.join(base, 'camsim.html')
+if os.path.exists(camsim_path):
+    cs = io.open(camsim_path, encoding='utf-8').read()
+    cs_checks = {
+        'camsim title': '相机模拟器 CamSim' in cs,
+        'camsim no iframe': '<iframe' not in cs,
+        'camsim shot': 'assets/camsim-ui.jpg' in cs and os.path.exists(os.path.join(base, 'assets', 'camsim-ui.jpg')),
+        'camsim sections': all(('id="%s"' % s) in cs for s in ['preview', 'howto', 'ui', 'tasks', 'keys']),
+        'camsim tasks 8': cs.count('class="cs-task-h"') == 8,
+        'camsim external safe': cs.count('rel="noopener noreferrer"') >= 4,
+        'camsim link from index': 'camsim.html' in html,
+    }
+    for k, v in cs_checks.items():
+        print(('PASS' if v else 'FAIL'), k)
+    print('camsim bytes:', len(cs.encode('utf-8')))
+else:
+    print('FAIL camsim.html missing')
