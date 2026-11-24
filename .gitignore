@@ -17,3 +17,7 @@ desktop.ini
 __pycache__/
 *.pyc
 nohup.out
+data/rewrite/_backup/
+data/rewrite/_tone.txt
+data/rewrite/_diff.txt
+data/rewrite/_idxdiff.txt

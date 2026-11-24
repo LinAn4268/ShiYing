@@ -2,7 +2,7 @@
 import { connect } from './cdp.mjs';
 import path from 'node:path';
 
-const themes = ['paper', 'cinema', 'grid', 'ink', 'mono'];
+const themes = process.env.THEMES ? process.env.THEMES.split(',') : ['paper', 'cinema', 'grid', 'ink', 'mono'];
 const darks = [false, true];
 const c = await connect('about:blank');
 await c.send('Page.enable');
@@ -16,9 +16,13 @@ for (const th of themes) {
     await c.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 950, deviceScaleFactor: 1, mobile: false });
     await c.send('Page.navigate', { url: path0() });
     await c.sleep(500);
-    await c.evaluate(`localStorage.setItem('shiying:theme',JSON.stringify('${th}'));localStorage.setItem('shiying:dark','${dk}')`);
+    await c.evaluate(`localStorage.clear();localStorage.setItem('shiying:theme',JSON.stringify('${th}'));localStorage.setItem('shiying:dark','${dk}')`);
     await c.send('Page.reload');
     await c.sleep(800);
+    if (process.env.OPEN === '1') {
+      await c.evaluate(`document.querySelectorAll('.unit-head[aria-expanded="false"]').forEach(function(b){b.click();});`);
+      await c.sleep(700);
+    }
     const res = await c.evaluate(`(function(){
       function parse(rgb){
         if(!rgb) return null;

@@ -16,7 +16,7 @@ for (const th of themes) {
     await c.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 950, deviceScaleFactor: 1, mobile: false });
     await c.send('Page.navigate', { url: path0() });
     await c.sleep(500);
-    await c.evaluate(`localStorage.setItem('shiying:theme',JSON.stringify('${th}'));localStorage.setItem('shiying:dark','${dk}')`);
+    await c.evaluate(`localStorage.clear();localStorage.setItem('shiying:theme',JSON.stringify('${th}'));localStorage.setItem('shiying:dark','${dk}')`);
     await c.send('Page.reload');
     await c.sleep(800);
     const res = await c.evaluate(`(function(){

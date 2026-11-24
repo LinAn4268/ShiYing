@@ -36,6 +36,7 @@
 │   ├── look.js         ← 外观面板：模板 / 字体 / 字号 / 行距 / 疏密 / 强调色（两页共用）
 │   └── build.py        ← 构建脚本：把 src + data 合成 index.html / detail.html / camsim.html
 ├── data/               ← 内容数据（唯一内容源）
+│   ├── rewrite/        ← 文案改写中间产物：写作 Brief、分章稿、合并前备份、语气体检结果
 │   ├── ch1-3.json / ch4-7.json / ch8-10.json   ← 十章正文
 │   ├── glossary.json   ← 62 条术语首现解释
 │   ├── directory.txt   ← 182 行标题清单（校验基准）
@@ -43,7 +44,7 @@
 │   ├── photos/         ← 详解页配图
 │   │   ├── detail.json ← 135 条 → Pexels 图片映射（id / 来源页 / 摄影师 / alt / srcset）
 │   │   └── raw.txt     ← 采集时记录的候选（小节 / id / 摄影师 / 英文标题）
-│   └── detail/         ← 135 条短教程内容
+│   ├── detail/         ← 135 条短教程内容
 │       ├── input/chN.json   ← 从十章正文抽出的标题元信息（N=1..10）
 │       └── out/chN.json     ← 扩写后的详解内容（lead/principle/steps/mistakes/example/case/takeaway/keywords）
 └── tools/              ← 本地验收工具（CDP 驱动 Edge，非交付必需）
@@ -469,3 +470,32 @@ Pexels/Unsplash 的站内搜索页有 Cloudflare 拦截、官方 API 需 key，�
 - 对比度：`camsim.html` 10 组模板×明暗各 195 个文本元素 `below=0`（此前「载入模拟器」按钮用 `#fff` 在浅色 accent 上只有 1.14–2.24，已改用 `--on-accent`）。
 - 回归：`check` / `interact` / `check-toc` / `check-detail` / `check-look` / `check-accent`(60 组) / `audit-controls`（含新增 `.html` 页面级链接校验）全 `none`；主页 10 组各 486 元素、详情页 10 组各 264 元素 `below=0`；320/360/390/430 四档与 390px 移动端无横向滚动。
 - 截图核对：`.shots/cs3-top.png`（Hero）、`.shots/cs2-shot.png`（界面图与图注）、`.shots/cs-mob.png`（390px）、`.shots/cs-dark.png`（cinema 暗色）。
+
+## 十四、第七轮：全站文案改写
+
+按风格卡对 135 条要点与 10 章导语、每章小结与练习、以及页面框架文案做了整体改写。原则是「内容与结构不动，只换语气」：标题、编号、标签、条目数量、所有参数数字一律保留。
+
+### 改写范围
+
+| 位置 | 字段 | 数量 |
+|---|---|---|
+| 主页章导语 | `intro` | 10 |
+| 主页要点正文 | `text` | 135 |
+| 章末小结 / 练习建议 | `summary` / `practice` | 10 + 10 |
+| 详解页导语 / 原理 / 举例 / 一句话 | `lead` / `principle` / `example` / `takeaway` | 135 × 4 |
+| 详解页步骤 / 误区 / 案例 | `steps` / `mistakes` / `case` | 135 组 |
+| 框架文案 | Hero、CTA、学习路径、空状态、页脚、meta | 11 处 |
+
+### 写法约定
+
+- 视角用「你」，句子长短交替：短句给结论，中长句讲原因。
+- 比喻只做辅助，不替代定义；术语第一次出现先给规范表述，再补一句人话。
+- 按钮动词开头：「从第一章读起」「先看目录」「去拨一遍」「读详解」。
+- 不用绝对化与标题党，不编造案例数据，不用 emoji 和网络梗。
+
+### 校验
+
+- `tools/merge_rewrite.py`：合并前先备份到 `data/rewrite/_backup/`，合并时逐条比对 id、标题、标签、段落数、步骤数，并抽取全部数字（含 cm、mm、f/、ISO、秒）核对无丢失。结果为 `ALL CHECKS PASSED`。
+- 改写过程中真实丢失的 3 处参数已补回：`6-1-1`（色温 3000K 上下）、`9-2-4`（重叠 30%）、`3-2-3`（1/125 秒）。
+- `tools/check_tone.py` 扫全部 1639 个文本字段，命中 54 条。逐条核对后确认都是正常用法（「第一眼」「第一步」「放大到 100%」「唯一主体」「完美主义」「打向天花板反弹」「视角夸张到极致」），不是营销式绝对化，因此保留。
+
