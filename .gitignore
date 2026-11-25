@@ -21,3 +21,10 @@ data/rewrite/_backup/
 data/rewrite/_tone.txt
 data/rewrite/_diff.txt
 data/rewrite/_idxdiff.txt
+data/expand/_backup/
+data/_expand_backup_1125/
+data/expand/_*.py
+data/expand/_*.txt
+data/expand/_prev_backup/
+data/expand/expand_*.py
+data/expand/*_ch*.py
