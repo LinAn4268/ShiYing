@@ -867,24 +867,42 @@
   }
 
   /* ------------------------------ 作品赏析 ------------------------------ */
+  function caseCardHTML(it, i) {
+    var p = PHOTOS[it.id];
+    var img = p ? '<img src="' + p.src + '" srcset="' + (p.srcset || '') +
+      '" sizes="(max-width:760px) 100vw, 420px" alt="' + esc(p.alt) +
+      '" loading="lazy" decoding="async" width="1000" height="667">' : '';
+    var fields = [
+      ['拍摄场景', it.scene], ['主体', it.subject], ['构图方式', it.composition],
+      ['光线条件', it.light], ['参考参数与器材', it.settings], ['差异点', it.difference]
+    ].filter(function (f) { return f[1]; });
+    var spec = fields.map(function (f) {
+      return '<div class="work-spec"><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>';
+    }).join('');
+    return '<article class="work-card" id="work-' + esc(it.id) + '">' +
+      '<div class="work-fig">' + img + '<span class="work-genre">' + esc(it.genre) + '</span></div>' +
+      '<div class="work-body">' +
+        '<div class="work-head"><span class="work-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<h3>' + esc(it.title) + '</h3></div>' +
+        '<p class="work-by">' + esc(it.author) + ' · ' + esc(it.source) + '　|　' + esc(it.en) + '</p>' +
+        '<dl class="work-specs">' + spec + '</dl>' +
+        '<p class="work-analysis"><b>画面赏析：</b>' + esc(it.analysis) + '</p>' +
+        '<a class="work-link" href="' + it.page + '" target="_blank" rel="noopener noreferrer">查看原图与授权 ↗</a>' +
+      '</div></article>';
+  }
+
   function worksHTML() {
-    if (typeof CASES === 'undefined' || !CASES.items) return '';
+    if (typeof CASES === 'undefined' || !CASES.themes) return '';
     var lede = $('#worksLede');
     if (lede) lede.textContent = CASES.intro || '';
-    return CASES.items.map(function (it, i) {
-      var p = PHOTOS[it.id];
-      var img = p ? '<img src="' + p.src + '" srcset="' + (p.srcset || '') +
-        '" sizes="(max-width:760px) 100vw, 420px" alt="' + esc(p.alt) +
-        '" loading="lazy" decoding="async" width="1000" height="667">' : '';
-      return '<article class="work-card" id="work-' + esc(it.id) + '">' +
-        '<div class="work-fig">' + img + '<span class="work-genre">' + esc(it.genre) + '</span></div>' +
-        '<div class="work-body">' +
-          '<div class="work-head"><span class="work-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-          '<h3>' + esc(it.title) + '</h3></div>' +
-          '<p class="work-by">' + esc(it.author) + ' · ' + esc(it.source) + '　|　' + esc(it.en) + '</p>' +
-          '<p class="work-analysis">' + esc(it.analysis) + '</p>' +
-          '<a class="work-link" href="' + it.page + '" target="_blank" rel="noopener noreferrer">查看原图与授权 ↗</a>' +
-        '</div></article>';
+    var note = $('#worksNote');
+    if (note) note.textContent = CASES.note || '';
+    return CASES.themes.map(function (th, ti) {
+      var cards = th.cases.map(function (it, i) { return caseCardHTML(it, i); }).join('');
+      return '<section class="theme-group" id="theme-' + esc(th.id) + '">' +
+        '<header class="theme-head"><span class="theme-num">' + String(ti + 1).padStart(2, '0') + '</span>' +
+        '<div><h3>' + esc(th.name) + '</h3><p>' + esc(th.desc) + '</p></div></header>' +
+        '<div class="works-grid">' + cards + '</div></section>';
     }).join('');
   }
 
@@ -904,7 +922,7 @@
   /* ------------------------------ 启动 ------------------------------ */
   function init() {
     $('#chapters').innerHTML = chaptersHTML();
-    var works = $('#worksGrid');
+    var works = $('#worksThemes');
     if (works) works.innerHTML = worksHTML();
     var sites = $('#sitesGrid');
     if (sites) sites.innerHTML = sitesHTML();

@@ -1,4 +1,4 @@
-// 验收：作品赏析栏目 + 图库推荐 + 图片替换 + 无 JS 异常 + 10 图懒加载
+// 验收：6 主题 × 3 案例 = 18 例，含 6 项拍摄要素 + 图片加载 + 无 JS 异常
 import { connect } from './cdp.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,19 +21,27 @@ for (const e of c.events) {
 
 const stats = await c.evaluate(`(() => {
   const q = s => document.querySelectorAll(s).length;
+  const themes = [...document.querySelectorAll('.theme-group')];
+  const cards = [...document.querySelectorAll('.work-card')];
   return {
-    works: q('#works'), workCards: q('.work-card'), workGenres: q('.work-genre'),
+    works: q('#works'), themeGroups: themes.length,
+    themeNames: themes.map(t => t.querySelector('h3')?.textContent),
+    perTheme: themes.map(t => t.querySelectorAll('.work-card').length),
+    workCards: cards.length, workGenres: q('.work-genre'),
+    specTotals: cards.map(c => c.querySelectorAll('.work-spec').length),
     analyses: [...document.querySelectorAll('.work-analysis')].map(p => p.textContent.length),
-    siteCards: q('.site-card'), freeSites: q('.site-badge.yes'), checkSites: q('.site-badge.check'),
+    differenceCount: [...document.querySelectorAll('.work-spec dt')].filter(d => d.textContent.includes('差异点')).length,
+    siteCards: q('.site-card'),
     srcHosts: [...new Set([...document.images].map(i => { try { return new URL(i.src).host; } catch { return '?'; } }))],
     hero: (() => { const h = document.querySelector('#heroImg'); return h ? { host: new URL(h.src).host, loaded: h.complete && h.naturalWidth>0 } : null; })(),
+    note: (document.querySelector('#worksNote')||{}).textContent || '',
   };
 })()`);
 
-// 逐卡滚动，触发懒加载
-for (let i = 0; i < 10; i++) {
+// 逐卡滚动触发懒加载
+for (let i = 0; i < stats.workCards; i++) {
   await c.evaluate(`document.querySelectorAll('.work-card')[${i}]?.scrollIntoView({block:'center'})`);
-  await c.sleep(600);
+  await c.sleep(450);
 }
 await c.sleep(2000);
 const imgs = await c.evaluate(`(() => {
@@ -41,11 +49,14 @@ const imgs = await c.evaluate(`(() => {
   return { total: a.length, loaded: a.filter(i => i.complete && i.naturalWidth>0).length,
     failed: a.filter(i => i.complete && i.naturalWidth===0).map(i => i.src.split('/').pop()) };
 })()`);
+
 console.log(JSON.stringify({ ...stats, imgs }, null, 2));
 console.log('PROBLEMS:', probs.length ? probs : 'none');
-const ok = stats.workCards === 10 && stats.workGenres === 10 && stats.siteCards === 7 &&
-  stats.analyses.every(n => n >= 100) && probs.length === 0 &&
+const ok = stats.themeGroups === 6 && stats.workCards === 18 &&
+  stats.perTheme.every(n => n === 3) && stats.specTotals.every(n => n === 6) &&
+  stats.differenceCount === 18 && stats.analyses.every(n => n >= 100) &&
+  stats.siteCards === 7 && probs.length === 0 &&
   stats.srcHosts.every(h => h === 'images.pexels.com') &&
-  imgs.total === 10 && imgs.loaded === 10 && imgs.failed.length === 0;
+  imgs.total === 18 && imgs.loaded === 18 && imgs.failed.length === 0;
 console.log(ok ? 'GALLERY OK' : 'GALLERY FAIL');
 c.close();
