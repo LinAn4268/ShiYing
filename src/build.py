@@ -36,10 +36,16 @@ app = read(os.path.join(SRC, 'app.js'))
 look = read(os.path.join(SRC, 'look.js'))
 tpl = read(os.path.join(SRC, 'body.html'))
 
+home_photos = json.loads(read(os.path.join(DATA, 'photos', 'home.json')))
+cases = json.loads(read(os.path.join(DATA, 'cases.json')))
+
+photos_js = 'var PHOTOS=' + js(home_photos) + ';'
 out = (tpl
   .replace('/*__CSS__*/', css + '\n' + layout)
   .replace('/*__DATA__*/', 'var DATA=' + js(chapters) + ';')
   .replace('/*__GLOSSARY__*/', 'var GLOSSARY=' + js(glossary) + ';')
+  .replace('/*__CASES__*/', 'var CASES=' + js(cases) + ';')
+  .replace('/*__HOME_PHOTOS__*/', photos_js)
   .replace('/*__APP__*/', app)
   .replace('/*__LOOK__*/', look))
 
@@ -149,7 +155,7 @@ detail_html = (detail_body
   .replace('/*__DETAIL_CSS__*/', detail_css)
   .replace('/*__DATA__*/', 'var DETAILS=' + js(details) + ';')
   .replace('/*__APP__*/', detail_app)
-  .replace('/*__LOOK__*/', look))
+  .replace('/*__LOOK__*/', photos_js + '\n' + look))
 detail_path = os.path.join(BASE, 'detail.html')
 with io.open(detail_path, 'w', encoding='utf-8', newline='\n') as fh:
     fh.write(detail_html)
@@ -164,7 +170,7 @@ camsim_html = (camsim_tpl
   .replace('/*__BASE_CSS__*/', css)
   .replace('/*__CAMSIM_CSS__*/', camsim_css)
   .replace('/*__APP__*/', camsim_app)
-  .replace('/*__LOOK__*/', look))
+  .replace('/*__LOOK__*/', photos_js + '\n' + look))
 camsim_path = os.path.join(BASE, 'camsim.html')
 with io.open(camsim_path, 'w', encoding='utf-8', newline='\n') as fh:
     fh.write(camsim_html)

@@ -27,55 +27,10 @@
   };
 
   /* ------------------------------ 图片素材 ------------------------------
-     全部来自 Unsplash（免费可商用）。credit 链接指向来源站点的对应主题页，
-     便于读者自行核对；img 只作为来源说明，不参与布局。
+     全部来自 Pexels（免费可商用，无需署名）。全局 PHOTOS 由构建脚本从
+     data/photos/home.json 注入：按题材挑选、CDN 直链已逐条验证。
      -------------------------------------------------------------------- */
-  var PHOTOS = {
-    hero: { id: 'photo-1470252649378-9c29740c9fa8', page: 'https://unsplash.com/s/photos/sunrise-landscape',
-      label: 'Unsplash · 日出山野', alt: '晨雾中的山野，日出把云层与草地染成暖橙色' },
-    ch1: { id: 'photo-1441974231531-c6227db76b6e', page: 'https://unsplash.com/s/photos/forest-light',
-      label: 'Unsplash · 森林光线', alt: '阳光穿过密林，在草地上洒下明暗斑驳的光带',
-      cap: '光先穿过树，再落进画面——摄影，从看见光开始。' },
-    ch2: { id: 'photo-1495707902641-75cac588d2e9', page: 'https://unsplash.com/s/photos/camera',
-      label: 'Unsplash · 相机', alt: '一台数码相机放在木桌上，镜头朝向观者',
-      cap: '机身、镜头、卡口：认识装备，是为了少被参数牵着走。' },
-    ch3: { id: 'photo-1516035069371-29a1b244cc32', page: 'https://unsplash.com/s/photos/camera-lens',
-      label: 'Unsplash · 镜头与光圈', alt: '暗背景中的相机与镜头，镜片反出圆形光斑',
-      cap: '光圈、快门、ISO 是三道闸门，先弄懂它们如何互相牵制。' },
-    ch4: { id: 'photo-1524504388940-b1c1722653e1', page: 'https://unsplash.com/s/photos/portrait',
-      label: 'Unsplash · 人像', alt: '柔光下的人像，背景被大光圈化开成柔和色块',
-      cap: '清楚不是「对准了」三个字，它由对焦、景深与稳定共同决定。' },
-    ch5: { id: 'photo-1500534623283-312aade485b7', page: 'https://unsplash.com/s/photos/golden-hour',
-      label: 'Unsplash · 黄金时刻', alt: '落日贴着山脊，光线在山峦间拉出长长的光晕',
-      cap: '同一个地方，换一个时间，就是另一张照片。' },
-    ch6: { id: 'photo-1501785888041-af3ef285b470', page: 'https://unsplash.com/s/photos/turquoise-lake',
-      label: 'Unsplash · 色彩', alt: '碧绿湖水与小船，周围是暖色山岩和松林',
-      cap: '颜色是画面的性格：冷暖一旦定下，情绪就定了大半。' },
-    ch7: { id: 'photo-1487958449943-2429e8be8625', page: 'https://unsplash.com/s/photos/architecture-geometry',
-      label: 'Unsplash · 建筑与几何', alt: '现代建筑的金属与玻璃立面，线条形成几何秩序',
-      cap: '把世界整理成一幅画：先建立秩序，再考虑打破它。' },
-    ch9: { id: 'photo-1519608487953-e999c86e7455', page: 'https://unsplash.com/s/photos/night-street',
-      label: 'Unsplash · 夜景街道', alt: '夜色中的街道与霓虹灯，路面反射出蓝紫色光',
-      cap: '把时间画进画面，是特殊技法最迷人的部分。' },
-    ch10: { id: 'photo-1470071459604-3b5ec3a7fe05', page: 'https://unsplash.com/s/photos/landscape-mood',
-      label: 'Unsplash · 山野', alt: '晨光中的山谷与草坡，远处云层低压',
-      cap: '好照片常常在按下快门之前，就已经决定了一半。' },
-    portrait: { id: 'photo-1494790108377-be9c29b29330', page: 'https://unsplash.com/s/photos/portrait-woman',
-      label: 'Unsplash · 人像', alt: '穿红衣的女士在柔和光线下微笑的人像',
-      cap: '人像先解决「人在哪里、被什么光照着」，再谈焦段与虚化。' },
-    landscape: { id: 'photo-1500534314209-a25ddb2bd429', page: 'https://unsplash.com/s/photos/mountain-layers',
-      label: 'Unsplash · 层叠山峦', alt: '层层叠叠的远山在薄雾中呈现出淡蓝灰的渐变',
-      cap: '风光的时间成本占一半：等对光线，比换镜头更有效。' },
-    motion: { id: 'photo-1548199973-03cce0bbc87b', page: 'https://unsplash.com/s/photos/running-dog',
-      label: 'Unsplash · 动态', alt: '两只狗在土路上奔跑，四肢腾空，姿态充满动感',
-      cap: '动态题材考的是预判：快门速度决定凝固还是流动。' },
-    food: { id: 'photo-1504674900247-0877df9cc836', page: 'https://unsplash.com/s/photos/food-flatlay',
-      label: 'Unsplash · 美食', alt: '俯拍的美食桌面，多只盘子与香草辣椒错落摆放',
-      cap: '静物与美食：光比与背景干净度，往往比器材更决定成败。' },
-    night: { id: 'photo-1519681393784-d120267933ba', page: 'https://unsplash.com/s/photos/milky-way',
-      label: 'Unsplash · 星空', alt: '雪山之上的银河与繁星，夜空呈现深蓝到紫的过渡',
-      cap: '弱光先求「稳」再求「亮」：三脚架与长曝光是地基。' }
-  };
+  var PHOTOS = window.PHOTOS || {};
 
   var FURTHER = [
     { name: 'Magnum Photos', url: 'https://www.magnumphotos.com/' },
@@ -138,9 +93,8 @@
   function imgTag(key, cls, eager) {
     var p = PHOTOS[key];
     if (!p) return '';
-    var base = 'https://images.unsplash.com/' + p.id + '?auto=format&fit=crop&q=';
-    return '<img class="' + cls + '" src="' + base + '78&w=1400"' +
-      ' srcset="' + base + '72&w=760 760w, ' + base + '78&w=1400 1400w"' +
+    return '<img class="' + cls + '" src="' + p.src + '"' +
+      ' srcset="' + (p.srcset || '') + '"' +
       ' sizes="(max-width:760px) 100vw, 640px"' +
       ' alt="' + esc(p.alt) + '"' +
       (eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async" data-key="' + key + '">';
@@ -912,19 +866,59 @@
     }, { passive: true });
   }
 
+  /* ------------------------------ 作品赏析 ------------------------------ */
+  function worksHTML() {
+    if (typeof CASES === 'undefined' || !CASES.items) return '';
+    var lede = $('#worksLede');
+    if (lede) lede.textContent = CASES.intro || '';
+    return CASES.items.map(function (it, i) {
+      var p = PHOTOS[it.id];
+      var img = p ? '<img src="' + p.src + '" srcset="' + (p.srcset || '') +
+        '" sizes="(max-width:760px) 100vw, 420px" alt="' + esc(p.alt) +
+        '" loading="lazy" decoding="async" width="1000" height="667">' : '';
+      return '<article class="work-card" id="work-' + esc(it.id) + '">' +
+        '<div class="work-fig">' + img + '<span class="work-genre">' + esc(it.genre) + '</span></div>' +
+        '<div class="work-body">' +
+          '<div class="work-head"><span class="work-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+          '<h3>' + esc(it.title) + '</h3></div>' +
+          '<p class="work-by">' + esc(it.author) + ' · ' + esc(it.source) + '　|　' + esc(it.en) + '</p>' +
+          '<p class="work-analysis">' + esc(it.analysis) + '</p>' +
+          '<a class="work-link" href="' + it.page + '" target="_blank" rel="noopener noreferrer">查看原图与授权 ↗</a>' +
+        '</div></article>';
+    }).join('');
+  }
+
+  function sitesHTML() {
+    if (typeof CASES === 'undefined' || !CASES.sites) return '';
+    return CASES.sites.map(function (s) {
+      return '<article class="site-card">' +
+        '<div class="site-head"><a href="' + s.url + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + ' ↗</a>' +
+        '<span class="site-badge ' + (s.free ? 'yes' : 'check') + '">' + (s.free ? '免费商用' : '需核对授权') + '</span></div>' +
+        '<p class="site-style">' + esc(s.style) + '</p>' +
+        '<p class="site-license"><b>授权：</b>' + esc(s.license) + '</p>' +
+        '<p class="site-credit"><b>署名：</b>' + esc(s.credit) + '</p>' +
+        '<p class="site-note">' + esc(s.note) + '</p></article>';
+    }).join('');
+  }
+
   /* ------------------------------ 启动 ------------------------------ */
   function init() {
     $('#chapters').innerHTML = chaptersHTML();
+    var works = $('#worksGrid');
+    if (works) works.innerHTML = worksHTML();
+    var sites = $('#sitesGrid');
+    if (sites) sites.innerHTML = sitesHTML();
     $('#tocList').innerHTML = tocHTML();
     $('#footChapters').innerHTML = footChaptersHTML();
     var hero = PHOTOS.hero;
     var heroImg = $('#heroImg');
-    var hb = 'https://images.unsplash.com/' + hero.id + '?auto=format&fit=crop&q=';
-    heroImg.src = hb + '80&w=1600';
-    heroImg.setAttribute('srcset', hb + '72&w=900 900w, ' + hb + '78&w=1300 1300w, ' + hb + '80&w=1900 1900w');
-    heroImg.setAttribute('sizes', '100vw');
-    heroImg.alt = hero.alt;
-    heroImg.setAttribute('data-key', 'hero');
+    if (hero) {
+      heroImg.src = hero.src;
+      heroImg.setAttribute('srcset', hero.srcset || '');
+      heroImg.setAttribute('sizes', '100vw');
+      heroImg.alt = hero.alt;
+      heroImg.setAttribute('data-key', 'hero');
+    }
 
     // ch3 曝光示意图
     var ch3 = $('#ch3');

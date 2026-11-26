@@ -799,6 +799,50 @@ body.look-open .look{transform:none}
   .figure:hover img,.topic-card:hover .ph img{transform:none}
 }
 
+/* ------------------------- 作品赏析 / 图库推荐 ------------------------- */
+.works{max-width:1240px;margin:64px auto 0;padding:0 clamp(16px,4vw,40px)}
+.works-head{text-align:center;margin-bottom:34px}
+.works-head .eyebrow{justify-content:center}
+.works-head h2{font-family:var(--font-head);font-size:clamp(25px,4vw,36px);
+  font-weight:600;color:var(--text-strong);margin:8px 0 12px;letter-spacing:.04em}
+.works-lede{max-width:760px;margin:0 auto;color:var(--muted);font-size:14.5px;line-height:1.9}
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
+.work-card{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+  background:var(--panel);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s,border-color .2s}
+.work-card:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.work-fig{position:relative;aspect-ratio:3/2;overflow:hidden;background:var(--accent-soft)}
+.work-fig img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.work-card:hover .work-fig img{transform:scale(1.04)}
+.work-genre{position:absolute;left:12px;top:12px;z-index:2;padding:4px 10px;border-radius:999px;
+  background:rgba(20,20,20,.72);color:#fff;font-size:11.5px;letter-spacing:.05em;backdrop-filter:blur(4px)}
+.work-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1 1 auto}
+.work-head{display:flex;align-items:baseline;gap:10px}
+.work-num{font-family:var(--font-head);font-size:13px;color:var(--accent);font-weight:700}
+.work-head h3{font-family:var(--font-head);font-size:19px;font-weight:600;color:var(--text-strong);margin:0}
+.work-by{margin:6px 0 12px;font-size:12px;color:var(--faint);line-height:1.6}
+.work-analysis{margin:0 0 16px;font-size:13.5px;line-height:1.95;color:var(--text);flex:1 1 auto}
+.work-link{margin-top:auto;font-size:12.5px;color:var(--accent);border-top:1px solid var(--line);padding-top:12px;align-self:flex-start}
+.works-note{max-width:820px;margin:22px auto 0;text-align:center;font-size:12.5px;color:var(--faint);line-height:1.8}
+.sites-block{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.sites-title{text-align:center;font-family:var(--font-head);font-size:clamp(20px,3vw,27px);
+  color:var(--text-strong);font-weight:600;margin:0 0 8px}
+.sites-hint{text-align:center;color:var(--muted);font-size:13px;margin:0 0 26px}
+.sites-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.site-card{border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;background:var(--panel)}
+.site-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.site-head a{font-family:var(--font-head);font-size:16px;font-weight:600;color:var(--accent)}
+.site-badge{font-size:11px;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.site-badge.yes{background:var(--accent-soft);color:var(--accent-2)}
+.site-badge.check{background:var(--line);color:var(--muted)}
+.site-card p{margin:5px 0;font-size:12.5px;line-height:1.75;color:var(--muted)}
+.site-card p b{color:var(--text);font-weight:600}
+.site-card .site-note{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);color:var(--faint)}
+@media (max-width:760px){
+  .works{margin-top:44px}
+  .works-grid,.sites-grid{grid-template-columns:1fr}
+  .work-analysis{font-size:14px}
+}
+
 /* ------------------------------- 打印 ------------------------------- */
 @media print{
   .topbar,.toc,.mask,#toTop,.hero-actions,.read-btn,.theme-wrap,.search-wrap,.search-bar,.hero-credit{display:none !important}

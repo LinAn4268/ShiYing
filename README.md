@@ -134,9 +134,9 @@
 
 **视觉与图片**
 - 每张图片含 `alt`、来源标注、可点击来源链接（新标签 `target=_blank` + `noopener noreferrer`）、加载失败降级占位。
-- 图片 `loading=lazy` + `decoding=async`，尺寸经 URL 参数 `w=1400&q=78` 压缩；Hero 图 `fetchpriority=high`。
+- 图片 `loading=lazy` + `decoding=async`，尺寸经 Pexels URL 参数 `w=<宽度>` 与 `srcset` 压缩；Hero 图 `fetchpriority=high`。
 - 参数对比用卡片/表格（第 2 章焦段速查、第 3 章三要素，含内联 SVG 曝光三角示意图）；第八章题材用卡片网格，每个小节配专属题材图。
-- 第五 / 八 / 十章附作品欣赏站外链接。
+- 首页「作品赏析」栏目展示 10 张多题材案例（图/名/摄影师/分类/赏析）与 7 个精选图库推荐；第五 / 八 / 十章附作品欣赏站外链接。
 
 **工程与可访问性**
 - 单文件内联、`lang=zh-CN`、中文 title/description/viewport、语义化标题层级（仅一个 h1）。
@@ -148,25 +148,17 @@
 
 ## 四、图片与链接来源清单
 
-所有图片来自 **Unsplash**（免费可商用）。图片直链格式：`https://images.unsplash.com/<photo-id>?auto=format&fit=crop&w=1400&q=78`。来源链接指向 Unsplash 对应主题页，`photo-id` 为可核对凭证（Unsplash 单图页有 Cloudflare 拦截，故以主题页 + ID 双重标注）。
+全站图片（主页 Hero、章节配图、题材图、主题卡缩略图、作品赏析栏目与 135 张详解页配图）统一来自 **Pexels**（[Pexels License](https://www.pexels.com/license/)：免费可商用、通常无需署名，禁止转售原图或把图片商标化）。直链格式：`https://images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?auto=compress&cs=tinysrgb&w=<宽度>`，每张图的图片 ID 与来源页均可核对。主页 Hero 为马特洪峰日出（photo id `29734980`），来源链接指向对应 Pexels 单图页。图片 ID 与说明的权威映射见 `data/photos/detail.json`（135 条）与 `data/photos/home.json`（主页 21 个位置 + 10 个案例 + 5 张主题卡）。
 
-| 用途 | photo-id | 来源页 |
-|---|---|---|
-| Hero 日出山野 | `photo-1470252649378-9c29740c9fa8` | unsplash.com/s/photos/sunrise-landscape |
-| 第 1 章 森林光线 | `photo-1441974231531-c6227db76b6e` | unsplash.com/s/photos/forest-light |
-| 第 2 章 相机 | `photo-1495707902641-75cac588d2e9` | unsplash.com/s/photos/camera |
-| 第 3 章 镜头光圈 | `photo-1516035069371-29a1b244cc32` | unsplash.com/s/photos/camera-lens |
-| 第 4 章 人像 | `photo-1524504388940-b1c1722653e1` | unsplash.com/s/photos/portrait |
-| 第 5 章 黄金时刻 | `photo-1500534623283-312aade485b7` | unsplash.com/s/photos/golden-hour |
-| 第 6 章 色彩 | `photo-1501785888041-af3ef285b470` | unsplash.com/s/photos/turquoise-lake |
-| 第 7 章 建筑几何 | `photo-1487958449943-2429e8be8625` | unsplash.com/s/photos/architecture-geometry |
-| 第 9 章 夜景街道 | `photo-1519608487953-e999c86e7455` | unsplash.com/s/photos/night-street |
-| 第 10 章 山野 | `photo-1470071459604-3b5ec3a7fe05` | unsplash.com/s/photos/landscape-mood |
-| 8.1 人像 | `photo-1494790108377-be9c29b29330` | unsplash.com/s/photos/portrait-woman |
-| 8.2 风光 | `photo-1500534314209-a25ddb2bd429` | unsplash.com/s/photos/mountain-layers |
-| 8.3 动态 | `photo-1548199973-03cce0bbc87b` | unsplash.com/s/photos/running-dog |
-| 8.4 美食 | `photo-1504674900247-0877df9cc836` | unsplash.com/s/photos/food-flatlay |
-| 8.5 弱光星空 | `photo-1519681393784-d120267933ba` | unsplash.com/s/photos/milky-way |
+> 迁移说明：本站早期版本主页配图来自 Unsplash，现已全部替换为 Pexels 图片，以便与详解页 135 张配图统一来源、便于逐张核对授权。
+
+### 作品赏析栏目（首页，10 张多题材案例）
+
+首页新增「作品赏析」栏目（`data/cases.json` 驱动），从已验证的 Pexels 图库中挑选 10 张不同题材的作品，每张提供作品名称、摄影师署名、题材分类、可点击的来源链接，以及 150 字以上结合画面细节的赏析文字。题材覆盖：风光光影、人像光影、纪实城市、静物美食、夜景长曝、黄金时刻人像、建筑几何、静物微距、运动动态、天文夜景。
+
+> 说明：本站构建环境无法直接读取图像像素，赏析文字依据图库官方标题、alt 描述与题材标签撰写，不虚构画面细节；点击卡片可前往 Pexels 原图页核对实际画面与授权。
+
+同栏目附「精选摄影图库」推荐（7 个网站，含风格定位、授权类型、是否免费商用与署名要求）：Unsplash、Pexels、Pixabay、StockSnap、Wikimedia Commons、Flickr、500px。前四者为免费可商用免署名首选；Wikimedia/Flickr 需逐张确认 PD/CC0 授权（Flickr 的 NC 作品不可商用）；500px 默认仅供赏析、不可直接商用。
 
 作品欣赏站外链接（第 5 / 8 / 10 章）：
 - [Magnum Photos](https://www.magnumphotos.com/)
@@ -309,7 +301,7 @@
 |---|---|---|---|
 | 1 | 首帧前套用主题 | 深色偏好用户打开页面会先白闪一下再变暗（单文件页面解析到 `</body>` 才执行 JS，中间可能已绘制一帧） | 在 `<head>` 里加一段 ~10 行的内联脚本，从 `localStorage`（`shiying:theme` / `shiying:dark`）读值并在首帧前写好 `data-theme` / `data-dark`；无存储时跟随系统 `prefers-color-scheme`。两个页面共用同一段逻辑 |
 | 2 | 图片按屏宽取不同尺寸 | 手机也要下载 1900px 大图 | Hero 用 `srcset`（900 / 1300 / 1900w + `sizes="100vw"`），章节配图与题材图用 `srcset`（760 / 1400w + `sizes`）。实测 1440px 桌面取 1900w、390px@2x 取 900w |
-| 3 | 预连接图床 | 首屏图要等 DNS + TLS 才能开始下载 | `<link rel="preconnect" href="https://images.unsplash.com" crossorigin>` + `dns-prefetch` |
+| 3 | 预连接图床 | 首屏图要等 DNS + TLS 才能开始下载 | `<link rel="preconnect" href="https://images.pexels.com" crossorigin>` + `dns-prefetch` |
 | 4 | 分享卡与规范链接 | 链接发到微信/Twitter 没有标题、描述、缩略图 | 补齐 `og:*`（type/site_name/locale/title/description/url/image/image:alt）、`twitter:card=summary_large_image`、`rel="canonical"` |
 | 5 | 无 JS 时的提示 | 关掉 JavaScript 只看到空壳，不知道原因 | `<noscript>` 一句话说明「正文与交互由 JavaScript 生成」，并给 `.noscript-note` 样式，不影响开启 JS 的渲染 |
 | 6 | Pages 站点文件 | 默认 404 是 GitHub 的默认页；`_` 开头的目录可能被 Jekyll 忽略 | 新增 `404.html`（同风格，含返回主页/详解页按钮）、`.nojekyll`、`robots.txt`、`sitemap.xml` |

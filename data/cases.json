@@ -1,0 +1,170 @@
+{
+  "intro": "摄影题材千差万别，但看点有共通之处：光把什么照亮、视线往哪儿走、颜色替谁说话。下面十张都出自 Pexels 免费可商用图库，摄影师与来源可逐张核对。点击可看原图与授权说明。",
+  "sites": [
+    {
+      "name": "Unsplash",
+      "url": "https://unsplash.com/",
+      "style": "风光、人像、生活方式、建筑；审美偏电影感与极简，编辑级质量",
+      "license": "Unsplash License（自有许可，效果接近 CC0）",
+      "free": true,
+      "credit": "网页配图无需署名；若通过其官方 API 集成则按 API 规范署名",
+      "note": "本站 Hero 与章节配图的主力来源之一"
+    },
+    {
+      "name": "Pexels",
+      "url": "https://www.pexels.com/",
+      "style": "通用商业图库，人像、办公、自然、城市题材齐全，另含免费视频",
+      "license": "Pexels License（免版税）",
+      "free": true,
+      "credit": "免费商用、无需署名；禁止转售未修改原图、商标化",
+      "note": "本站 135 条详解配图与作品赏析全部来自这里"
+    },
+    {
+      "name": "Pixabay",
+      "url": "https://pixabay.com/",
+      "style": "照片、插画、矢量、视频、音频齐全，题材覆盖极广",
+      "license": "Pixabay Content License（非 CC0，但免署名）",
+      "free": true,
+      "credit": "免费商用、无需署名；API 使用需标示来源，禁止永久热链",
+      "note": "适合静物、微距、野生动物等题材批量建库"
+    },
+    {
+      "name": "StockSnap",
+      "url": "https://stocksnap.io/",
+      "style": "高分辨率通用摄影图，风光、城市、人物、纹理，质量整齐",
+      "license": "CC0 1.0",
+      "free": true,
+      "credit": "免费商用、无需署名，法律上最干净的来源之一",
+      "note": "零署名负担的常备图源"
+    },
+    {
+      "name": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/",
+      "style": "百科级真实资料图，天文、地理、历史档案、动植物科学图鉴",
+      "license": "逐文件不同：PD / CC0 / CC BY / CC BY-SA",
+      "free": false,
+      "credit": "可商用，但只有 PD/CC0 免署名；CC BY/SA 必须署名；逐张核对授权",
+      "note": "适合天文、生态、历史纪实等稀缺题材补位"
+    },
+    {
+      "name": "Flickr（CC 检索）",
+      "url": "https://www.flickr.com/creativecommons/",
+      "style": "全球摄影社区，纪实、街头、旅行、自然生态极强",
+      "license": "默认全部权利保留；可按 CC 许可筛选",
+      "free": false,
+      "credit": "仅 CC0 / Public Domain 免署名商用；CC BY 须署名；带 NC 的不可商用",
+      "note": "纪实与街头题材的最佳来源，但授权核验成本最高"
+    },
+    {
+      "name": "500px",
+      "url": "https://500px.com/",
+      "style": "专业摄影师社区，风光、人像、艺术摄影水平高",
+      "license": "以全部权利保留为主，商业使用需单独购买授权",
+      "free": false,
+      "credit": "不要默认可免费商用；仅作赏析与灵感参考",
+      "note": "作品水平高，但不适合直接拿来当配图"
+    }
+  ],
+  "items": [
+    {
+      "id": "1-1-1",
+      "title": "林间光柱",
+      "en": "Rays of Sunlight Passing Through Forest Trees",
+      "author": "Vladimir Srajber",
+      "source": "Pexels",
+      "genre": "风光 · 光影",
+      "page": "https://www.pexels.com/photo/rays-of-sunlight-passing-through-forest-trees-14030654/",
+      "analysis": "画面最抓人的是斜着切进树林的光柱：树冠的缝隙把阳光筛成一道道清晰的光带，落在满地落叶上，亮处与暗处拉开很大的反差。摄影师把机位压低，让光柱从画面上方斜穿到下方，形成一条天然的引导线，视线跟着光一直走到林子深处。落叶铺满地面，颜色偏暖黄，和四周偏冷的阴影形成冷暖对比。光柱边缘有细微的雾气散射，说明空气里有水汽或浮尘，这正是丁达尔效应能被拍下来的前提。整张照片没有人物，却让人感到清晨的安静——它教会初学者：先找到光的方向，再决定站在哪里按快门。"
+    },
+    {
+      "id": "5-1-3",
+      "title": "百叶窗影下的人像",
+      "en": "Dramatic Portrait with Window Blind Shadows",
+      "author": "Margo Evardson",
+      "source": "Pexels",
+      "genre": "人像 · 光影",
+      "page": "https://www.pexels.com/photo/dramatic-portrait-with-window-blind-shadows-38068291/",
+      "analysis": "百叶窗的影子一道道落在人物脸上，把一张普通肖像变成了有戏剧性的光影练习。光源来自侧前方，窗棂挡住的部分留下深色条纹，没挡住的部分照亮颧骨与鼻梁，明暗界线很硬，几乎没有过渡——这是直射光的典型特征。摄影师让人物稍微转头，让条纹斜着划过脸颊而不是横着切断五官，既保留结构又增加张力。背景被压得很暗，把注意力全部留给脸上的光影纹理。色彩上以暖棕和深黑为主，情绪偏沉静甚至有点疏离。这张作品说明：人像不一定追求把脸拍亮、拍匀，有选择地让光只照亮一部分，反而更能塑造性格。"
+    },
+    {
+      "id": "7-2-1",
+      "title": "俯拍城市街道",
+      "en": "Drone Shot of City Street",
+      "author": "Diego F. Parra",
+      "source": "Pexels",
+      "genre": "纪实 · 城市",
+      "page": "https://www.pexels.com/photo/drone-shot-of-city-street-15131355/",
+      "analysis": "无人机从高空垂直俯拍，把一条城市街道压成近乎平面的几何图形：道路、楼顶、绿化带各自成块，行人小得只剩几个点。这种视角刻意取消了地平线，也取消了通常的远近关系，让人重新审视熟悉的城市——街道不再是走的路，而是一幅由线条和色块拼成的抽象画。构图依靠道路的走向和建筑的排列建立秩序，几处亮色（车辆、遮阳伞）成为画面里仅有的视觉锚点。光线接近正午，阴影短而硬，强化了平面感。色彩偏灰蓝，整体克制。作品的价值在于提醒拍摄者：换一个机位，题材本身就会改变；纪实不只是贴近当事人，也可以退到很远，让人在人群的尺度里看见秩序与孤独。"
+    },
+    {
+      "id": "8-4-2",
+      "title": "寿司与酱油碟",
+      "en": "Elegant Japanese Sushi Arrangement with Soy Sauce",
+      "author": "Layanne Aguiar",
+      "source": "Pexels",
+      "genre": "静物 · 美食",
+      "page": "https://www.pexels.com/photo/elegant-japanese-sushi-arrangement-with-soy-sauce-31302045/",
+      "analysis": "侧光从画面一侧掠过寿司表面，把米饭颗粒的粗糙质感和鱼肉的细腻光泽清楚地区分开——这是美食静物最讲究的一点：质感要靠光的方向读出来。寿司被错落摆放，留出疏密变化，旁边的小碟酱油颜色深、反光强，既平衡构图又提供了色彩上的重音。背景处理得干净简洁，没有多余道具抢视线，主体因此显得清爽。色彩以米白、鱼生的粉橙和酱油的深褐为主，对比温和，符合日式料理的克制气质。摄影师没有用强烈的顶光把食物照得发亮，而是让光擦着表面走，使高光只出现在鱼肉边缘和酱汁上。这张作品示范了静物摄影的基本功：先决定光从哪里来，再安排物体之间的关系。"
+    },
+    {
+      "id": "9-1-1",
+      "title": "高速公路光轨",
+      "en": "Light Trails on a Highway",
+      "author": "Renan Rezende",
+      "source": "Pexels",
+      "genre": "夜景 · 长曝光",
+      "page": "https://www.pexels.com/photo/light-trails-on-a-highway-12110342/",
+      "analysis": "车灯在长时间曝光下被拉成连续的光轨，红色的尾灯与白色的前灯沿着道路的弯道延伸，把一段普通的高速公路变成了流动的光的河流。摄影师选在入夜后拍摄，天空与路面都压得很暗，只有车灯留下亮线，明暗对比因此非常强烈。构图上，弯道本身形成一条弧线，把视线从近处引向远方，光轨顺着这条弧线排列，既有方向感又有节奏。色彩的层次全靠灯光的冷暖区分——红与白在黑色底子上格外醒目。这类照片的关键在于稳定：机位必须固定，曝光时间要足够长，才能让车灯连成完整线条而不是断断续续的光点。作品让人看见时间：快门开着的几十秒里，无数辆车经过，最后只留下一道光滑的光。"
+    },
+    {
+      "id": "8-1-1",
+      "title": "黄金时刻的人像",
+      "en": "Golden Hour Outdoor Portrait of a Woman",
+      "author": "Alef Morais",
+      "source": "Pexels",
+      "genre": "人像 · 黄金时刻",
+      "page": "https://www.pexels.com/photo/golden-hour-outdoor-portrait-of-a-woman-36116894/",
+      "analysis": "黄金时刻的低角度阳光把人物轮廓镀上一层暖金色，背景在长焦与大光圈的配合下被明显压缩、虚化成柔和的色块，人物因此从环境里干净地分离出来。光从侧后方来，发丝边缘出现细亮的轮廓光，脸颊正面则保留柔和的过渡，既立体又不生硬。构图把人物放在画面的非中心位置，留出呼吸的空间，视线有去处。色彩以暖橙和肤色为主，背景的绿或蓝被虚化后成为安静的补色，整体情绪放松、温暖。这张照片说明黄金时刻为什么受人偏爱：太阳低，光线穿过大气的路程长，色温自然偏暖，阴影也被拉长，随手一站就有层次。对初学者来说，它也是「先选光、再选背景」的好例子。"
+    },
+    {
+      "id": "7-3-2",
+      "title": "玻璃幕墙的倒影",
+      "en": "Reflection of a Building in a Modern Glass Facade",
+      "author": "Joao Saplak",
+      "source": "Pexels",
+      "genre": "建筑 · 几何",
+      "page": "https://www.pexels.com/photo/reflection-of-a-building-in-a-modern-glass-facade-19376404/",
+      "analysis": "现代建筑的玻璃幕墙把对面的楼群映成对称的倒影，真实与镜像叠在一起，让人分不清哪一部分是实体、哪一部分是反射。摄影师用近乎正面的角度拍摄，让幕墙的分格线横平竖直，形成严格的几何秩序；倒影里的建筑轮廓又打破这种秩序，产生有趣的重叠。色调以冷蓝灰为主，玻璃的反光带出一点高光，整体干净、理性。构图上，重复的分格线是节奏，倒影的弧线或斜线是变化——这正是建筑摄影常用的「秩序加破局」。光线来自阴天的漫射或建筑间的反射，没有强烈阴影，细节得以完整保留。这张作品提醒我们：城市里到处都是现成的几何，关键是找到一个能让倒影和实体互相说话的角度。"
+    },
+    {
+      "id": "4-2-2",
+      "title": "柔光里的蕨叶",
+      "en": "Serene Bokeh and Fern Leaves in Natural Light",
+      "author": "Bao Minh",
+      "source": "Pexels",
+      "genre": "静物 · 微距",
+      "page": "https://www.pexels.com/photo/serene-bokeh-and-fern-leaves-in-natural-light-40302938/",
+      "analysis": "几片蕨叶在柔光里前后分明：对焦落实在前景的叶片上，叶脉与细小的羽状结构清清楚楚，背景则化成一圈圈柔和的光斑。大光圈带来的浅景深把空间压成前、中、后几层，画面因此有了深度而不显拥挤。光从叶片后方或侧后方照来，薄叶被透亮，边缘泛出淡淡的亮边，绿色在明暗之间显出丰富的层次。色彩统一在绿色的冷暖变化里，没有杂色，情绪安静。构图上，叶片舒展的方向形成自然的曲线，引导视线从清晰处滑向虚化处。这张作品是理解景深的好教材：虚化不是目的，而是手段——它让该被看见的细节被看见，把干扰信息变成柔和的背景。"
+    },
+    {
+      "id": "8-3-1",
+      "title": "跑道上的冲刺",
+      "en": "Motion Blur of Athlete Running at Sports Field",
+      "author": "Peter Platou",
+      "source": "Pexels",
+      "genre": "运动 · 动态",
+      "page": "https://www.pexels.com/photo/motion-blur-of-athlete-running-at-sports-field-32655130/",
+      "analysis": "运动员在跑道上冲刺的瞬间被高速快门定住，身体前倾、手臂摆动、脚步离地的姿态都清清楚楚，肌肉的紧绷感透过画面传出来；背景则保留一点拖动感，静与动形成对照。摄影师选择低机位贴近跑道高度拍摄，人物显得更有冲击力，跑道的分道线成为天然的引导线，把视线推向终点方向。光线是户外自然光，侧光让身体的轮廓与肌肉起伏更明显。色彩以跑道的红和场地的绿为主，人物的服装颜色成为视觉焦点。这张作品说明运动摄影的两难：快门太快，动作被冻住却失了速度感；太慢，又会糊成一团。解法是让主体清晰、背景带虚，或者用追随拍摄让主体相对清楚而环境拉成线条——先想清楚要突出「力量」还是「速度」，再决定快门。"
+    },
+    {
+      "id": "8-5-4",
+      "title": "城市上空的银河",
+      "en": "Night Sky Over City with Milky Way and River",
+      "author": "Zeynep Sude Emek",
+      "source": "Pexels",
+      "genre": "天文 · 夜景",
+      "page": "https://www.pexels.com/photo/night-sky-over-city-with-milky-way-and-river-39072409/",
+      "analysis": "银河横在河面上方，前景是城市零星的灯光，三个层次——天空、河流、城市——在一张照片里各司其职。摄影师用长时间曝光把微弱星光累积成清晰的光带，同时让水面保持安静的暗色，只有少量反光呼应天空。构图上，银河的走向与河流的曲线大致平行，形成双重的引导；城市灯光散在下方，尺度上的对比让人感到自身的渺小。色彩以深蓝和黑为主，星光的冷白与灯火的暖黄形成微妙的冷暖对照。要拍到这样的画面，必须远离光污染、选无月的夜晚，并用大光圈镜头配合高感光度。这张作品把「时间」和「空间」都拍进去了：星光是远方的过去，灯火是眼前的现在，而河流在中间静静把它们连起来。"
+    }
+  ]
+}
