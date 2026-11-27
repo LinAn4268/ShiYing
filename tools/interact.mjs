@@ -23,7 +23,7 @@ const ok = (name, cond, extra = '') => { console.log((cond ? 'PASS ' : 'FAIL ') 
 const ev = (js) => c.evaluate(js);
 
 // 1. 默认折叠状态
-ok('默认展开仅第一章', (await ev(`document.querySelectorAll('.unit[data-open="true"]').length`)) === 3);
+ok('默认展开仅第一章', (await ev(`(()=>{const u=[...document.querySelectorAll('.unit[data-open="true"]')];return u.length>0&&u.every(e=>e.closest('.chapter').id==='ch1')})()`)));
 
 // 2. 展开第二章某小节
 await ev(`document.querySelector('#ch2 .unit-head').click()`);
@@ -90,7 +90,7 @@ ok('暗色 aria-pressed', (await ev(`document.querySelector('#darkBtn').getAttri
 // 11. 学习进度
 await ev(`document.querySelector('#ch3 .read-btn').click(); document.querySelector('#ch5 .read-btn').click()`);
 await c.sleep(300);
-ok('进度计数', (await ev(`document.querySelector('#progressText').textContent`)) === '2 / 11');
+ok('进度计数', (await ev(`document.querySelector('#progressText').textContent`)) === '2 / 10');
 ok('进度持久化', (await ev(`JSON.parse(localStorage.getItem('shiying:read')).length`)) === 2);
 
 // 12. 术语
@@ -119,7 +119,7 @@ ok('skip link', (await ev(`document.querySelector('.skip-link').getAttribute('hr
 ok('所有图片有 alt', (await ev(`[...document.images].every(i=>i.alt&&i.alt.length>4)`)) === true);
 ok('外链均 target=_blank + noopener', (await ev(`[...document.querySelectorAll('a[target="_blank"]')].every(a=>/noopener/.test(a.rel))`)) === true);
 ok('无重复 id', (await ev(`(()=>{const ids=[...document.querySelectorAll('[id]')].map(e=>e.id);return ids.length===new Set(ids).size})()`)) === true);
-ok('标题层级：h2 仅章节/路径', (await ev(`[...document.querySelectorAll('.chapter h2')].length`)) === 11);
+ok('标题层级：h2 仅章节/路径', (await ev(`[...document.querySelectorAll('.chapter h2')].length`)) === 10);
 
 console.log('PROBLEMS:', P.length ? P : 'none');
 await c.close();

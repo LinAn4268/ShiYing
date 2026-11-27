@@ -132,13 +132,13 @@ s = await state();
 ok('搜索按钮 → 展开搜索并聚焦', /search/.test(s.active) && /search-open/.test(s.bodyCls), JSON.stringify({ active: s.active, cls: s.bodyCls }));
 await typeSearch('光圈');
 s = await state();
-ok('搜索框输入 → 过滤并高亮', s.marks > 0 && s.visibleChapters < 11, JSON.stringify({ marks: s.marks, ch: s.visibleChapters }));
+ok('搜索框输入 → 过滤并高亮', s.marks > 0 && s.visibleChapters < 10, JSON.stringify({ marks: s.marks, ch: s.visibleChapters }));
 const clearVisible = await ev("!!document.getElementById('searchClear') && !document.getElementById('searchClear').hidden");
 ok('搜索清空按钮在有内容时出现', clearVisible !== false, 'visible=' + clearVisible);
 await click('#searchClear');
 await sleep(350);
 s = await state();
-ok('搜索清空按钮 → 清空并恢复', s.searchVal === '' && s.visibleChapters === 11, JSON.stringify({ val: s.searchVal, ch: s.visibleChapters }));
+ok('搜索清空按钮 → 清空并恢复', s.searchVal === '' && s.visibleChapters === 10, JSON.stringify({ val: s.searchVal, ch: s.visibleChapters }));
 
 // 7 空状态 + 建议词
 await typeSearch('zzzz');
@@ -193,11 +193,11 @@ await open('index.html');
 await click('.read-btn', 0);
 await sleep(300);
 s = await state();
-ok('标记已读按钮 → 进度变化', /1\s*\/\s*11/.test(s.progress), s.progress);
+ok('标记已读按钮 → 进度变化', /1\s*\/\s*10/.test(s.progress), s.progress);
 await click('.read-btn', 0);
 await sleep(300);
 s = await state();
-ok('再按一次 → 取消已读', /0\s*\/\s*11/.test(s.progress), s.progress);
+ok('再按一次 → 取消已读', /0\s*\/\s*10/.test(s.progress), s.progress);
 
 // 12b TOC 章级展开按钮（第一章可收起）
 await open('index.html');
@@ -271,7 +271,7 @@ await typeSearch('快门');
 await key('Escape', 'Escape', 27);
 await sleep(350);
 s = await state();
-ok('Esc 键 → 清空搜索', s.searchVal === '' && s.visibleChapters === 11, JSON.stringify({ val: s.searchVal, ch: s.visibleChapters }));
+ok('Esc 键 → 清空搜索', s.searchVal === '' && s.visibleChapters === 10, JSON.stringify({ val: s.searchVal, ch: s.visibleChapters }));
 
 // 18 页脚章节链接
 await open('index.html');

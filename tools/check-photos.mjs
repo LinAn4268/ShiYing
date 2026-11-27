@@ -57,7 +57,7 @@ for (const r of structural) {
   ok(r.text.includes('Pexels'), 'credit text missing source: ' + r.id);
   srcs.add(r.src);
 }
-// 第11章的 18 个案例复用前面章节的原图（photoKey 指向原条目），属预期设计；
+// 第一章 1.4–1.9 的 18 个案例复用前面章节的原图（photoKey 指向原条目），属预期设计；
 // 因此唯一图片数应为 153 - 18 = 135。
 const dupAllowed = 18;
 ok(srcs.size === ids.length - dupAllowed,
@@ -65,7 +65,7 @@ ok(srcs.size === ids.length - dupAllowed,
 
 // 2) 抽样真实加载（每章取 2 条，共 22 张）
 const sample = [];
-for (let ch = 1; ch <= 11; ch++) {
+for (let ch = 1; ch <= 10; ch++) {
   const list = ids.filter((i) => i.startsWith(ch + '-'));
   sample.push(list[0], list[list.length - 1]);
 }

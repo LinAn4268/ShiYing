@@ -9,7 +9,7 @@ def rd(p):
     return json.loads(io.open(os.path.join(BASE, p), encoding='utf-8').read())
 
 items = {}
-for i in range(1, 12):
+for i in range(1, 11):
     for it in rd('data/detail/out/ch%d.json' % i)['items']:
         items[it['id']] = it
 
@@ -36,7 +36,7 @@ def txt(it):
 
 ALL = '\n'.join(txt(it) for it in items.values())
 CHAPTERS = ''
-for fn in ('ch1-3.json', 'ch4-7.json', 'ch8-10.json', 'ch11.json'):
+for fn in ('ch1-3.json', 'ch4-7.json', 'ch8-10.json'):
     d = rd('data/' + fn)
     for ch in d['chapters']:
         for sec in ch['sections']:
@@ -68,10 +68,10 @@ ck('章节正文白平衡反向', '相机上的色温值调得越低，画面越
 
 # 4) 标点残留 / 重复
 ck('无「。：」叠加', '。：' not in ALL and '。：' not in CHAPTERS)
-ck('ch11 lead 不再逐字等于 example', sum(1 for i in range(1, 7) for j in range(1, 4)
-    if items['11-%d-%d' % (i, j)]['lead'] == items['11-%d-%d' % (i, j)]['example']) == 0)
-ck('ch11 lead 长度收敛', all(len(items['11-%d-%d' % (i, j)]['lead']) <= 60
-    for i in range(1, 7) for j in range(1, 4)))
+ck('ch1 案例 lead 不再逐字等于 example', sum(1 for i in range(4, 10) for j in range(1, 4)
+    if items['1-%d-%d' % (i, j)]['lead'] == items['1-%d-%d' % (i, j)]['example']) == 0)
+ck('ch1 案例 lead 长度收敛', all(len(items['1-%d-%d' % (i, j)]['lead']) <= 60
+    for i in range(4, 10) for j in range(1, 4)))
 ck('takeaway 无连续重复短句', not re.search(r'(.{8,}?)\1', ''.join(items[k].get('takeaway', '') for k in items)))
 
 # 5) 结构完整性
@@ -83,7 +83,7 @@ ck('无字面 \\n', '\\n' not in ALL and '\\n' not in CHAPTERS)
 # 6) 静态文案
 BODY = io.open(os.path.join(BASE, 'src/body.html'), encoding='utf-8').read()
 CASES = io.open(os.path.join(BASE, 'data/cases.json'), encoding='utf-8').read()
-ck('正文 0 / 11', '0 / 11' in BODY)
+ck('正文 0 / 10', '0 / 10' in BODY)
 ck('正文 153 条', '一百五十三条要点' in BODY)
 ck('案例来源说明 153 条', '153 条' in CASES)
 
