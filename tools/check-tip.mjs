@@ -47,7 +47,7 @@ for (const [w, h, label] of [[1440, 950, 'desktop'], [390, 844, 'mobile']]) {
   await c.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
   await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
   let hitTerm = false;
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 90; i++) {
     const state = await c.evaluate(`(function(){
       var a=document.activeElement;
       return {cls:(a&&a.className||'').toString(), isTerm:!!(a&&a.classList&&a.classList.contains('term'))};

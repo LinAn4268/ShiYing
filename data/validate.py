@@ -4,7 +4,7 @@ base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_dir = os.path.join(base, 'data')
 
 chapters = []
-for f in ['ch1-3.json', 'ch4-7.json', 'ch8-10.json']:
+for f in ['ch1-3.json', 'ch4-7.json', 'ch8-10.json', 'ch11.json']:
     with io.open(os.path.join(data_dir, f), 'r', encoding='utf-8') as fh:
         chapters.extend(json.load(fh)['chapters'])
 
@@ -42,11 +42,11 @@ for t in not_embedded[:10]:
     print('  ', t)
 
 # Basic structural checks
-# 配图覆盖：135 条详解各有唯一一张 Pexels 图片
+# 配图覆盖：153 条详解各有唯一一张 Pexels 图片
 photo_path = os.path.join(base, 'data', 'photos', 'detail.json')
 photos = json.load(io.open(photo_path, encoding='utf-8')) if os.path.exists(photo_path) else {}
 detail_ids = []
-for i in range(1, 11):
+for i in range(1, 12):
     p = os.path.join(base, 'data', 'detail', 'out', 'ch%d.json' % i)
     if os.path.exists(p):
         detail_ids += [it['id'] for it in json.load(io.open(p, encoding='utf-8'))['items']]
@@ -66,7 +66,7 @@ checks = {
     'toc': 'id="tocList"' in html,
     'back to top': 'id="toTop"' in html,
     'progress': 'id="progressText"' in html,
-    'photos 135': len(photos) == len(detail_ids) and not photo_missing,
+    'photos 153': len(photos) == len(detail_ids) and not photo_missing,
     'no console.log left': 'console.log' not in html,
     'no placeholders left': '__DATA__' not in html and '__GLOSSARY__' not in html,
 }

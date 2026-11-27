@@ -51,7 +51,7 @@ for (const [name, url] of [['index', idx], ['detail', det + '#8-1-1']]) {
   });
 }
 
-// ---- 3. 详情页：135 条全量渲染 ----
+// ---- 3. 详情页：153 条全量渲染 ----
 c.events.length = 0;
 await c.send('Page.navigate', { url: det });
 await c.sleep(1200);

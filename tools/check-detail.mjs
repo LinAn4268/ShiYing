@@ -40,8 +40,8 @@ const state = await c.evaluate(`(() => ({
   details: typeof DETAILS !== 'undefined' ? DETAILS.length : -1
 }))()`);
 console.log('STATE', JSON.stringify(state));
-check(state.details === 135, '详情数据 135 条', String(state.details));
-check(state.tocLinks === 135, '侧栏目录 135 条', String(state.tocLinks));
+check(state.details === 153, '详情数据 153 条', String(state.details));
+check(state.tocLinks === 153, '侧栏目录 153 条', String(state.tocLinks));
 check(state.h1Count === 1 && state.h1, '单页唯一 h1', state.h1.slice(0, 30));
 check(state.lead > 40, '导语已渲染', String(state.lead));
 check(state.blocks.length === 4, '四大内容板块齐全', state.blocks.join('/'));

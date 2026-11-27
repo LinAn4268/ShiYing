@@ -806,6 +806,17 @@ body.look-open .look{transform:none}
 .works-head h2{font-family:var(--font-head);font-size:clamp(25px,4vw,36px);
   font-weight:600;color:var(--text-strong);margin:8px 0 12px;letter-spacing:.04em}
 .works-lede{max-width:760px;margin:0 auto;color:var(--muted);font-size:14.5px;line-height:1.9}
+.works-jump{max-width:760px;margin:14px auto 0;font-size:13.5px;color:var(--muted);line-height:1.8}
+.works-jump a{color:var(--accent);font-weight:600;border-bottom:1px solid var(--accent)}
+/* 第十一章：章节内的案例卡（复用作品赏析的规格表样式） */
+.unit:has(.case-item) .unit-body{--unit-cols:1fr}
+.item.case-item{padding:0;overflow:hidden}
+.case-item-body{display:grid;grid-template-columns:minmax(220px,38%) 1fr;gap:0}
+.case-item-body .work-fig{aspect-ratio:auto;height:100%;min-height:220px}
+.case-item-inner{padding:18px 20px 20px}
+.case-item-inner .work-by{margin-top:0}
+.case-item-inner .item-detail{display:inline-block;margin-right:14px}
+@media(max-width:760px){.case-item-body{grid-template-columns:1fr}.case-item-body .work-fig{aspect-ratio:3/2;min-height:0}}
 .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
 .work-card{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   background:var(--panel);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s,border-color .2s}

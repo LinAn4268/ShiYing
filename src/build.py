@@ -11,7 +11,7 @@ def read(p):
         return fh.read()
 
 chapters = []
-for f in ['ch1-3.json', 'ch4-7.json', 'ch8-10.json']:
+for f in ['ch1-3.json', 'ch4-7.json', 'ch8-10.json', 'ch11.json']:
     chapters.extend(json.loads(read(os.path.join(DATA, f)))['chapters'])
 glossary = json.loads(read(os.path.join(DATA, 'glossary.json')))
 
@@ -97,7 +97,7 @@ details = []
 missing = []
 PHOTOS = json.loads(read(os.path.join(DATA, 'photos', 'detail.json')))
 no_photo = []
-for i in range(1, 11):
+for i in range(1, 12):
     p = os.path.join(DATA, 'detail', 'out', 'ch%d.json' % i)
     if not os.path.exists(p):
         missing.append('ch%d.json' % i)

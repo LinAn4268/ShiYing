@@ -1,6 +1,6 @@
 /* =========================================================================
    拾影 · 交互
-   原生 JS，无依赖。数据由构建脚本注入：DATA（十章内容）、GLOSSARY（术语）。
+   原生 JS，无依赖。数据由构建脚本注入：DATA（十一章内容）、GLOSSARY（术语）。
    ========================================================================= */
 (function () {
   'use strict';
@@ -115,13 +115,42 @@
     return '<span class="tag" data-t="' + t + '">' + t + '</span>';
   }
 
+  function caseItemBody(item) {
+    var c = item.case || {};
+    var key = item.photoKey || item.id;
+    var p = PHOTOS[key];
+    var img = p ? '<img src="' + p.src + '" srcset="' + (p.srcset || '') +
+      '" sizes="(max-width:760px) 100vw, 420px" alt="' + esc(p.alt || c.title) +
+      '" loading="lazy" decoding="async" width="1000" height="667">' : '';
+    var fields = [
+      ['拍摄场景', c.scene], ['主体', c.subject], ['构图方式', c.composition],
+      ['光线条件', c.light], ['参考参数与器材', c.settings], ['差异点', c.difference]
+    ].filter(function (f) { return f[1]; });
+    var spec = fields.map(function (f) {
+      return '<div class="work-spec"><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>';
+    }).join('');
+    return '<div class="case-item-body">' +
+      '<div class="work-fig">' + img + '<span class="work-genre">' + esc(c.genre || '') + '</span></div>' +
+      '<div class="case-item-inner">' +
+        '<div class="item-head">' + tagHTML(item.tag) + '<h4>' + esc(item.title) + '</h4></div>' +
+        '<p class="work-by">' + esc(c.author || '') + ' · ' + esc(c.source || 'Pexels') +
+          (c.en ? '　|　' + esc(c.en) : '') + '</p>' +
+        '<dl class="work-specs">' + spec + '</dl>' +
+        (c.analysis ? '<p class="work-analysis"><b>画面赏析：</b>' + esc(c.analysis) + '</p>' : '') +
+        '<a class="item-detail" href="detail.html#' + encodeURIComponent(item.id) + '" aria-label="阅读「' + esc(item.title) + '」的完整详解">读详解 <span aria-hidden="true">→</span></a>' +
+        (c.page ? '<a class="work-link" href="' + c.page + '" target="_blank" rel="noopener noreferrer">查看原图与授权 ↗</a>' : '') +
+      '</div></div>';
+  }
+
   function itemHTML(item, isCard) {
-    return '<article class="item' + (isCard ? ' topic-card' : '') + '" id="' + item.id + '" data-title="' + esc(item.title) + '">' +
+    var inner = item.case ? caseItemBody(item) :
       '<div class="' + (isCard ? 'body' : 'item-inner') + '">' +
         '<div class="item-head">' + tagHTML(item.tag) + '<h4>' + esc(item.title) + '</h4></div>' +
         '<p class="item-text">' + esc(item.text) + '</p>' +
         '<a class="item-detail" href="detail.html#' + encodeURIComponent(item.id) + '" aria-label="阅读「' + esc(item.title) + '」的完整详解">读详解 <span aria-hidden="true">→</span></a>' +
-      '</div></article>';
+      '</div>';
+    return '<article class="item' + (isCard ? ' topic-card' : '') + (item.case ? ' case-item' : '') + '" id="' + item.id + '" data-title="' + esc(item.title) + '">' +
+      inner + '</article>';
   }
 
   /* 题材章节：每个小节配一张与该题材对应的图（不再逐卡配图，避免图不对题） */

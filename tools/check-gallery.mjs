@@ -21,16 +21,16 @@ for (const e of c.events) {
 
 const stats = await c.evaluate(`(() => {
   const q = s => document.querySelectorAll(s).length;
-  const themes = [...document.querySelectorAll('.theme-group')];
-  const cards = [...document.querySelectorAll('.work-card')];
+  const themes = [...document.querySelectorAll('#works .theme-group')];
+  const cards = [...document.querySelectorAll('#works .work-card')];
   return {
     works: q('#works'), themeGroups: themes.length,
     themeNames: themes.map(t => t.querySelector('h3')?.textContent),
     perTheme: themes.map(t => t.querySelectorAll('.work-card').length),
-    workCards: cards.length, workGenres: q('.work-genre'),
+    workCards: cards.length, workGenres: q('#works .work-genre'),
     specTotals: cards.map(c => c.querySelectorAll('.work-spec').length),
-    analyses: [...document.querySelectorAll('.work-analysis')].map(p => p.textContent.length),
-    differenceCount: [...document.querySelectorAll('.work-spec dt')].filter(d => d.textContent.includes('差异点')).length,
+    analyses: [...document.querySelectorAll('#works .work-analysis')].map(p => p.textContent.length),
+    differenceCount: [...document.querySelectorAll('#works .work-spec dt')].filter(d => d.textContent.includes('差异点')).length,
     siteCards: q('.site-card'),
     srcHosts: [...new Set([...document.images].map(i => { try { return new URL(i.src).host; } catch { return '?'; } }))],
     hero: (() => { const h = document.querySelector('#heroImg'); return h ? { host: new URL(h.src).host, loaded: h.complete && h.naturalWidth>0 } : null; })(),
@@ -40,15 +40,20 @@ const stats = await c.evaluate(`(() => {
 
 // 逐卡滚动触发懒加载
 for (let i = 0; i < stats.workCards; i++) {
-  await c.evaluate(`document.querySelectorAll('.work-card')[${i}]?.scrollIntoView({block:'center'})`);
+  await c.evaluate(`document.querySelectorAll('#works .work-card')[${i}]?.scrollIntoView({block:'center'})`);
   await c.sleep(450);
 }
-await c.sleep(2000);
-const imgs = await c.evaluate(`(() => {
-  const a = [...document.querySelectorAll('.work-fig img')];
-  return { total: a.length, loaded: a.filter(i => i.complete && i.naturalWidth>0).length,
-    failed: a.filter(i => i.complete && i.naturalWidth===0).map(i => i.src.split('/').pop()) };
-})()`);
+// 轮询等待图片加载完成（全套连续运行时网络/标签页累积会拖慢加载）
+let imgs;
+for (let attempt = 0; attempt < 20; attempt++) {
+  imgs = await c.evaluate(`(() => {
+    const a = [...document.querySelectorAll('#works .work-fig img')];
+    return { total: a.length, loaded: a.filter(i => i.complete && i.naturalWidth>0).length,
+      failed: a.filter(i => i.complete && i.naturalWidth===0).map(i => i.src.split('/').pop()) };
+  })()`);
+  if (imgs.loaded >= 18 || imgs.failed.length > 0) break;
+  await c.sleep(750);
+}
 
 console.log(JSON.stringify({ ...stats, imgs }, null, 2));
 console.log('PROBLEMS:', probs.length ? probs : 'none');

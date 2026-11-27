@@ -1,4 +1,4 @@
-// 校验 135 个详解页的配图：结构、alt、来源链接，并抽样真实加载
+// 校验 153 个详解页的配图：结构、alt、来源链接，并抽样真实加载
 import { readFileSync } from 'node:fs';
 import { connect } from './cdp.mjs';
 
@@ -57,11 +57,15 @@ for (const r of structural) {
   ok(r.text.includes('Pexels'), 'credit text missing source: ' + r.id);
   srcs.add(r.src);
 }
-ok(srcs.size === ids.length, 'duplicate images: ' + (ids.length - srcs.size));
+// 第11章的 18 个案例复用前面章节的原图（photoKey 指向原条目），属预期设计；
+// 因此唯一图片数应为 153 - 18 = 135。
+const dupAllowed = 18;
+ok(srcs.size === ids.length - dupAllowed,
+   'unexpected duplicate images: unique=' + srcs.size + ' ids=' + ids.length);
 
-// 2) 抽样真实加载（每章取 2 条，共 20 张）
+// 2) 抽样真实加载（每章取 2 条，共 22 张）
 const sample = [];
-for (let ch = 1; ch <= 10; ch++) {
+for (let ch = 1; ch <= 11; ch++) {
   const list = ids.filter((i) => i.startsWith(ch + '-'));
   sample.push(list[0], list[list.length - 1]);
 }
